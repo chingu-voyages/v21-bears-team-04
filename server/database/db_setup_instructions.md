@@ -11,9 +11,9 @@
 
 3.  Setup the development and test databases
 
-    a. run the setup.sql file from the database folder
+    a. run the create_databases.sql file from the database folder
 
-         psql -h localhost -U postgres -f ./setup.sql
+         psql -h localhost -U postgres -f ./create_databases.sql
 
     b. login into psql
 
@@ -25,4 +25,7 @@
 
          In the outputted list of DB's, you should see fitness_development and fitness_test
 
-4)  Now you're in a position to continue using psql, or open up PGAdmin / another tool to examine the state of your databases.
+    d. from server/database run:
+
+        psql -h localhost -U postgres -d fitness_development -f ./create_tables.sql
+        psql -h localhost -U postgres -d fitness_test -f ./create_tables.sql

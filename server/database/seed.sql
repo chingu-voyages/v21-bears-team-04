@@ -1,3 +1,4 @@
+-- feel free to add whatever seed data you want here
 -- to provide seed data for DB, from server/database
 --  psql -h localhost -U postgres -d fitness_development -f ./seed.sql
 --  psql -h localhost -U postgres -d fitness_test -f ./seed.sql

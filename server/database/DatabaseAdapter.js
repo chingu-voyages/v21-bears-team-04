@@ -1,77 +1,68 @@
 require("dotenv").config();
 const { Client } = require("pg");
 
-console.log(process.env);
-
 class DatabaseAdapter {
   constructor(connectionInfo) {
     this.client = new Client(connectionInfo);
   }
 
-  listConnectedDBName() {
-    this.startConnection();
+  queryAndDisconnect(query, queryResultF) {
     console.log("");
-    this.client.query("SELECT current_database();", (err, res) => {
+    this.startConnection();
+    this.client.query(query, (err, res) => {
       if (err) throw err;
-      // list current db
-      const DBName = res.rows[0].current_database;
-      console.log(`current DB: ${DBName}`);
-
+      queryResultF(res);
       console.log();
       adapter.endConnection();
     });
   }
 
-  listAllTableNames() {
-    this.startConnection();
-    console.log("");
-    this.client.query(
-      "SELECT table_name FROM information_schema.tables WHERE table_schema='public';",
-      (err, res) => {
-        if (err) throw err;
-        // list all the dbs
-        const tableNames = res.rows;
-        console.log("table names: \n");
-        tableNames.forEach(row => {
-          console.log(`  ${row.table_name}`);
-        });
+  listConnectedDBName() {
+    const query = "SELECT current_database();";
+    const queryResultF = res => {
+      // list current db
+      const DBName = res.rows[0].current_database;
+      console.log(`current DB: ${DBName}`);
+    };
+    this.queryAndDisconnect(query, queryResultF);
+  }
 
-        console.log();
-        adapter.endConnection();
-      }
-    );
+  listAllTableNames() {
+    const query =
+      "SELECT table_name FROM information_schema.tables WHERE table_schema='public';";
+    const queryResultF = res => {
+      // list all the dbs
+      const tableNames = res.rows;
+      console.log("table names: \n");
+      tableNames.forEach(row => {
+        console.log(`  ${row.table_name}`);
+      });
+    };
+
+    this.queryAndDisconnect(query, queryResultF);
   }
 
   listPort() {
-    this.startConnection();
-    console.log("");
-    this.client.query(
-      "SELECT * FROM pg_settings WHERE name='port';",
-      (err, res) => {
-        if (err) throw err;
-        // list all the dbs
-        const portNumber = res.rows[0].setting;
-        console.log(`Port Number: ${portNumber}`);
+    const query = "SELECT * FROM pg_settings WHERE name='port';";
+    const queryResultF = res => {
+      // list port
+      const portNumber = res.rows[0].setting;
+      console.log(`Port Number: ${portNumber}`);
+    };
 
-        console.log();
-        adapter.endConnection();
-      }
-    );
+    this.queryAndDisconnect(query, queryResultF);
   }
 
   listDatabases() {
-    this.startConnection();
-    console.log("");
-    this.client.query("SELECT datname FROM pg_database;", (err, res) => {
-      if (err) throw err;
-      // list all the dbs
+    const query = "SELECT datname FROM pg_database;";
+    const queryResultF = res => {
+      //list all the dbs
       console.log("Databases:\n");
       res.rows.forEach(row => {
         console.log(row.datname);
       });
-      console.log();
-      adapter.endConnection();
-    });
+    };
+    this.queryAndDisconnect(query, queryResultF);
   }
 
   startConnection() {
@@ -79,14 +70,14 @@ class DatabaseAdapter {
       if (err) {
         console.error("connection error", err.stack);
       } else {
-        console.log("connected");
+        console.log("connected\n");
       }
     });
   }
 
   endConnection() {
     this.client.end(err => {
-      console.log("client has disconnected");
+      console.log("client has disconnected\n");
       if (err) {
         console.log("error during disconnection", err.stack);
       }
@@ -101,4 +92,4 @@ const adapter = new DatabaseAdapter({
   database: process.env.DB_NAME,
   password: process.env.DB_PASSWORD
 });
-adapter.listAllTableNames();
+adapter.listDatabases();

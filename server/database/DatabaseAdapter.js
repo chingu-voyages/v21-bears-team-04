@@ -6,8 +6,40 @@ class DatabaseAdapter {
       host: process.env.DB_HOST,
       port: process.env.DB_PORT,
       user: process.env.DB_USER,
+      database: process.env.DBName,
       password: process.env.DB_PASSWORD
     });
+  }
+
+  listConnectedDBName() {
+    this.startConnection();
+    console.log("");
+    this.client.query("SELECT current_database();", (err, res) => {
+      if (err) throw err;
+      // list all the dbs
+      const DBName = res.rows[0].current_database;
+      console.log(`current DB: ${DBName}`);
+
+      console.log();
+      adapter.endConnection();
+    });
+  }
+
+  listAllTableNames() {
+    this.startConnection();
+    console.log("");
+    this.client.query(
+      "SELECT table_name FROM information_schema.tables WHERE table_schema='public' AND table_type='BASE_TABLE';",
+      (err, res) => {
+        if (err) throw err;
+        // list all the dbs
+        const tableNames = res;
+        console.log(tableNames);
+
+        console.log();
+        adapter.endConnection();
+      }
+    );
   }
 
   listPort() {
@@ -64,4 +96,4 @@ class DatabaseAdapter {
 }
 
 const adapter = new DatabaseAdapter();
-adapter.listPort();
+adapter.listDatabases();

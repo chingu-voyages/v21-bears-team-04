@@ -1,4 +1,7 @@
+require("dotenv").config();
 const { Client } = require("pg");
+
+console.log(process.env);
 
 class DatabaseAdapter {
   constructor() {
@@ -6,7 +9,7 @@ class DatabaseAdapter {
       host: process.env.DB_HOST,
       port: process.env.DB_PORT,
       user: process.env.DB_USER,
-      database: process.env.DBName,
+      database: process.env.DB_NAME,
       password: process.env.DB_PASSWORD
     });
   }
@@ -16,7 +19,7 @@ class DatabaseAdapter {
     console.log("");
     this.client.query("SELECT current_database();", (err, res) => {
       if (err) throw err;
-      // list all the dbs
+      // list current db
       const DBName = res.rows[0].current_database;
       console.log(`current DB: ${DBName}`);
 
@@ -29,12 +32,15 @@ class DatabaseAdapter {
     this.startConnection();
     console.log("");
     this.client.query(
-      "SELECT table_name FROM information_schema.tables WHERE table_schema='public' AND table_type='BASE_TABLE';",
+      "SELECT table_name FROM information_schema.tables WHERE table_schema='public';",
       (err, res) => {
         if (err) throw err;
         // list all the dbs
-        const tableNames = res;
-        console.log(tableNames);
+        const tableNames = res.rows;
+        console.log("table names: \n");
+        tableNames.forEach(row => {
+          console.log(`  ${row.table_name}`);
+        });
 
         console.log();
         adapter.endConnection();
@@ -67,8 +73,7 @@ class DatabaseAdapter {
       // list all the dbs
       console.log("Databases:\n");
       res.rows.forEach(row => {
-        if (row.datname.substring(0, 2) === "db")
-          console.log(row.datname.substring(3));
+        console.log(row.datname);
       });
       console.log();
       adapter.endConnection();
@@ -96,4 +101,4 @@ class DatabaseAdapter {
 }
 
 const adapter = new DatabaseAdapter();
-adapter.listDatabases();
+adapter.listAllTableNames();

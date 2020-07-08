@@ -4,14 +4,8 @@ const { Client } = require("pg");
 console.log(process.env);
 
 class DatabaseAdapter {
-  constructor() {
-    this.client = new Client({
-      host: process.env.DB_HOST,
-      port: process.env.DB_PORT,
-      user: process.env.DB_USER,
-      database: process.env.DB_NAME,
-      password: process.env.DB_PASSWORD
-    });
+  constructor(connectionInfo) {
+    this.client = new Client(connectionInfo);
   }
 
   listConnectedDBName() {
@@ -100,5 +94,11 @@ class DatabaseAdapter {
   }
 }
 
-const adapter = new DatabaseAdapter();
+const adapter = new DatabaseAdapter({
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
+  user: process.env.DB_USER,
+  database: process.env.DB_NAME,
+  password: process.env.DB_PASSWORD
+});
 adapter.listAllTableNames();

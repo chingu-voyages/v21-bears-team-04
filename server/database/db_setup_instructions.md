@@ -29,5 +29,3 @@
 
         psql -h localhost -U postgres -d fitness_development -f ./create_tables.sql
         psql -h localhost -U postgres -d fitness_test -f ./create_tables.sql
-    
-    

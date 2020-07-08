@@ -10,10 +10,26 @@ class DatabaseAdapter {
     });
   }
 
-  listDatabases() {
-
+  listPort() {
     this.startConnection();
-    console.log("")
+    console.log("");
+    this.client.query(
+      "SELECT * FROM pg_settings WHERE name='port';",
+      (err, res) => {
+        if (err) throw err;
+        // list all the dbs
+        const portNumber = res.rows[0].setting;
+        console.log(`Port Number: ${portNumber}`);
+
+        console.log();
+        adapter.endConnection();
+      }
+    );
+  }
+
+  listDatabases() {
+    this.startConnection();
+    console.log("");
     this.client.query("SELECT datname FROM pg_database;", (err, res) => {
       if (err) throw err;
       // list all the dbs
@@ -48,4 +64,4 @@ class DatabaseAdapter {
 }
 
 const adapter = new DatabaseAdapter();
-adapter.listDatabases();
+adapter.listPort();

@@ -84,6 +84,8 @@ class DatabaseAdapter {
     });
   }
 }
+// example: uncomment below, add .env file in database folder with DB_HOST, DB_PORT etc.
+// from server/database run 'node DatabaseAdapter.js' 
 
 const adapter = new DatabaseAdapter({
   host: process.env.DB_HOST,

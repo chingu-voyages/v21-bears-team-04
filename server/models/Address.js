@@ -12,14 +12,13 @@ There are two basic cases where we will create instances of Address
      - we supply an attributes object (where the info is gotten from some endpoint, like signup)
   2. We have retrieved our address info from DB, and now we're making an Address instance.
      - we retrieve the address info from the db, create an attributes object, then supply the Address instance with the attributes.
-     
+     - When we retrieve the address info from db, we'll be calling a class method like Address.find(id), and inside of that method we create an instance of Address
 */
 
 class Address extends DBbase {
   constructor(adapter, attributes) {
     super(adapter); // initializing super class, DBbase - communication with db methods
-    if (validAddressAttributes) this.setAttributes(attributes);
-    // constructor case 1 (see above)
+    if (this.validAddressAttributes) this.setAttributes(attributes);
     else console.log("Invalid Address");
   }
 
@@ -29,8 +28,12 @@ class Address extends DBbase {
 
   setAttributes(attributes) {
     for (let attribute in attributes) {
-      this[attribute] = dataObj[attribute];
+      this[attribute] = attributes[attribute];
     }
+  }
+
+  static find(id) {
+    // grab the attributes from db, create attributes object, create and return instance of object
   }
 }
 // uncomment below for quick test

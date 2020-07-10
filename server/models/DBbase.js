@@ -1,3 +1,4 @@
+require("dotenv").config();
 const DatabaseAdapter = require("../database/DatabaseAdapter");
 
 const databaseConfig = {

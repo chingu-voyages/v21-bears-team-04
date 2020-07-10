@@ -21,6 +21,13 @@ class Address extends DBbase {
     else console.log("Invalid Address");
   }
 
+  static async find(id) {
+    // grab the attributes from db, create attributes object, create and return instance of object
+    const query = `SELECT * FROM addresses WHERE id=${id}`;
+    const queryResult = await this.query(query)
+    return queryResult[0];
+  }
+
   validAddressAttributes(attributes) {
     return true;
   }
@@ -30,11 +37,13 @@ class Address extends DBbase {
       this[attribute] = attributes[attribute];
     }
   }
-
-  static find(id) {
-    // grab the attributes from db, create attributes object, create and return instance of object
-    
-  }
 }
 // uncomment below for quick test
+
+async function test() {
+    const a1 = await Address.find(1)
+    console.log(a1)
+}
+
+test()
 

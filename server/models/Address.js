@@ -15,8 +15,8 @@ There are two basic cases where we will create instances of Address
 */
 
 class Address extends DBbase {
-  constructor(adapter, attributes) {
-    super(adapter); // initializing super class, DBbase - communication with db methods
+  constructor(attributes) {
+    super(); // initializing super class, DBbase - communication with db methods
     if (this.validAddressAttributes) this.setAttributes(attributes);
     else console.log("Invalid Address");
   }
@@ -24,16 +24,14 @@ class Address extends DBbase {
   static async find(id) {
     // grab the attributes from db, create attributes object, create and return instance of object
     const query = `SELECT * FROM addresses WHERE id=${id}`;
-    const queryResult = await this.query(query)
-    return queryResult;
+    const queryResult = await this.query(query);
+    if (queryResult) return new this(queryResult[0]);
   }
 
   static async all() {
-
     const query = `SELECT * FROM addresses`;
-    const queryResult = await this.query(query)
+    const queryResult = await this.query(query);
     return queryResult;
-
   }
 
   validAddressAttributes(attributes) {
@@ -41,6 +39,7 @@ class Address extends DBbase {
   }
 
   setAttributes(attributes) {
+      console.log(attributes)
     for (let attribute in attributes) {
       this[attribute] = attributes[attribute];
     }
@@ -49,16 +48,13 @@ class Address extends DBbase {
 // uncomment below for quick test
 
 async function test() {
-
-    try {
-    const addresses = await Address.all()
-    console.log(addresses)
-    if (!addresses) throw new Error("couldn't find record")
-
-    } catch (err) {
-        console.log(err) 
-    }
+  try {
+    const a1 = await Address.find(1);
+    console.log(a1);
+    if (!a1) throw new Error("couldn't find record");
+  } catch (err) {
+    console.log(err);
+  }
 }
 
-test()
-
+test();

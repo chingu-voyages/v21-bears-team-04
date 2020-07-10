@@ -23,6 +23,7 @@ class Address extends DBbase {
 
   static async find(id) {
     // grab the attributes from db, create attributes object, create and return instance of object
+
     const query = `SELECT * FROM addresses WHERE id=${id}`;
     const queryResult = await this.query(query);
     if (queryResult) return new this(queryResult[0]);
@@ -39,7 +40,7 @@ class Address extends DBbase {
   }
 
   setAttributes(attributes) {
-      console.log(attributes)
+    console.log(attributes);
     for (let attribute in attributes) {
       this[attribute] = attributes[attribute];
     }
@@ -47,14 +48,16 @@ class Address extends DBbase {
 }
 // uncomment below for quick test
 
-async function test() {
-  try {
-    const addresses = await Address.all();
-    console.log(addresses);
-    if (!addresses) throw new Error("couldn't find record");
-  } catch (err) {
-    console.log(err);
-  }
-}
+// async function test() {
+//   try {
+//     const addresses = await Address.all();
+//     console.log(addresses);
+//     if (!addresses) throw new Error("couldn't find record");
+//   } catch (err) {
+//     console.log(err);
+//   }
+// }
 
-test();
+// test();
+
+module.exports = Address;

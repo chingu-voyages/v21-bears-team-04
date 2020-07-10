@@ -11,6 +11,11 @@ app.use(morgan('tiny'))
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(cors())
+
+//routes
+app.use('/addresses', require('./routes/addresses'));
+
+
 app.listen(PORT)
 
 console.log(`App listening on ${PORT}`)

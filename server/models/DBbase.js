@@ -12,6 +12,8 @@ const databaseConfig = {
 class DBbase {
   static adapter = new DatabaseAdapter(databaseConfig);
 
+ 
+
   static async query(q) {
     // query on class itself
     return this.adapter.query(q);

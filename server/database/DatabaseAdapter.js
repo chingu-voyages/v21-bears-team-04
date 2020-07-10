@@ -6,6 +6,7 @@ class DatabaseAdapter {
   constructor(connectionInfo) {
     this.client = new Client(connectionInfo);
     this.pool = new Pool(connectionInfo);
+    console.log("\nconnected to db\n");
   }
 
   async query(q) {
@@ -98,15 +99,21 @@ class DatabaseAdapter {
   }
 }
 
-module.exports = DatabaseAdapter;
-
 // example: uncomment below, add .env file in database folder with DB_HOST, DB_PORT etc.
 // from server/database run 'node DatabaseAdapter.js'
 
-const adapter = new DatabaseAdapter({
-  host: process.env.DB_HOST,
-  port: process.env.DB_PORT,
-  user: process.env.DB_USER,
-  database: process.env.DB_NAME,
-  password: process.env.DB_PASSWORD
-});
+// const adapter = new DatabaseAdapter({
+//   host: process.env.DB_HOST,
+//   port: process.env.DB_PORT,
+//   user: process.env.DB_USER,
+//   database: process.env.DB_NAME,
+//   password: process.env.DB_PASSWORD
+// });
+
+// async function test() {
+//   const result = await adapter.query("SELECT NOW();");
+// }
+
+// test();
+
+module.exports = DatabaseAdapter;

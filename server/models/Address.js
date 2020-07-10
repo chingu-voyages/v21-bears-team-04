@@ -33,10 +33,8 @@ class Address extends DBbase {
 
   static find(id) {
     // grab the attributes from db, create attributes object, create and return instance of object
-    this.connection.
+    
   }
 }
 // uncomment below for quick test
-n
-const a1 = new Address(null, { country: "US", city: "San Francisco" }); // doesnt yet exist in db
-console.log(a1.country);
+

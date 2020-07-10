@@ -29,5 +29,8 @@
 
         psql -h localhost -U postgres -d fitness_development -f ./create_tables.sql
         psql -h localhost -U postgres -d fitness_test -f ./create_tables.sql
-    
-    
+
+    e. Seed the db with some data:
+
+        psql -h localhost -U postgres -d fitness_development -f ./seed.sql
+        psql -h localhost -U postgres -d fitness_test -f ./seed.sql

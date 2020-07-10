@@ -1,9 +1,23 @@
 require("dotenv").config();
 const { Client } = require("pg");
+const { Pool } = require("pg");
 
 class DatabaseAdapter {
   constructor(connectionInfo) {
     this.client = new Client(connectionInfo);
+    this.pool = new Pool(connectionInfo);
+    console.log("\nconnected to db\n");
+  }
+
+  async query(q) {
+    try {
+      const client = await this.pool.connect(); // grab new client from pool
+      const { rows } = await client.query(q);
+      client.release(); // return client to pool
+      return rows;
+    } catch (err) {
+      console.log("couldn't connect to db", err);
+    }
   }
 
   queryAndDisconnect(query, queryResultF) {
@@ -84,14 +98,22 @@ class DatabaseAdapter {
     });
   }
 }
-// example: uncomment below, add .env file in database folder with DB_HOST, DB_PORT etc.
-// from server/database run 'node DatabaseAdapter.js' 
 
-const adapter = new DatabaseAdapter({
-  host: process.env.DB_HOST,
-  port: process.env.DB_PORT,
-  user: process.env.DB_USER,
-  database: process.env.DB_NAME,
-  password: process.env.DB_PASSWORD
-});
-adapter.listDatabases();
+// example: uncomment below, add .env file in database folder with DB_HOST, DB_PORT etc.
+// from server/database run 'node DatabaseAdapter.js'
+
+// const adapter = new DatabaseAdapter({
+//   host: process.env.DB_HOST,
+//   port: process.env.DB_PORT,
+//   user: process.env.DB_USER,
+//   database: process.env.DB_NAME,
+//   password: process.env.DB_PASSWORD
+// });
+
+// async function test() {
+//   const result = await adapter.query("SELECT NOW();");
+// }
+
+// test();
+
+module.exports = DatabaseAdapter;

@@ -31,7 +31,7 @@ class Address extends DBbase {
   static async all() {
     const query = `SELECT * FROM addresses`;
     const queryResult = await this.query(query);
-    return queryResult;
+    return queryResult.map(addressAttributes => new this(addressAttributes));
   }
 
   validAddressAttributes(attributes) {
@@ -49,9 +49,9 @@ class Address extends DBbase {
 
 async function test() {
   try {
-    const a1 = await Address.find(1);
-    console.log(a1);
-    if (!a1) throw new Error("couldn't find record");
+    const addresses = await Address.all();
+    console.log(addresses);
+    if (!addresses) throw new Error("couldn't find record");
   } catch (err) {
     console.log(err);
   }

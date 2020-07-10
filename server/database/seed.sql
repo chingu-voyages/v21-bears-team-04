@@ -25,18 +25,7 @@ VALUES
 
 
 
--- addresses seed data
 
---   CREATE TABLE "addresses"
---     (
---         "country" char(2) NOT NULL,
---         "city" character varying(100) NOT NULL,
---         "postal_code" int,
---         "id" serial NOT NULL,
---         "user_id" int,
---         "created_at" timestamp
---         with time zone NOT NULL,
--- 	"updated_at" timestamp
 
 INSERT INTO addresses
     (country, city, postal_code, user_id, created_at, updated_at)

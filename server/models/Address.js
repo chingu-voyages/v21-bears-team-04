@@ -25,7 +25,15 @@ class Address extends DBbase {
     // grab the attributes from db, create attributes object, create and return instance of object
     const query = `SELECT * FROM addresses WHERE id=${id}`;
     const queryResult = await this.query(query)
-    return queryResult[0];
+    return queryResult;
+  }
+
+  static async all() {
+
+    const query = `SELECT * FROM addresses`;
+    const queryResult = await this.query(query)
+    return queryResult;
+
   }
 
   validAddressAttributes(attributes) {
@@ -41,8 +49,15 @@ class Address extends DBbase {
 // uncomment below for quick test
 
 async function test() {
-    const a1 = await Address.find(1)
-    console.log(a1)
+
+    try {
+    const addresses = await Address.all()
+    console.log(addresses)
+    if (!addresses) throw new Error("couldn't find record")
+
+    } catch (err) {
+        console.log(err) 
+    }
 }
 
 test()

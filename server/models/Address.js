@@ -21,9 +21,17 @@ class Address extends DBbase {
     else console.log("Invalid Address");
   }
 
+  /**
+   * Return promise that resolves to an instance of Address, matching col_name / val pairs
+   * @param {Object} attributeInfo - the data used to find the first record in db matching all attributes
+   */
+  static async find_by(attributeInfo) {
+    // attributeInfo keys can be any or all of these: country, city, postal_code, user_id, created_at, updated_at
+      
+}
+
   static async find(id) {
     // grab the attributes from db, create attributes object, create and return instance of object
-
     const query = `SELECT * FROM addresses WHERE id=${id}`;
     const queryResult = await this.query(query);
     if (queryResult) return new this(queryResult[0]);
@@ -48,16 +56,16 @@ class Address extends DBbase {
 }
 // uncomment below for quick test
 
-// async function test() {
-//   try {
-//     const addresses = await Address.all();
-//     console.log(addresses);
-//     if (!addresses) throw new Error("couldn't find record");
-//   } catch (err) {
-//     console.log(err);
-//   }
-// }
+async function test() {
+  try {
+    const addresses = await Address.all();
+    console.log(addresses);
+    if (!addresses) throw new Error("couldn't find record");
+  } catch (err) {
+    console.log(err);
+  }
+}
 
-// test();
+test();
 
 module.exports = Address;

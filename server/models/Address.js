@@ -24,16 +24,6 @@ class Address extends DBbase {
     }
   }
 
-  /**
-   * Return promise that resolves to an instance of Address, matching col_name / val pairs
-   * @param {Object} attributeInfo - the data used to find the first record in db matching all attributes
-   */
-  static async find_by(attributeInfo) {
-    // attributeInfo keys can be any or all of these: country, city, postal_code, user_id, created_at, updated_at
-  }
-
-  
-
   validAddressAttributes(attributes) {
     return true;
   }
@@ -48,7 +38,7 @@ class Address extends DBbase {
 
 async function test() {
   try {
-    const a1 = await Address.find(1);
+    const a1 = await Address.find_by({ id: 1, country: "'US'" });
     console.log("a1", a1);
     if (!a1) throw new Error("couldn't find record");
   } catch (err) {

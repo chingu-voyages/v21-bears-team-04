@@ -36,6 +36,27 @@ class DBbase {
     if (queryResult) return new this(queryResult[0]);
   }
 
+  /**
+   * Return promise that resolves to an array of MyClass instances, matching col_name / val pairs
+   * @param {Object} attributeInfo - the data used to find the matching records
+   * @param {number} [limit=1] - max number of records returned
+   */
+  static async find_by(attributeInfo, limit = 1) {
+    // keys of attributeInfo should be column names, and values the value of record of interest
+    // attributeinfo example: {"zipcode": 7777, "country": "'AZ'"} - make sure to have double quotes around single quotes for string values
+    let whereConditions = "";
+    for (let columnName in attributeInfo) {
+      // build up where clause
+      let colValue = attributeInfo[columnName];
+      whereConditions += `${columnName}=${colValue} AND `;
+    }
+    whereConditions = whereConditions.substring(0, whereConditions.length - 5); // remove extra AND
+    console.log("whereConditions", whereConditions);
+    const query = `SELECT * FROM ${this.getTableName()} WHERE ${whereConditions} LIMIT ${limit}`;
+    const queryResult = await this.query(query);
+    if (queryResult) return queryResult.map(result => new this(result))
+  }
+
   static async query(q) {
     // query on class itself
     return this.adapter.query(q);

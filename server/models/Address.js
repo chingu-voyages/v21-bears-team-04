@@ -30,13 +30,6 @@ class Address extends DBbase {
       
 }
 
-  static async find(id) {
-    // grab the attributes from db, create attributes object, create and return instance of object
-    const query = `SELECT * FROM addresses WHERE id=${id}`;
-    const queryResult = await this.query(query);
-    if (queryResult) return new this(queryResult[0]);
-  }
-
   static async all() {
     const query = `SELECT * FROM addresses`;
     const queryResult = await this.query(query);
@@ -48,7 +41,6 @@ class Address extends DBbase {
   }
 
   setAttributes(attributes) {
-    console.log(attributes);
     for (let attribute in attributes) {
       this[attribute] = attributes[attribute];
     }
@@ -58,9 +50,9 @@ class Address extends DBbase {
 
 async function test() {
   try {
-    const addresses = await Address.all();
-    console.log(addresses);
-    if (!addresses) throw new Error("couldn't find record");
+    const a1 = await Address.find(1);
+    console.log("a1", a1);
+    if (!a1) throw new Error("couldn't find record");
   } catch (err) {
     console.log(err);
   }

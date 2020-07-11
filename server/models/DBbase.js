@@ -12,7 +12,23 @@ const databaseConfig = {
 class DBbase {
   static adapter = new DatabaseAdapter(databaseConfig);
 
- 
+  static getTableName() {
+    // make sure to update this with a mapping of any table name / class, if you're gonna use
+    // one of the methods like find in this class.
+
+    const ClASS_TO_TABLE_NAME = {
+      Address: "addresses"
+    };
+
+    return ClASS_TO_TABLE_NAME[this.name];
+  }
+
+  static async find(id) {
+    // grab the attributes from db, create attributes object, create and return instance of object
+    const query = `SELECT * FROM ${this.getTableName()} WHERE id=${id}`;
+    const queryResult = await this.query(query);
+    if (queryResult) return new this(queryResult[0]);
+  }
 
   static async query(q) {
     // query on class itself

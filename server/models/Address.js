@@ -18,7 +18,10 @@ class Address extends DBbase {
   constructor(attributes) {
     super(); // initializing super class, DBbase - communication with db methods
     if (this.validAddressAttributes) this.setAttributes(attributes);
-    else console.log("Invalid Address");
+    else {
+      console.log("invalid address attributes");
+      throw new Error("invalid address attributes");
+    }
   }
 
   /**
@@ -27,14 +30,9 @@ class Address extends DBbase {
    */
   static async find_by(attributeInfo) {
     // attributeInfo keys can be any or all of these: country, city, postal_code, user_id, created_at, updated_at
-      
-}
-
-  static async all() {
-    const query = `SELECT * FROM addresses`;
-    const queryResult = await this.query(query);
-    return queryResult.map(addressAttributes => new this(addressAttributes));
   }
+
+  
 
   validAddressAttributes(attributes) {
     return true;

@@ -23,6 +23,12 @@ class DBbase {
     return ClASS_TO_TABLE_NAME[this.name];
   }
 
+  static async all() {
+    const query = `SELECT * FROM ${this.getTableName()}`;
+    const queryResult = await this.query(query);
+    return queryResult.map(result => new this(result));
+  }
+
   static async find(id) {
     // grab the attributes from db, create attributes object, create and return instance of object
     const query = `SELECT * FROM ${this.getTableName()} WHERE id=${id}`;

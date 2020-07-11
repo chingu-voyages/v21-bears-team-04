@@ -67,7 +67,7 @@ async function test() {
       'created_at': "NOW()",
       'updated_at': "NOW()"
     });
-    const success = await  a1.save() 
+    const success = await a1.save() 
     const all = await Address.all()
     console.log(all.length)
    

@@ -17,20 +17,14 @@ There are two basic cases where we will create instances of Address
 class Address extends DBbase {
   constructor(attributes) {
     super(); // initializing super class, DBbase - communication with db methods
-    if (this.validAddressAttributes) this.setAttributes(attributes);
-    else {
+    if (this.validAddressAttributes) {
+      this.setAttributes(attributes);
+      this.table = "addresses"
+    } else {
       console.log("invalid address attributes");
       throw new Error("invalid address attributes");
     }
   }
-
-
-
-//   save() {
-//    // save this instance to db; return true on success, false on failure
-   
-//    const query =    
-//   }
 
   user() {
     // get the user for this Address
@@ -48,14 +42,35 @@ class Address extends DBbase {
       this[attribute] = attributes[attribute];
     }
   }
+
+  createDefaultRecordInfo() {
+    // (country, city, postal_code, user_id, created_at, updated_at)
+    return {
+      country: this.country,
+      city: this.city,
+      postal_code: this.postal_code,
+      user_id: this.user_id,
+      created_at: this.created_at,
+      updated_at: this.updated_at
+    };
+  }
 }
 // uncomment below for quick test
 
 async function test() {
   try {
-    const a1 = await Address.getColumnNames();
-    console.log("a1", a1);
-    if (!a1) throw new Error("couldn't find record");
+    const a1 = new Address({
+      'country': "'US'",
+      'city': "'lakeville'",
+      'postal_code': '8888',
+      'user_id': '1',
+      'created_at': "NOW()",
+      'updated_at': "NOW()"
+    });
+    const success = await  a1.save() 
+    const all = await Address.all()
+    console.log(all.length)
+   
   } catch (err) {
     console.log(err);
   }

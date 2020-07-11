@@ -11,16 +11,13 @@ const databaseConfig = {
 
 class DBbase {
   static adapter = new DatabaseAdapter(databaseConfig);
-
+  static ClASS_TO_TABLE_NAME = {
+    // update this with mapping of class to table
+    Address: "addresses",
+    User: "users"
+  };
   static getTableName() {
-    // make sure to update this with a mapping of any table name / class, if you're gonna use
-    // one of the methods like find in this class.
-
-    const ClASS_TO_TABLE_NAME = {
-      Address: "addresses"
-    };
-
-    return ClASS_TO_TABLE_NAME[this.name];
+    return this.ClASS_TO_TABLE_NAME[this.name];
   }
 
   static async all() {
@@ -51,7 +48,6 @@ class DBbase {
       whereConditions += `${columnName}=${colValue} AND `;
     }
     whereConditions = whereConditions.substring(0, whereConditions.length - 5); // remove extra AND
-    console.log("whereConditions", whereConditions);
     const query = `SELECT * FROM ${this.getTableName()} WHERE ${whereConditions} LIMIT ${limit}`;
     const queryResult = await this.query(query);
     if (queryResult) return queryResult.map(result => new this(result));
@@ -72,6 +68,17 @@ class DBbase {
   async query(q) {
     // query with instance of class
     return DBbase.query(q);
+  }
+
+  async save(recordInfo = this.createDefaultRecordInfo()) {
+    // saves current instance of MyClass to DB
+    const cols = Object.keys(recordInfo).join(", ");
+    const columnNames = cols.substring();
+    const vals = Object.values(recordInfo).join(", ");
+    const values = vals.substring();
+    const query = `INSERT INTO ${this.table} (${columnNames}) VALUES (${values})`;
+    const queryResult = await this.query(query);
+    if (queryResult) return true;
   }
 }
 

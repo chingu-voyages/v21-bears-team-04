@@ -24,6 +24,21 @@ class Address extends DBbase {
     }
   }
 
+
+
+//   save() {
+//    // save this instance to db; return true on success, false on failure
+   
+//    const query =    
+//   }
+
+  user() {
+    // get the user for this Address
+    if (this.id) {
+      // query user, create User instance from data
+    } else return null;
+  }
+
   validAddressAttributes(attributes) {
     return true;
   }
@@ -38,7 +53,7 @@ class Address extends DBbase {
 
 async function test() {
   try {
-    const a1 = await Address.find_by({ id: 1, country: "'US'" });
+    const a1 = await Address.getColumnNames();
     console.log("a1", a1);
     if (!a1) throw new Error("couldn't find record");
   } catch (err) {

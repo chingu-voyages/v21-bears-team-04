@@ -54,12 +54,19 @@ class DBbase {
     console.log("whereConditions", whereConditions);
     const query = `SELECT * FROM ${this.getTableName()} WHERE ${whereConditions} LIMIT ${limit}`;
     const queryResult = await this.query(query);
-    if (queryResult) return queryResult.map(result => new this(result))
+    if (queryResult) return queryResult.map(result => new this(result));
   }
 
   static async query(q) {
     // query on class itself
     return this.adapter.query(q);
+  }
+
+  static async getColumnNames() {
+    // returns an array of colum names for the table/class
+    const query = `SELECT column_name FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '${this.getTableName()}'`;
+    const queryResult = await this.query(query);
+    return queryResult.map(res => res.column_name);
   }
 
   async query(q) {

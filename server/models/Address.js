@@ -17,30 +17,20 @@ There are two basic cases where we will create instances of Address
 class Address extends DBbase {
   constructor(attributes) {
     super(); // initializing super class, DBbase - communication with db methods
-    if (this.validAddressAttributes) this.setAttributes(attributes);
-    else console.log("Invalid Address");
+    if (this.validAddressAttributes) {
+      this.setAttributes(attributes);
+      this.table = "addresses"
+    } else {
+      console.log("invalid address attributes");
+      throw new Error("invalid address attributes");
+    }
   }
 
-  /**
-   * Return promise that resolves to an instance of Address, matching col_name / val pairs
-   * @param {Object} attributeInfo - the data used to find the first record in db matching all attributes
-   */
-  static async find_by(attributeInfo) {
-    // attributeInfo keys can be any or all of these: country, city, postal_code, user_id, created_at, updated_at
-      
-}
-
-  static async find(id) {
-    // grab the attributes from db, create attributes object, create and return instance of object
-    const query = `SELECT * FROM addresses WHERE id=${id}`;
-    const queryResult = await this.query(query);
-    if (queryResult) return new this(queryResult[0]);
-  }
-
-  static async all() {
-    const query = `SELECT * FROM addresses`;
-    const queryResult = await this.query(query);
-    return queryResult.map(addressAttributes => new this(addressAttributes));
+  user() {
+    // get the user for this Address
+    if (this.id) {
+      // query user, create User instance from data
+    } else return null;
   }
 
   validAddressAttributes(attributes) {
@@ -48,19 +38,39 @@ class Address extends DBbase {
   }
 
   setAttributes(attributes) {
-    console.log(attributes);
     for (let attribute in attributes) {
       this[attribute] = attributes[attribute];
     }
+  }
+
+  createDefaultRecordInfo() {
+    // (country, city, postal_code, user_id, created_at, updated_at)
+    return {
+      country: this.country,
+      city: this.city,
+      postal_code: this.postal_code,
+      user_id: this.user_id,
+      created_at: this.created_at,
+      updated_at: this.updated_at
+    };
   }
 }
 // uncomment below for quick test
 
 async function test() {
   try {
-    const addresses = await Address.all();
-    console.log(addresses);
-    if (!addresses) throw new Error("couldn't find record");
+    const a1 = new Address({
+      'country': "'US'",
+      'city': "'lakeville'",
+      'postal_code': '8888',
+      'user_id': '1',
+      'created_at': "NOW()",
+      'updated_at': "NOW()"
+    });
+    const success = await  a1.save() 
+    const all = await Address.all()
+    console.log(all.length)
+   
   } catch (err) {
     console.log(err);
   }

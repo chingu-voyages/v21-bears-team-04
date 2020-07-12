@@ -27,7 +27,7 @@ class DatabaseAdapter {
       if (err) throw err;
       queryResultF(res);
       console.log();
-      adapter.endConnection();
+      this.endConnection();
     });
   }
 

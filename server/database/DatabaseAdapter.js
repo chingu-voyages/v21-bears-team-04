@@ -16,7 +16,7 @@ class DatabaseAdapter {
       client.release(); // return client to pool
       return rows;
     } catch (err) {
-      console.log("couldn't connect to db", err);
+      console.log("Query failed", err);
     }
   }
 

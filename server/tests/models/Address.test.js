@@ -7,25 +7,24 @@ const Address = require("../../models/Address");
 // And those method tests that require other models.
 // a good way to proceed is to fill out the tests for just the table methods, and not methods that touch other tables / models
 // then before writing a test, for, say, address1.user(), complete the basic tests for the User model first that dont rely on other models.
+// also these tests below are integration tests, cause they involve accessing our actual test DB.
 
 async function test() {
   try {
     const a1 = new Address({
-      'country': "'US'",
-      'city': "'lakeville'",
-      'postal_code': '8888',
-      'user_id': '1',
-      'created_at': "NOW()",
-      'updated_at': "NOW()"
+      country: "'US'",
+      city: "'lakeville'",
+      postal_code: "8888",
+      user_id: "1",
+      created_at: "NOW()",
+      updated_at: "NOW()"
     });
-    const success = await a1.save() 
-    const all = await Address.all()
-    console.log(all.length)
-   
+    const success = await a1.save();
+    const all = await Address.all();
+    console.log(all.length);
   } catch (err) {
     console.log("error", err);
   }
 }
 
-test()
-
+test();

@@ -1,16 +1,8 @@
 require("dotenv").config();
-const DatabaseAdapter = require("../database/DatabaseAdapter");
-
-const databaseConfig = {
-  host: process.env.DB_HOST,
-  port: process.env.DB_PORT,
-  user: process.env.DB_USER,
-  database: process.env.DB_NAME,
-  password: process.env.DB_PASSWORD
-};
+const adapter = require("../database/DatabaseAdapter");
 
 class DBbase {
-  static adapter = new DatabaseAdapter(databaseConfig);
+  static adapter = adapter;
   static ClASS_TO_TABLE_NAME = {
     // update this with mapping of class to table
     Address: "addresses",
@@ -18,6 +10,10 @@ class DBbase {
   };
   static getTableName() {
     return this.ClASS_TO_TABLE_NAME[this.name];
+  }
+
+  static deleteTableRows() {
+    const deleteQuery = `DELETE FROM ${this.getTableName()}`;
   }
 
   static async all() {

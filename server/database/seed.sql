@@ -22,3 +22,5 @@ VALUES
     ('RU', 'Moscow', 55555, 4, NOW(), NOW()),
     ('NZ', 'Aukland', 66666, 5, NOW(), NOW());
 
+
+

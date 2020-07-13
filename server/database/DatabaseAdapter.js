@@ -7,10 +7,12 @@ class DatabaseAdapter {
     console.log("\nconnected to db\n");
   }
 
+
   async query(q, values) {
 
     const { rows } = await (values ? this.pool.query(q, values) : this.pool.query(q));
     return rows;
+
   }
 
   async listConnectedDBName() {

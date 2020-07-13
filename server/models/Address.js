@@ -1,4 +1,6 @@
 const DBbase = require("./DBbase");
+const Joi = require('@hapi/joi')
+
 /*
 
 So, here are my thoughts on Address (this is representative of all the other models).
@@ -17,7 +19,7 @@ There are two basic cases where we will create instances of Address
 class Address extends DBbase {
   constructor(attributes) {
     super(); // initializing super class, DBbase - communication with db methods
-    if (this.validAddressAttributes) {
+    if (this.validAddressAttributes(attributes)) {
       this.setAttributes(attributes);
       this.table = "addresses"
     } else {
@@ -32,8 +34,21 @@ class Address extends DBbase {
       // query user, create User instance from data
     } else return null;
   }
-
+  
   validAddressAttributes(attributes) {
+    const schema = Joi.object({
+      id: Joi.number().integer().allow(null),
+      country: Joi.string().min(2).max(3).required(),
+      city: Joi.string().min(1).max(85).required(),
+  		postal_code: Joi.string().min(3).max(10).required(),
+      user_id: Joi.number().integer().required(),
+      created_at: Joi.date().required(),
+      updated_at: Joi.date().required(),
+    })
+    let {value, error} = schema.validate(attributes, {abortEarly: false})
+    if (error) {
+      return error
+    }
     return true;
   }
 
@@ -57,6 +72,7 @@ class Address extends DBbase {
 }
 // uncomment below for quick test
 
+
 // async function test() {
 //   try {
 //     const a1 = new Address({
@@ -70,6 +86,7 @@ class Address extends DBbase {
 //     const success = await a1.save() 
 //     const all = await Address.all()
 //     console.log(all.length)
+
    
 //   } catch (err) {
 //     console.log(err);

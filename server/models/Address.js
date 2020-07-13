@@ -57,25 +57,25 @@ class Address extends DBbase {
 }
 // uncomment below for quick test
 
-async function test() {
-  try {
-    const a1 = new Address({
-      'country': "'US'",
-      'city': "'lakeville'",
-      'postal_code': '8888',
-      'user_id': '1',
-      'created_at': "NOW()",
-      'updated_at': "NOW()"
-    });
-    const success = await a1.save() 
-    const all = await Address.all()
-    console.log(all.length)
+// async function test() {
+//   try {
+//     const a1 = new Address({
+//       'country': "'US'",
+//       'city': "'lakeville'",
+//       'postal_code': '8888',
+//       'user_id': '1',
+//       'created_at': "NOW()",
+//       'updated_at': "NOW()"
+//     });
+//     const success = await a1.save() 
+//     const all = await Address.all()
+//     console.log(all.length)
    
-  } catch (err) {
-    console.log(err);
-  }
-}
+//   } catch (err) {
+//     console.log(err);
+//   }
+// }
 
-test();
+// test();
 
 module.exports = Address;

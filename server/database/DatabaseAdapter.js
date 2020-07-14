@@ -11,6 +11,7 @@ class DatabaseAdapter {
 
     const { rows } = await this.pool.query(q);
     return rows;
+
   }
 
   async listConnectedDBName() {

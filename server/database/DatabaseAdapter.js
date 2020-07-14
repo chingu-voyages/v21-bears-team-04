@@ -7,10 +7,9 @@ class DatabaseAdapter {
     console.log("\nconnected to db\n");
   }
 
+  async query(q) {
 
-  async query(q, values) {
-
-    const { rows } = await (values ? this.pool.query(q, values) : this.pool.query(q));
+    const { rows } = await this.pool.query(q);
     return rows;
 
   }
@@ -61,14 +60,14 @@ const adapter = new DatabaseAdapter({
 // example: uncomment below, add .env file in database folder with DB_HOST, DB_PORT etc.
 // from server/database run 'node DatabaseAdapter.js'
 
-async function test() {
-  adapter.listPort();
-  adapter.listDatabases();
-  adapter.listConnectedDBName();
-  adapter.listAllTableNames();
+// async function test() {
+//   adapter.listPort();
+//   adapter.listDatabases();
+//   adapter.listConnectedDBName();
+//   adapter.listAllTableNames();
 
-}
+// }
 
-test();
+// test();
 
 module.exports = adapter;

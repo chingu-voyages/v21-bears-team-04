@@ -56,7 +56,25 @@ class Address extends DBbase {
     const newRecord = queryResult[0];
     // make sure this address has the id
     this.id = newRecord.id;
+    this.created_at = newRecord.created_at
+    this.updated_at = newRecord.updated_at
     return this
+  }
+
+  async delete() {
+    if (this.id) {
+
+      const queryText = "DELETE FROM addresses WHERE id=$1"
+      const substituteValues = [this.id]
+      const query = {
+        text: queryText,
+        values: substituteValues
+      }
+      await this.query(query)
+
+    } else {
+      console.log("This record either (1) hasnt been saved to database, or (2) its already been deleted")
+    }
   }
 
   validAddressAttributes(attributes) {

@@ -65,17 +65,6 @@ class DBbase {
     // query with instance of class
     return DBbase.query(q);
   }
-
-  async save(recordInfo = this.createDefaultRecordInfo()) {
-    // saves current instance of MyClass to DB
-    const cols = Object.keys(recordInfo).join(", ");
-    const columnNames = cols.substring();
-    const vals = Object.values(recordInfo).join(", ");
-    const values = vals.substring();
-    const query = `INSERT INTO ${this.table} (${columnNames}) VALUES (${values})`;
-    const queryResult = await this.query(query);
-    if (queryResult) return true;
-  }
 }
 
 // uncomment example to test

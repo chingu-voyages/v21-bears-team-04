@@ -1,8 +1,17 @@
 require("dotenv").config();
 const adapter = require("../database/DatabaseAdapter");
 
+/*
+
+This class is meant to be extended by other classes, and not instantiated alone. 
+
+
+
+*/
+
 class DBbase {
   static adapter = adapter;
+
   static ClASS_TO_TABLE_NAME = {
     // update this with mapping of class to table
     Address: "addresses",
@@ -12,17 +21,19 @@ class DBbase {
     return this.ClASS_TO_TABLE_NAME[this.name];
   }
 
-  static deleteTableRows() {
+  static async deleteTableRows() {
     const deleteQuery = `DELETE FROM ${this.getTableName()}`;
+    const queryResult = await this.query(deleteQuery);
+    return queryResult;
   }
 
   static async all() {
     const query = `SELECT * FROM ${this.getTableName()}`;
-  
+
     const queryResult = await this.query(query);
     return queryResult.map(result => new this(result));
   }
- 
+
   static async find(id) {
     // grab the attributes from db, create attributes object, create and return instance of object
     // const query = `SELECT * FROM ${this.getTableName()} WHERE id=$1`;
@@ -30,9 +41,9 @@ class DBbase {
     const query = {
       text: `SELECT * FROM ${this.getTableName()} WHERE id=$1`,
       values: [id]
-    }
+    };
     const queryResult = await this.query(query);
-   
+
     if (queryResult) return new this(queryResult[0]);
   }
 
@@ -41,19 +52,45 @@ class DBbase {
    * @param {Object} attributeInfo - the data used to find the matching records
    * @param {number} [limit=1] - max number of records returned
    */
-  static async find_by(attributeInfo, limit = 1) {
-    // keys of attributeInfo should be column names, and values the value of record of interest
-    // attributeinfo example: {"zipcode": 7777, "country": "'AZ'"} - make sure to have double quotes around single quotes for string values
-    let whereConditions = "";
-    for (let columnName in attributeInfo) {
-      // build up where clause
-      let colValue = attributeInfo[columnName];
-      whereConditions += `${columnName}=${colValue} AND `;
+
+  static whiteListedColNames(attributeInfo) {
+    const colNamesToCheck = Object.keys(attributeInfo);
+    for (let colName of colNamesToCheck) {
+      if (!this.validColumnNames.includes(colName)) return false;
     }
+    // all of the column names in the attributeInfo are on the whitelist for searching address table
+    return true;
+  }
+
+  static async findBy(attributeInfo, limit = 1) {
+    // keys of attributeInfo should be column names, and values the value of record of interest
+    // attributeinfo example: {"zipcode": 7777, "country": 'AZ'} -
+    if (!this.whiteListedColNames(attributeInfo))
+      throw new Error("invalid col names");
+
+    let whereConditions = "";
+    const colNames = Object.keys(attributeInfo)
+    const substituteValues = Object.values(attributeInfo)
+    
+    for (let i = 0; i < colNames.length;i++) {
+      
+      whereConditions += `${colNames[i]}=$${i + 1} AND `
+    } 
     whereConditions = whereConditions.substring(0, whereConditions.length - 5); // remove extra AND
-    const query = `SELECT * FROM ${this.getTableName()} WHERE ${whereConditions} LIMIT ${limit}`;
+    substituteValues.push(limit);
+    const queryText = `SELECT * FROM ${this.getTableName()} WHERE ${whereConditions} LIMIT $${
+      substituteValues.length
+    }`;
+    console.log(queryText);
+    const query = {
+      text: queryText,
+      values: substituteValues
+    };
     const queryResult = await this.query(query);
     if (queryResult) return queryResult.map(result => new this(result));
+
+    // const queryResult = await this.query(query);
+    //
   }
 
   static async query(q) {

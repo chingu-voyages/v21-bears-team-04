@@ -141,8 +141,8 @@ class Address extends DBbase {
 async function test() {
   try {
     
-      // const a1 = await Address.find(23)
-      // const update_result = await a1.update({city: "magic city"})
+      const a1 = await Address.find(23)
+      await a1.update({city: "dog city"})
       const all = await Address.all()
       console.log(all)
       

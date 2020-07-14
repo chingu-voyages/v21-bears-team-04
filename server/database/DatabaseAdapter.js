@@ -9,8 +9,9 @@ class DatabaseAdapter {
 
   async query(q) {
 
-    const { rows } = await this.pool.query(q);
-    return rows;
+    const query = await this.pool.query(q);
+   // console.log(query)
+    return query.rows;
 
   }
 

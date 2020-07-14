@@ -43,8 +43,8 @@ class DBbase {
       values: [id]
     };
     const queryResult = await this.query(query);
-
-    if (queryResult) return new this(queryResult[0]);
+    
+    if (queryResult[0]) return new this(queryResult[0]);
   }
 
   /**

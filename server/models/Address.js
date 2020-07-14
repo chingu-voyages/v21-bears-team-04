@@ -17,9 +17,16 @@ There are two basic cases where we will create instances of Address
 */
 
 class Address extends DBbase {
-  
   static table = "addresses";
-  static validColumnNames = ["id", "country", "city", "postal_code", "user_id", "created_at", "updated_at"]
+  static validColumnNames = [
+    "id",
+    "country",
+    "city",
+    "postal_code",
+    "user_id",
+    "created_at",
+    "updated_at"
+  ];
   constructor(attributes) {
     super(); // initializing super class, DBbase - communication with db methods
     if (this.validAddressAttributes(attributes)) {
@@ -30,11 +37,26 @@ class Address extends DBbase {
     }
   }
 
-  user() {
-    // get the user for this Address
+  async user() {
+    // get the user for this instance of Address
     if (this.id) {
-      // query user, create User instance from data
+      // User.find(this.user_id)
     } else return null;
+  }
+
+  async save() {
+    //"country", "city", "postal_code", "user_id", "created_at", "updated_at"
+    const queryText =
+      "INSERT INTO addresses(country, city, postal_code, user_id, created_at, updated_at) VALUES ($1, $2, $3, $4, NOW(), NOW()) RETURNING *";
+    const query = {
+      text: queryText,
+      values: [this.country, this.city, this.postal_code, this.user_id]
+    };
+    const queryResult = await this.query(query);
+    const newRecord = queryResult[0];
+    // make sure this address has the id
+    this.id = newRecord.id;
+    return this
   }
 
   validAddressAttributes(attributes) {
@@ -72,37 +94,22 @@ class Address extends DBbase {
       this[attribute] = attributes[attribute];
     }
   }
-
-  createDefaultRecordInfo() {
-    // (country, city, postal_code, user_id, created_at, updated_at)
-    return {
-      country: this.country,
-      city: this.city,
-      postal_code: this.postal_code,
-      user_id: this.user_id,
-      created_at: this.created_at,
-      updated_at: this.updated_at
-    };
-  }
 }
-
-
 
 // uncomment below for quick test
 
 async function test() {
   try {
-    //     const a1 = new Address({
-    //       'country': "'US'",
-    //       'city': "'lakeville'",
-    //       'postal_code': '8888',
-    //       'user_id': '1',
-    //       'created_at': "NOW()",
-    //       'updated_at': "NOW()"
-    //     });
-    // const success = await a1.save()
-    const a1 = await Address.findBy({postal_code: 44444, id: 1})
-    console.log(a1)
+    const a1 = new Address({
+      country: "US",
+      city: "lakeville",
+      postal_code: 8888,
+      user_id: 1
+    });
+    const res = await a1.save();
+    //await Address.deleteTableRows();
+    //const all = await Address.all();
+    console.log(res);
   } catch (err) {
     console.log(err);
   }

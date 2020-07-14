@@ -18,14 +18,21 @@ class DBbase {
 
   static async all() {
     const query = `SELECT * FROM ${this.getTableName()}`;
+  
     const queryResult = await this.query(query);
     return queryResult.map(result => new this(result));
   }
-
+ 
   static async find(id) {
     // grab the attributes from db, create attributes object, create and return instance of object
-    const query = `SELECT * FROM ${this.getTableName()} WHERE id=${id}`;
+    // const query = `SELECT * FROM ${this.getTableName()} WHERE id=$1`;
+    // const substituteValues = [id]
+    const query = {
+      text: `SELECT * FROM ${this.getTableName()} WHERE id=$1`,
+      values: [id]
+    }
     const queryResult = await this.query(query);
+   
     if (queryResult) return new this(queryResult[0]);
   }
 

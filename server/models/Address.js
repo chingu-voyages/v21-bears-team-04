@@ -57,8 +57,8 @@ class Address extends DBbase {
 }
 // uncomment below for quick test
 
-// async function test() {
-//   try {
+async function test() {
+  try {
 //     const a1 = new Address({
 //       'country': "'US'",
 //       'city': "'lakeville'",
@@ -67,15 +67,15 @@ class Address extends DBbase {
 //       'created_at': "NOW()",
 //       'updated_at': "NOW()"
 //     });
-//     const success = await a1.save() 
-//     const all = await Address.all()
-//     console.log(all.length)
+    // const success = await a1.save() 
+    const a1 = await Address.find(1)
+    console.log("all", a1)
    
-//   } catch (err) {
-//     console.log(err);
-//   }
-// }
+  } catch (err) {
+    console.log(err);
+  }
+}
 
-// test();
+ test();
 
 module.exports = Address;

@@ -29,7 +29,7 @@ class Address extends DBbase {
   ];
   constructor(attributes) {
     super(); // initializing super class, DBbase - communication with db methods
-    if (this.validAddressAttributes(attributes)) {
+    if (Address.validAddressAttributes(attributes)) {
       this.setAttributes(attributes);
     } else {
       console.log("invalid address attributes");
@@ -54,30 +54,30 @@ class Address extends DBbase {
     };
     const queryResult = await this.query(query);
     const newRecord = queryResult[0];
-    // make sure this address has the id
+    // make sure this address has the updated attributes
     this.id = newRecord.id;
-    this.created_at = newRecord.created_at
-    this.updated_at = newRecord.updated_at
-    return this
+    this.created_at = newRecord.created_at;
+    this.updated_at = newRecord.updated_at;
+    return this;
   }
 
   async delete() {
     if (this.id) {
-
-      const queryText = "DELETE FROM addresses WHERE id=$1"
-      const substituteValues = [this.id]
+      const queryText = "DELETE FROM addresses WHERE id=$1";
+      const substituteValues = [this.id];
       const query = {
         text: queryText,
         values: substituteValues
-      }
-      await this.query(query)
-
+      };
+      await this.query(query);
     } else {
-      console.log("This record either (1) hasnt been saved to database, or (2) its already been deleted")
+      console.log(
+        "This record either (1) hasnt been saved to database, or (2) its already been deleted"
+      );
     }
   }
 
-  validAddressAttributes(attributes) {
+  static validAddressAttributes(attributes) {
     const schema = Joi.object({
       id: Joi.number()
         .integer()
@@ -108,8 +108,30 @@ class Address extends DBbase {
   }
 
   setAttributes(attributes) {
+    // use this to update the model, but not the db
     for (let attribute in attributes) {
       this[attribute] = attributes[attribute];
+    }
+  }
+
+  async update(attributes) {
+    if (Address.validAddressAttributes(attributes)) {
+      // update model
+      this.setAttributes(attributes);
+      const queryText =
+      "UPDATE addresses SET country=$1, city=$2, postal_code=$3, user_id=$4, updated_at=NOW() WHERE id=$5 RETURNING *"
+    const query = {
+      text: queryText,
+      values: [this.country, this.city, this.postal_code, this.user_id, this.id]
+    };
+    const queryResult = await this.query(query);
+    console.log(queryResult)
+    const newRecord = queryResult[0];
+    return newRecord;
+
+
+    } else {
+      console.log("Invalid attributes suppled to update");
     }
   }
 }
@@ -118,16 +140,16 @@ class Address extends DBbase {
 
 async function test() {
   try {
-    const a1 = new Address({
-      country: "US",
-      city: "lakeville",
-      postal_code: 8888,
-      user_id: 1
-    });
-    const res = await a1.save();
-    //await Address.deleteTableRows();
-    //const all = await Address.all();
-    console.log(res);
+    
+      // const a1 = await Address.find(23)
+      // const update_result = await a1.update({city: "magic city"})
+      const all = await Address.all()
+      console.log(all)
+      
+
+  
+    
+   
   } catch (err) {
     console.log(err);
   }

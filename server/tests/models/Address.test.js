@@ -9,22 +9,44 @@ const Address = require("../../models/Address");
 // then before writing a test, for, say, address1.user(), complete the basic tests for the User model first that dont rely on other models.
 // also these tests below are integration tests, cause they involve accessing our actual test DB.
 
-async function test() {
-  try {
-    const a1 = new Address({
-      country: "'US'",
-      city: "'lakeville'",
-      postal_code: "8888",
-      user_id: "1",
-      created_at: "NOW()",
-      updated_at: "NOW()"
-    });
-    const success = await a1.save();
-    const all = await Address.all();
-    console.log(all.length);
-  } catch (err) {
-    console.log("error", err);
-  }
-}
+describe("Address model", () => {
+  //"country", "city", "postal_code", "user_id"
+  const addressData = {
+    country: "Japan",
+    city: "Tokyo",
+    postal_code: 4444,
+    user_id: 1
+  };
+  test("An instance of Address is created", () => {
+    const createdAddressAttempt = new Address(addressData);
+    expect(createdAddressAttempt.constructor.name).toEqual("Address");
+  });
 
-test();
+  test("The instance of Address created has the attributes passed in", () => {
+    const createdAddressAttempt = new Address(addressData);
+    expect(createdAddressAttempt).toEqual(addressData);
+  });
+
+  test("The Address instance successfully saved to DB", async () => {
+    Address.deleteTableRows()  // got to remove all the old rows, before testing a create function
+   
+    const addressData = {
+      country: "JP",
+      city: "Tokyo",
+      postal_code: 4444,
+      user_id: 1
+    };
+  
+    const createdAddress = new Address(addressData);
+    const result = await createdAddress.save()
+    expect(result.constructor.name).toEqual("Address");
+      
+  })
+
+});
+
+   
+
+    
+
+

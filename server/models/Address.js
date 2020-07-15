@@ -119,17 +119,24 @@ class Address extends DBbase {
       // update model
       this.setAttributes(attributes);
       const queryText =
-      "UPDATE addresses SET country=$1, city=$2, postal_code=$3, user_id=$4, updated_at=NOW() WHERE id=$5 RETURNING *"
-    const query = {
-      text: queryText,
-      values: [this.country, this.city, this.postal_code, this.user_id, this.id]
-    };
-    const queryResult = await this.query(query);
-    console.log(queryResult)
-    const newRecord = queryResult[0];
-    return newRecord;
-
-
+        "UPDATE addresses SET country=$1, city=$2, postal_code=$3, user_id=$4, updated_at=NOW() WHERE id=$5 RETURNING *";
+      const query = {
+        text: queryText,
+        values: [
+          this.country,
+          this.city,
+          this.postal_code,
+          this.user_id,
+          this.id
+        ]
+      };
+      const queryResult = await this.query(query);
+      //console.log(queryResult);
+      const newRecord = queryResult[0];
+      if (newRecord) {
+        this.updated_at = newRecord.updated_at;
+        return true;
+      }
     } else {
       console.log("Invalid attributes suppled to update");
     }
@@ -140,16 +147,12 @@ class Address extends DBbase {
 
 // async function test() {
 //   try {
-    
+
 //       const a1 = await Address.find(23)
 //       await a1.update({city: "dog city"})
 //       const all = await Address.all()
 //       console.log(all)
-      
 
-  
-    
-   
 //   } catch (err) {
 //     console.log(err);
 //   }

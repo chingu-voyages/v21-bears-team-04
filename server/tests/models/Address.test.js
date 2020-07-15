@@ -107,7 +107,7 @@ describe("Address model, Atomic table methods", () => {
     await createdAddress2.save();
     const createdAddress3 = new Address(validAddressData3);
     await createdAddress3.save();
-    const limit = 3
+    const limit = 3;
     const foundAddresses = await Address.findBy({ country: "US" }, limit);
     expect(foundAddresses.length).toEqual(2);
     foundAddresses.forEach(address => expect(address.country).toEqual("US"));
@@ -125,7 +125,6 @@ describe("Address model, Atomic table methods", () => {
     foundAddresses.forEach(address => expect(address.country).toEqual("US"));
   });
 
-
   test("Address.findBy({country: 'aCountry', aCity: 'aCity'}, 3) returns the single matching instance", async () => {
     Address.deleteTableRows();
     const createdAddress = new Address(validAddressData1);
@@ -134,11 +133,13 @@ describe("Address model, Atomic table methods", () => {
     await createdAddress2.save();
     const createdAddress3 = new Address(validAddressData3);
     await createdAddress3.save();
-    const foundAddresses = await Address.findBy({ country: "US", city: "Ohio" }, 3);
+    const foundAddresses = await Address.findBy(
+      { country: "US", city: "Ohio" },
+      3
+    );
     expect(foundAddresses.length).toEqual(1);
-    expect(foundAddresses[0].country).toEqual("US")
-    expect(foundAddresses[0].city).toEqual("Ohio")
-
+    expect(foundAddresses[0].country).toEqual("US");
+    expect(foundAddresses[0].city).toEqual("Ohio");
   });
 
   test("Address.findBy({postal_code: aPostalCode, aCity: 'aCity'}, 3) returns only matching instances", async () => {
@@ -149,14 +150,40 @@ describe("Address model, Atomic table methods", () => {
     await createdAddress2.save();
     const createdAddress3 = new Address(validAddressData3);
     await createdAddress3.save();
-    const foundAddresses = await Address.findBy({ postal_code: 44444, city: "Tokyo" }, 3);
+    const foundAddresses = await Address.findBy(
+      { postal_code: 44444, city: "Tokyo" },
+      3
+    );
     expect(foundAddresses.length).toEqual(2);
-    expect(foundAddresses[0].postal_code).toEqual(44444)
-    expect(foundAddresses[0].city).toEqual("Tokyo")
-    expect(foundAddresses[1].postal_code).toEqual(44444)
-    expect(foundAddresses[1].city).toEqual("Tokyo")
-
+    expect(foundAddresses[0].postal_code).toEqual(44444);
+    expect(foundAddresses[0].city).toEqual("Tokyo");
+    expect(foundAddresses[1].postal_code).toEqual(44444);
+    expect(foundAddresses[1].city).toEqual("Tokyo");
   });
 
+  test("address1.update({city: 'aNewCity'}) successfully updates single city instance of model instance and db", async () => {
+    Address.deleteTableRows();
+    const createdAddress = new Address(validAddressData1);
+    await createdAddress.save();
+    const newCity = "amazing city";
+    await createdAddress.update({ city: newCity });
+    expect(createdAddress.city).toEqual(newCity); // validate update to model
+    const foundAddress = (await Address.findBy({ city: newCity }))[0];
+    expect(foundAddress).toEqual(createdAddress); // validate update to db
+  });
 
+  test("address1.update({city: 'aNewCity', country: 'NZ'}) successfully updates single city instance of model instance and db", async () => {
+    Address.deleteTableRows();
+    const createdAddress = new Address(validAddressData1);
+    await createdAddress.save();
+    const newCity = "amazing city";
+    const newCountry = "NZ";
+    await createdAddress.update({ city: newCity, country: newCountry });
+    expect(createdAddress.city).toEqual(newCity); // validate update to model
+    expect(createdAddress.country).toEqual(newCountry); // validate update to model
+    const foundAddress = (
+      await Address.findBy({ city: newCity, country: newCountry })
+    )[0];
+    expect(foundAddress).toEqual(createdAddress); // validate update to db
+  });
 });

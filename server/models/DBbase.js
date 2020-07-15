@@ -81,7 +81,7 @@ class DBbase {
     const queryText = `SELECT * FROM ${this.getTableName()} WHERE ${whereConditions} LIMIT $${
       substituteValues.length
     }`;
-    console.log(queryText);
+    //console.log(queryText);
     const query = {
       text: queryText,
       values: substituteValues

@@ -138,23 +138,23 @@ class Address extends DBbase {
 
 // uncomment below for quick test
 
-async function test() {
-  try {
+// async function test() {
+//   try {
     
-      const a1 = await Address.find(23)
-      await a1.update({city: "dog city"})
-      const all = await Address.all()
-      console.log(all)
+//       const a1 = await Address.find(23)
+//       await a1.update({city: "dog city"})
+//       const all = await Address.all()
+//       console.log(all)
       
 
   
     
    
-  } catch (err) {
-    console.log(err);
-  }
-}
+//   } catch (err) {
+//     console.log(err);
+//   }
+// }
 
-test();
+// test();
 
 module.exports = Address;

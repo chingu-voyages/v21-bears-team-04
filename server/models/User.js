@@ -15,21 +15,20 @@ class User extends DBbase {
   }
 
   static async createToken(data) {
-      // use jwt library to create a token, use the secret in .env, and encode data
-  } 
+    // use jwt library to create a token, use the secret in .env, and encode data
+  }
 
   static async authenticateToken(token) {
     // use jwtl library, secret, to decode token, return token data
     // otherwise, return some falsy value
-    
   }
 
   async authenticatePassword(password) {
-       //  we will have some endpoint, like /auth/login
-       //  the user will have supplied an email, and a password
-       // we find the user with that email, so like user1 = User.findBy({email: 'an_email'}  )[0]
-       //  we can now use User.createPasswordDigest(password), and compare that to user1.password_digest
-       // if they're the same string, we know the user's password is good, so can return true    
+    //  we will have some endpoint, like /auth/login
+    //  the user will have supplied an email, and a password
+    // we find the user with that email, so like user1 = User.findBy({email: 'an_email'}  )[0]
+    //  we can now use User.createPasswordDigest(password), and compare that to user1.password_digest
+    // if they're the same string, we know the user's password is good, so can return true
   }
 
   async save() {}

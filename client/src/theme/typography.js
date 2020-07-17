@@ -1,5 +1,5 @@
 export default {
-  fontFamily: '"Roboto", sans-serif;',
+  fontFamily: '"Libre Franklin", sans-serif;',
   variants: {
     h1: {
       fontSize: '6rem',

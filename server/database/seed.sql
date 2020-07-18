@@ -35,7 +35,7 @@ VALUES
 
 
 INSERT INTO activities
-    (user_id, title, start, "end", category, distance, calories)
+    (user_id, title, start, ending, category, distance, calories)
 VALUES
     ((SELECT id
         FROM users

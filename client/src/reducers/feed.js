@@ -15,3 +15,5 @@ function feed(state = initialState, action) {
       return state;
   }
 }
+
+export default feed

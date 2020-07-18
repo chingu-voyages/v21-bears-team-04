@@ -15,7 +15,9 @@ class DBbase {
   static ClASS_TO_TABLE_NAME = {
     // update this with mapping of class to table
     Address: "addresses",
-    User: "users"
+    User: "users",
+    ActivityCategory: "activity_categories",
+    Activity: "activities"
   };
   static getTableName() {
     return this.ClASS_TO_TABLE_NAME[this.name];
@@ -43,7 +45,7 @@ class DBbase {
       values: [id]
     };
     const queryResult = await this.query(query);
-    
+
     if (queryResult[0]) return new this(queryResult[0]);
   }
 
@@ -69,13 +71,12 @@ class DBbase {
       throw new Error("invalid col names");
 
     let whereConditions = "";
-    const colNames = Object.keys(attributeInfo)
-    const substituteValues = Object.values(attributeInfo)
-    
-    for (let i = 0; i < colNames.length;i++) {
-      
-      whereConditions += `${colNames[i]}=$${i + 1} AND `
-    } 
+    const colNames = Object.keys(attributeInfo);
+    const substituteValues = Object.values(attributeInfo);
+
+    for (let i = 0; i < colNames.length; i++) {
+      whereConditions += `${colNames[i]}=$${i + 1} AND `;
+    }
     whereConditions = whereConditions.substring(0, whereConditions.length - 5); // remove extra AND
     substituteValues.push(limit);
     const queryText = `SELECT * FROM ${this.getTableName()} WHERE ${whereConditions} LIMIT $${

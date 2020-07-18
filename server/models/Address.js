@@ -1,20 +1,6 @@
 const DBbase = require("./DBbase");
 const Joi = require("@hapi/joi");
 
-/*
-
-So, here are my thoughts on Address (this is representative of all the other models).
-
-constructor(adapter, attributes=null)
-
-There are two basic cases where we will create instances of Address
-
-  1. We dont yet have the address in the DB (so, we create instance, and then potentially save to db)
-     - we supply an attributes object (where the info is gotten from some endpoint, like signup)
-  2. We have retrieved our address info from DB, and now we're making an Address instance.
-     - we retrieve the address info from the db, create an attributes object, then supply the Address instance with the attributes.
-     - When we retrieve the address info from db, we'll be calling a class method like Address.find(id), and inside of that method we create an instance of Address
-*/
 
 class Address extends DBbase {
   static table = "addresses";
@@ -115,7 +101,7 @@ class Address extends DBbase {
   }
 
   async update(attributes) {
-    if (Address.validAddressAttributes(attributes)) {
+    if (Address.validAddressAttributes(attributes) && this.id) {
       // update model
       this.setAttributes(attributes);
       const queryText =

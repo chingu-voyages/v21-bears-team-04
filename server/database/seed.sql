@@ -18,9 +18,34 @@ VALUES
 INSERT INTO addresses
     (country, city, postal_code, user_id, created_at, updated_at)
 VALUES
-    ('US', 'San Francisco', 44444, 1, NOW(), NOW()),
-    ('RU', 'Moscow', 55555, 4, NOW(), NOW()),
-    ('NZ', 'Aukland', 66666, 5, NOW(), NOW());
+    ('US', 'San Francisco', 44444, (SELECT id
+        FROM users
+        WHERE email='ingrey1@gmail.com'), NOW(), NOW()),
+    ('RU', 'Moscow', 55555, (SELECT id
+        FROM users
+        WHERE email='bear1@gmail.com'), NOW(), NOW()),
+    ('NZ', 'Aukland', 66666, (SELECT id
+        FROM users
+        WHERE email='kuma1@gmail.com'), NOW(), NOW());
+
+INSERT INTO activity_categories
+    (name, use_distance, use_calories, use_steps)
+VALUES
+    ('Running', true, true, true);
+
+
+INSERT INTO activities
+    (user_id, title, start, ending, category, distance, calories)
+VALUES
+    ((SELECT id
+        FROM users
+        WHERE email='ingrey1@gmail.com'), 'Running on a sunny day', NOW(), (NOW() + interval
+'1 hour'),
+(SELECT id
+FROM activity_categories
+WHERE name='Running')
+, 4.2, 300);
+
 
 
 

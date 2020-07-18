@@ -112,8 +112,12 @@ class Activity extends DBbase {
       };
       const queryResult = await this.query(query);
       const newRecord = queryResult[0];
-      // make sure this activity_category has the updated attributes
+      // make sure this Activity has the updated attributes
       this.id = newRecord.id;
+      this.distance = newRecord.distance;
+      this.calories = newRecord.calories;
+      this.steps = newRecord.steps;
+
       return this;
     }
   }
@@ -124,10 +128,44 @@ class Activity extends DBbase {
 }
 
 async function test() {
-  const activity = await Activity.find(1);
-  console.log("activity", activity);
-  const allowed = await activity.validCategoryUnits();
-  console.log(allowed);
+  // test inherited .all
+  // const all = await Activity.all()
+  // console.log(all)
+
+  // test inherited .find
+  // const activity1 = await Activity.find(1)
+  // console.log(activity1)
+
+  // test inherited .findBy
+  const activity1 = await Activity.findBy({
+    title: "Running on a sunny day",
+    calories: 300
+  });
+  console.log(activity1);
+
+  // test .save
+  // const newActivityCategory = new ActivityCategory({name: "Swimming",use_steps: false, use_calories: true, use_distance: true })
+  // await newActivityCategory.save()
+  // console.log(newActivityCategory)
+
+  // test .delete
+  // const newActivityCategory = new ActivityCategory({name: "Swimming",use_steps: false, use_calories: true, use_distance: true })
+  // await newActivityCategory.save()
+  // console.log(newActivityCategory)
+  // let activityCategory1 = (await ActivityCategory.findBy({name: "Swimming"}))[0]
+  // console.log(activityCategory1)
+  // await activityCategory1.delete()
+  // activityCategory1 = await ActivityCategory.findBy({name: "Swimming"})
+  // console.log(activityCategory1)
+
+  // test .update
+  // const newActivityCategory = new ActivityCategory({name: "Flying",use_steps: false, use_calories: true, use_distance: true })
+  // await newActivityCategory.save()
+  // console.log(newActivityCategory)
+  // let activityCategory1 = (await ActivityCategory.findBy({name: "Flying"}))[0]
+  // console.log(activityCategory1)
+  // await activityCategory1.update({use_calories: false, use_distance: false})
+  // console.log(activityCategory1)
 }
 
 test();

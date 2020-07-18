@@ -1,8 +1,11 @@
-import { SET_FEED_INFO } from "./types";
+import { SET_FEED_ACTIVITIES } from "./types";
 
-export function setFeedInfo(feedInfo) {
+export function setFeedActivities(feedActivities) {
   return {
-    type: SET_FEED_INFO,
+    type: SET_FEED_ACTIVITIES,
     payload: feedInfo
   };
 }
+
+
+

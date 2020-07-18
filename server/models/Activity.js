@@ -61,9 +61,9 @@ class Activity extends DBbase {
     const names = [];
     if (this.category) {
       const categoryInfo = await ActivityCategory.find(this.category);
-      if (categoryInfo.use_distance) names.push("distance");
-      if (categoryInfo.use_calories) names.push("calories");
-      if (categoryInfo.use_steps) names.push("steps");
+      if (categoryInfo && categoryInfo.use_distance) names.push("distance");
+      if (categoryInfo && categoryInfo.use_calories) names.push("calories");
+      if (categoryInfo && categoryInfo.use_steps) names.push("steps");
       return names;
     }
   }
@@ -122,9 +122,58 @@ class Activity extends DBbase {
     }
   }
 
-  async update(attributes) {}
+  async update(attributes) {
+    if (Activity.validActivityAttributes(attributes) && this.id) {
+      // update model
+      this.setAttributes(attributes);
+      const queryText =
+        "UPDATE activities SET user_id=$1, category=$2, title=$3, start=$4, ending=$5, distance=$6, calories=$7, steps=$8 WHERE id=$9 RETURNING *";
+      const query = {
+        text: queryText,
+        values: [
+          this.user_id,
+          this.category,
+          this.title,
+          this.start,
+          this.ending,
+          this.distance,
+          this.calories,
+          this.steps,
+          this.id
+        ]
+      };
+      const queryResult = await this.query(query);
+      //console.log(queryResult);
+      const newRecord = queryResult[0];
+      if (newRecord) {
+        return true;
+      }
+    } else {
+      console.log("Invalid attributes supplied to update");
+    }
 
-  async delete() {}
+
+
+
+  }
+
+  async delete() {
+    if (this.id) {
+      const queryText = "DELETE FROM activities WHERE id=$1";
+      const substituteValues = [this.id];
+      const query = {
+        text: queryText,
+        values: substituteValues
+      };
+      await this.query(query);
+    } else {
+      console.log(
+        "This record either (1) hasnt been saved to database, or (2) its already been deleted"
+      );
+    }
+
+
+  }
 }
 
 async function test() {
@@ -137,35 +186,68 @@ async function test() {
   // console.log(activity1)
 
   // test inherited .findBy
-  const activity1 = await Activity.findBy({
-    title: "Running on a sunny day",
-    calories: 300
-  });
-  console.log(activity1);
+  // const activity1 = await Activity.findBy({
+  //   title: "Running on a sunny day",
+  //   calories: 300
+  // });
+  // console.log(activity1);
 
-  // test .save
-  // const newActivityCategory = new ActivityCategory({name: "Swimming",use_steps: false, use_calories: true, use_distance: true })
-  // await newActivityCategory.save()
-  // console.log(newActivityCategory)
+  //  this.user_id,
+  //  this.category,
+  //  this.title,
+  //  this.start,
+  //  this.ending,
+  //  this.distance,
+  //  this.calories,
+  //  this.steps
+
+  //test .save
+  // const newActivity = new Activity({
+  //   user_id: 1,
+  //   category: 1,
+  //   title: "a new activity",
+  //   start: "2020-07-18T19:43:49.989Z",
+  //   ending: "2020-07-18T20:43:49.989Z",
+  //   distance: 4,
+  //   calories: 200,
+  //   steps: 5000
+  // });
+  // await newActivity.save();
+  // console.log(newActivity);
 
   // test .delete
-  // const newActivityCategory = new ActivityCategory({name: "Swimming",use_steps: false, use_calories: true, use_distance: true })
-  // await newActivityCategory.save()
-  // console.log(newActivityCategory)
-  // let activityCategory1 = (await ActivityCategory.findBy({name: "Swimming"}))[0]
-  // console.log(activityCategory1)
-  // await activityCategory1.delete()
-  // activityCategory1 = await ActivityCategory.findBy({name: "Swimming"})
-  // console.log(activityCategory1)
+  // const newActivity = new Activity({
+  //   user_id: 1,
+  //   category: 1,
+  //   title: "a newer activity",
+  //   start: "2020-07-18T19:43:49.989Z",
+  //   ending: "2020-07-18T20:43:49.989Z",
+  //   distance: 2,
+  //   calories: 300
+  // });
+  // await newActivity.save();
+  // console.log("saved a new activity", newActivity);
+  // await newActivity.delete()
+  // activity = await Activity.findBy({title: "a newer activity", distance: 2})
+  // console.log(activity)
 
-  // test .update
-  // const newActivityCategory = new ActivityCategory({name: "Flying",use_steps: false, use_calories: true, use_distance: true })
-  // await newActivityCategory.save()
-  // console.log(newActivityCategory)
-  // let activityCategory1 = (await ActivityCategory.findBy({name: "Flying"}))[0]
-  // console.log(activityCategory1)
-  // await activityCategory1.update({use_calories: false, use_distance: false})
-  // console.log(activityCategory1)
+  //test .update
+  const newActivity = new Activity({
+    user_id: 1,
+    category: 1,
+    title: "something activity",
+    start: "2020-07-18T19:43:49.989Z",
+    ending: "2020-07-18T20:43:49.989Z",
+    distance: .2,
+    calories: 7770,
+    steps: 50
+  });
+  await newActivity.save();
+  console.log("saved a new activity", newActivity);
+  let activity = (await Activity.findBy({calories: 7770}))[0]
+  console.log("activity before update", activity)
+  await activity.update({title: "the cool updated title"})
+  console.log("activity after update", activity)
 }
 
 test();

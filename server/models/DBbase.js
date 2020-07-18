@@ -16,7 +16,8 @@ class DBbase {
     // update this with mapping of class to table
     Address: "addresses",
     User: "users",
-    ActivityCategory: "activity_categories"
+    ActivityCategory: "activity_categories",
+    Activity: "activities"
   };
   static getTableName() {
     return this.ClASS_TO_TABLE_NAME[this.name];

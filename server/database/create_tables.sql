@@ -45,7 +45,7 @@ CREATE TABLE "activities" (
 	"title" character varying(100) NOT NULL,
 	"start" timestamp with time zone NOT NULL,
 	"ending" timestamp with time zone NOT NULL,
-	"category" int NOT NULL UNIQUE,
+	"category" int NOT NULL,
 	"distance" real,
 	"calories" int,
 	"steps" int,

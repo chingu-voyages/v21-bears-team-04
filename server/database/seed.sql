@@ -34,16 +34,6 @@ VALUES
     ('Running', true, true, true);
 
 
--- "user_id" int NOT NULL,
--- 	"id" serial NOT NULL,
--- 	"title" character varying(100) NOT NULL,
--- 	"start" timestamp with time zone NOT NULL,
--- 	"end" timestamp with time zone NOT NULL,
--- 	"category" int NOT NULL UNIQUE,
--- 	"distance" real,
--- 	"calories" int,
--- 	"steps" int,
-
 INSERT INTO activities
     (user_id, title, start, "end", category, distance, calories)
 VALUES
@@ -55,7 +45,6 @@ VALUES
 FROM activity_categories
 WHERE name='Running')
 , 4.2, 300);
-
 
 
 

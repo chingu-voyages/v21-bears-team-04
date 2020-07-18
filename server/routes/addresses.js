@@ -5,7 +5,8 @@ const Address = require("../models/Address");
 
 router.get("/", async (req, res) => {
   // get all addresses
-  //   console.log("id", JSON.stringify(Address.));
+  const addresses = await Address.all()
+  res.status(200).json(addresses)
 });
 
 router.get("/:id", async (req, res) => {

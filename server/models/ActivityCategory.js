@@ -1,13 +1,13 @@
 const DBbase = require("./DBbase");
 const Joi = require("@hapi/joi");
 
-class ChallengeGoal extends DBbase {
-  static table = "challenges_goals";
+class ActivityCategory extends DBbase {
+  static table = "activity_categories";
   static validColumnNames = []; // TODO: fill in names
 
   constructor(attributes) {}
 
-  static validChallengeGoalAttributes(attributes) {}
+  static validActivityCategoryAttributes(attributes) {}
 
   async save() {}
 
@@ -16,4 +16,4 @@ class ChallengeGoal extends DBbase {
   async delete() {}
 }
 
-module.exports = ChallengeGoal;
+module.exports = ActivityCategory;

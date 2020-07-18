@@ -24,7 +24,7 @@ CREATE TABLE "users"
   (
     "country" char(2) NOT NULL,
     "city" character varying(100) NOT NULL,
-    "postal_code" int DEFAULT 'NULL',
+    "postal_code" int,
     "id" serial NOT NULL,
     "user_id" int UNIQUE,
     "created_at" timestamp

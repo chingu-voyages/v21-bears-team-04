@@ -59,7 +59,36 @@ CREATE TABLE "activities" (
 CREATE TABLE "activity_categories" (
 	"id" serial NOT NULL,
 	"name" character varying NOT NULL UNIQUE,
+	"use_distance" BOOLEAN NOT NULL,
+	"use_calories" BOOLEAN NOT NULL,
+	"use_steps" BOOLEAN NOT NULL,
 	CONSTRAINT "activity_categories_pk" PRIMARY KEY ("id")
+) WITH (
+  OIDS=FALSE
+);
+
+CREATE TABLE "comments" (
+	"id" serial NOT NULL,
+	"user_id" int NOT NULL,
+	"resource_id" int NOT NULL,
+	"resource_type" character varying NOT NULL,
+	"content" TEXT NOT NULL,
+	"created_at" timestamp with time zone NOT NULL,
+	"updated_at" timestamp with time zone NOT NULL,
+	CONSTRAINT "comments_pk" PRIMARY KEY ("id")
+) WITH (
+  OIDS=FALSE
+);
+
+
+
+CREATE TABLE "likes" (
+	"id" serial NOT NULL,
+	"user_id" int NOT NULL,
+	"resource_id" int NOT NULL,
+	"resource_type" character varying(100) NOT NULL,
+	"created_at" timestamp with time zone NOT NULL,
+	CONSTRAINT "likes_pk" PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
 );
@@ -68,6 +97,9 @@ CREATE TABLE "activity_categories" (
 
 
 
+
 ALTER TABLE "addresses" ADD CONSTRAINT "addresses_fk0" FOREIGN KEY ("user_id") REFERENCES "users"("id");
 ALTER TABLE "activities" ADD CONSTRAINT "activities_fk0" FOREIGN KEY ("user_id") REFERENCES "users"("id");
 ALTER TABLE "activities" ADD CONSTRAINT "activities_fk1" FOREIGN KEY ("category") REFERENCES "activity_categories"("id");
+ALTER TABLE "comments" ADD CONSTRAINT "comments_fk0" FOREIGN KEY ("user_id") REFERENCES "users"("id");
+ALTER TABLE "likes" ADD CONSTRAINT "likes_fk0" FOREIGN KEY ("user_id") REFERENCES "users"("id");

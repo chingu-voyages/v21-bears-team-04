@@ -14,6 +14,7 @@ app.use(cors())
 
 //routes
 app.use('/addresses', require('./routes/addresses'));
+app.use('/activities', require('./routes/activities'));
 
 
 app.listen(PORT)

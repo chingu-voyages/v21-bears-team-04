@@ -151,10 +151,6 @@ class Activity extends DBbase {
     } else {
       console.log("Invalid attributes supplied to update");
     }
-
-
-
-
   }
 
   async delete() {
@@ -171,85 +167,83 @@ class Activity extends DBbase {
         "This record either (1) hasnt been saved to database, or (2) its already been deleted"
       );
     }
-
-
   }
 }
 
-async function test() {
-  // test inherited .all
-  // const all = await Activity.all()
-  // console.log(all)
+// async function test() {
+// test inherited .all
+// const all = await Activity.all()
+// console.log(all)
 
-  // test inherited .find
-  // const activity1 = await Activity.find(1)
-  // console.log(activity1)
+// test inherited .find
+// const activity1 = await Activity.find(1)
+// console.log(activity1)
 
-  // test inherited .findBy
-  // const activity1 = await Activity.findBy({
-  //   title: "Running on a sunny day",
-  //   calories: 300
-  // });
-  // console.log(activity1);
+// test inherited .findBy
+// const activity1 = await Activity.findBy({
+//   title: "Running on a sunny day",
+//   calories: 300
+// });
+// console.log(activity1);
 
-  //  this.user_id,
-  //  this.category,
-  //  this.title,
-  //  this.start,
-  //  this.ending,
-  //  this.distance,
-  //  this.calories,
-  //  this.steps
+//  this.user_id,
+//  this.category,
+//  this.title,
+//  this.start,
+//  this.ending,
+//  this.distance,
+//  this.calories,
+//  this.steps
 
-  //test .save
-  // const newActivity = new Activity({
-  //   user_id: 1,
-  //   category: 1,
-  //   title: "a new activity",
-  //   start: "2020-07-18T19:43:49.989Z",
-  //   ending: "2020-07-18T20:43:49.989Z",
-  //   distance: 4,
-  //   calories: 200,
-  //   steps: 5000
-  // });
-  // await newActivity.save();
-  // console.log(newActivity);
+//test .save
+// const newActivity = new Activity({
+//   user_id: 1,
+//   category: 1,
+//   title: "a new activity",
+//   start: "2020-07-18T19:43:49.989Z",
+//   ending: "2020-07-18T20:43:49.989Z",
+//   distance: 4,
+//   calories: 200,
+//   steps: 5000
+// });
+// await newActivity.save();
+// console.log(newActivity);
 
-  // test .delete
-  // const newActivity = new Activity({
-  //   user_id: 1,
-  //   category: 1,
-  //   title: "a newer activity",
-  //   start: "2020-07-18T19:43:49.989Z",
-  //   ending: "2020-07-18T20:43:49.989Z",
-  //   distance: 2,
-  //   calories: 300
-  // });
-  // await newActivity.save();
-  // console.log("saved a new activity", newActivity);
-  // await newActivity.delete()
-  // activity = await Activity.findBy({title: "a newer activity", distance: 2})
-  // console.log(activity)
+// test .delete
+// const newActivity = new Activity({
+//   user_id: 1,
+//   category: 1,
+//   title: "a newer activity",
+//   start: "2020-07-18T19:43:49.989Z",
+//   ending: "2020-07-18T20:43:49.989Z",
+//   distance: 2,
+//   calories: 300
+// });
+// await newActivity.save();
+// console.log("saved a new activity", newActivity);
+// await newActivity.delete()
+// activity = await Activity.findBy({title: "a newer activity", distance: 2})
+// console.log(activity)
 
-  //test .update
-  const newActivity = new Activity({
-    user_id: 1,
-    category: 1,
-    title: "something activity",
-    start: "2020-07-18T19:43:49.989Z",
-    ending: "2020-07-18T20:43:49.989Z",
-    distance: .2,
-    calories: 7770,
-    steps: 50
-  });
-  await newActivity.save();
-  console.log("saved a new activity", newActivity);
-  let activity = (await Activity.findBy({calories: 7770}))[0]
-  console.log("activity before update", activity)
-  await activity.update({title: "the cool updated title"})
-  console.log("activity after update", activity)
-}
+//test .update
+//   const newActivity = new Activity({
+//     user_id: 1,
+//     category: 1,
+//     title: "something activity",
+//     start: "2020-07-18T19:43:49.989Z",
+//     ending: "2020-07-18T20:43:49.989Z",
+//     distance: .2,
+//     calories: 7770,
+//     steps: 50
+//   });
+//   await newActivity.save();
+//   console.log("saved a new activity", newActivity);
+//   let activity = (await Activity.findBy({calories: 7770}))[0]
+//   console.log("activity before update", activity)
+//   await activity.update({title: "the cool updated title"})
+//   console.log("activity after update", activity)
+// }
 
-test();
+// test();
 
 module.exports = Activity;

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import withStyles from 'react-jss';
+import { createUseStyles } from 'react-jss';
 import clsx from 'clsx';
 import capitalize from '../../utils/capitalize';
 
@@ -18,6 +18,7 @@ const variantMapping = {
 };
 
 export const Typography = React.forwardRef((props, ref) => {
+  const classes = useStyles();
   const {
     variant = 'body1',
     align = 'inherit',
@@ -25,7 +26,6 @@ export const Typography = React.forwardRef((props, ref) => {
     color = 'initial',
     className,
     component,
-    classes,
   } = props;
 
   const Component = component || variantMapping[variant] || 'span';
@@ -87,6 +87,8 @@ export const styles = (theme) => ({
   },
 });
 
+const useStyles = createUseStyles(styles, { name: 'typography' });
+
 Typography.propTypes = {
   /**
    * Set text align
@@ -133,5 +135,3 @@ Typography.propTypes = {
     'subtitle2',
   ]),
 };
-
-export default withStyles(styles)(Typography);

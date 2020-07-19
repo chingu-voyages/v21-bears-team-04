@@ -8,11 +8,16 @@ $ yarn
 $ yarn run dev
 ```
 
-Make sure to add your own .env file with necessary variables.
+Make sure to add your own .env file in the root of the 'server' folder with necessary variables.
 
 Example .env file:
 
 ```
-PORT=3000
-ORIGIN=http://localhost:3001
+DB_HOST=localhost
+DB_PORT=5432
+DB_USER=postgres
+DB_NAME=fitness_development
+DB_PASSWORD=password
 ```
+
+See db_setup_instructions.md file in the database folder for database set up instructions. 

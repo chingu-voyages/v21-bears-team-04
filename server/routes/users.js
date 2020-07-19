@@ -1,14 +1,22 @@
 const Router = require("express-promise-router");
 const User = require("../models/User");
 const Activity = require("../models/Activity")
-const usersRouter = new Router();
-const usersActivityRouter = new Router({mergeParams: true})
-usersRouter.use("/:user_id/activities", usersActivityRouter)
+const router = new Router();
 
+router.get("/:user_id/activities", async (req, res) => {
+  console.log("GET ALL USER ACTIVITIES")
+})
 
-usersRouter.get("/:user_id", async (req, res) => {
+router.get("/:user_id", async (req, res) => {
+  console.log("GET  USER ")
 
 })
 
+router.get("/", async (req, res) => {
+  console.log("GET ALL USERS")
+  // get all addresses
+  const users = await User.all()
+  res.status(200).json(users)
+});
 
-
+module.exports = router

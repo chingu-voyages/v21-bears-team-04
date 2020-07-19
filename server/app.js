@@ -5,6 +5,11 @@ const morgan = require('morgan')
 const cors = require('cors')
 const PORT = process.env.PORT || 3000
 
+// Require all routes
+const addressRoutes = require('./routes/addresses')
+const activitiesRoutes = require('./routes/activities')
+const usersRoutes = require('./routes/users')
+
 const app = express()
 
 app.use(morgan('tiny'))
@@ -13,8 +18,9 @@ app.use(bodyParser.json())
 app.use(cors())
 
 //routes
-app.use('/addresses', require('./routes/addresses'));
-app.use('/activities', require('./routes/activities'));
+app.use('/addresses', addressRoutes);
+app.use('/activities', activitiesRoutes);
+app.use('/users', usersRoutes);
 
 
 app.listen(PORT)

@@ -6,11 +6,32 @@ class User extends DBbase {
   static table = "users";
 
   // 'validColumnNames' used by DBbase to check for valid properities on each model
-  static validColumnNames = []; // TODO: fill in names
+  static validColumnNames = [ 
+  "first_name",
+  "last_name",
+  "password_digest",
+  "id",
+  "admin",
+  "username",
+  "email",
+  "created_at",
+	"updated_at",
+  "isCompany"
+];  
 
-  constructor(attributes) {}
+  constructor(attributes) {
+    super()
+    if (User.validUserAttributes(attributes)) {
+      this.setAttributes(attributes);
+    } else {
+      console.log("invalid User attributes");
+      throw new Error("invalid User attributes");
+    }
+  }
 
-  static validUserAttributes(attributes) {}
+  static validUserAttributes(attributes) {
+    return true;
+  }
 
   static createPasswordDigest(password) {
     // User.createPasswordDigest("iAmPasswordGottenFromEndpoint")
@@ -32,6 +53,13 @@ class User extends DBbase {
     // we find the user with that email, so like user1 = User.findBy({email: 'an_email'}  )[0]
     //  we can now use User.createPasswordDigest(password), and compare that to user1.password_digest
     // if they're the same string, we know the user's password is good, so can return true
+  }
+
+  setAttributes(attributes) {
+    // use this to update the model, but not the db
+    for (let attribute in attributes) {
+      this[attribute] = attributes[attribute];
+    }
   }
 
   async save() {}

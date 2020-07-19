@@ -1,6 +1,8 @@
 import React from 'react';
 import './Footer.css'
 
+//public + private router footer
+
 function Footer() {
   return (
     <div className="Footer">

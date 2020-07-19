@@ -1,19 +1,19 @@
-import { SET_FEED_ACTIVITIES } from "../actions/feed";
+// import { SET_FEED_ACTIVITIES } from "../actions/feed";
 
-initialState = {
-  activities: []
-};
+// initialState = {
+//   activities: []
+// };
 
-function feed(state = initialState, action) {
-  switch (action.type) {
-    case SET_FEED_ACTIVITIES:
-      return {
-        ...state,
-        activities: action.payload
-      };
-    default:
-      return state;
-  }
-}
+// function feed(state = initialState, action) {
+//   switch (action.type) {
+//     case SET_FEED_ACTIVITIES:
+//       return {
+//         ...state,
+//         activities: action.payload
+//       };
+//     default:
+//       return state;
+//   }
+// }
 
-export default feed
+// export default feed

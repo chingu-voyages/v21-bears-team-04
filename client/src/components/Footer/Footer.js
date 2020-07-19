@@ -16,6 +16,8 @@ function Footer() {
             This app is designed for people who are ready to make themselves
             better!
           </h3>
+          <br/>
+          <h5>All rights reserved by @FitX</h5>
         </div>
       </div>
       <div className="Footer-links">

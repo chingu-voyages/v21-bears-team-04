@@ -1,32 +1,10 @@
 import React from 'react';
-
-import { cleanup, render as testRender } from '@testing-library/react';
-import { shallow } from 'enzyme';
-
+import { cleanup } from '@testing-library/react';
 import { styles, Typography } from './Typography';
-import mockClasses from '../../test/mockClasses';
-import { JssProvider, ThemeProvider } from 'react-jss';
-import { theme } from '../../theme';
+import mockClasses from '../../test-utils/mockClasses';
+import createRender from '../../test-utils/createRender';
 
 const classes = mockClasses(styles);
-
-const generateId = (rule) => `${rule.key}`;
-
-const createRender = () => {
-  return (element) => {
-    const Wrapper = ({ children }) => (
-      <JssProvider generateId={generateId}>
-        <ThemeProvider theme={theme}>{children}</ThemeProvider>
-      </JssProvider>
-    );
-
-    const result = testRender(element, {
-      wrapper: Wrapper,
-    });
-
-    return result;
-  };
-};
 
 const render = createRender();
 

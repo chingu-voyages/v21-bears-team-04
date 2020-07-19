@@ -9,6 +9,7 @@ const PORT = process.env.PORT || 3000
 const addressRoutes = require('./routes/addresses')
 const activitiesRoutes = require('./routes/activities')
 const usersRoutes = require('./routes/users')
+const authRoutes = require('./routes/auth')
 
 const app = express()
 
@@ -21,6 +22,8 @@ app.use(cors())
 app.use('/addresses', addressRoutes);
 app.use('/activities', activitiesRoutes);
 app.use('/users', usersRoutes);
+app.use('/auth', authRoutes);
+
 
 
 app.listen(PORT)

@@ -3,6 +3,7 @@ const Joi = require("@hapi/joi");
 
 
 class Address extends DBbase {
+  // 'table' used by DBbase to map class to specific table name 
   static table = "addresses";
   static validColumnNames = [
     "id",

@@ -2,6 +2,7 @@ const DBbase = require("./DBbase");
 const Joi = require("@hapi/joi");
 
 class ActivityCategory extends DBbase {
+    // 'table' used by DBbase to map class to specific table name 
   static table = "activity_categories";
   static validColumnNames = [
     "name",

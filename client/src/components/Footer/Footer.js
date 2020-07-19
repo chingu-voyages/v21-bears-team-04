@@ -21,14 +21,14 @@ function Footer() {
         </ul>
         
         <ul><h2>Company</h2>
-            <li>About the Creators</li>
+            <li>About Us</li>
             <li>The Brand</li>
             <li>For the Press</li>
             <li>Contacts</li>
         </ul>
         <ul><h2>Legal</h2>
             <li>Privacy Policy</li>
-            <li>How we use cookies</li>
+            <li>Cookies</li>
             <li>Terms of Use</li>
         </ul>
         </div>

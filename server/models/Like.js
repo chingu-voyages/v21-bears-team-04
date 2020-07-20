@@ -111,8 +111,8 @@ async function test() {
 //   await newLike.update({ resource_type: "comment" });
 //   const findNewLike = await Like.find(newLike.id);
 //   console.log("newLike after update", findNewLike);
-// }
+ }
 
-test();
+// test();
 
 module.exports = Like;

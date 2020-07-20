@@ -9,14 +9,14 @@
 }
 .Banner-images {
   background-color: gray;
-  height: 500px;
-  width: 450px;
+  height: 325px;
+  width: 250px;
   border-radius: 3%;
-  margin: 0 auto;
+  margin: 25px auto;
 }
 .Banner-images-jpg{
-  height: 500px;
-  width: 450px;
+  height: 325px;
+  width: 250px;
   border-radius: 3%;
 }
 .Banner-button {
@@ -30,8 +30,16 @@
   margin: 0 auto;
 }
 
-@media only screen and (min-width: 700px) {
+@media only screen and (min-width: 750px) {
     .ExploreBanner {
       flex-direction: row;
+    }
+    .Banner-images-jpg{
+      height: 600px;
+      width: 450px;
+    }
+    .Banner-images {
+      height: 600px;
+      width: 450px;
     }
   }

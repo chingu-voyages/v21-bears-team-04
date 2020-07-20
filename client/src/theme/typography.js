@@ -57,7 +57,9 @@ export default {
     },
     button: {
       fontSize: '0.875rem',
+      fontWeight: 600,
       lineHeight: 1.75,
+      letterSpacing: '0.5px',
     },
     caption: {
       fontSize: '0.75rem',

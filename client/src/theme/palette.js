@@ -2,6 +2,7 @@ const white = '#FFFFFF';
 const black = '#000000';
 const smoothBlack = '#0f0f0f';
 const smoothWhite = '#fafafa';
+const lightGrey = '#d5d5d5';
 const grey = '#c7c7c7';
 const xlightOrange = '#F5EBE0';
 const lightOrange = '#ffd799';
@@ -13,6 +14,10 @@ export default {
     white,
     black,
   },
+  grey: {
+    lightGrey: lightGrey,
+    main: grey,
+  },
   primary: {
     contrastText: smoothBlack,
     dark: grey,
@@ -20,7 +25,7 @@ export default {
     light: white,
   },
   secondary: {
-    contrastText: smoothBlack,
+    contrastText: smoothWhite,
     light: lightOrange,
     main: orange,
     dark: darkOrange,
@@ -32,6 +37,10 @@ export default {
   background: {
     default: xlightOrange,
     paper: smoothWhite,
+  },
+  action: {
+    disabled: smoothWhite,
+    disabledBackground: grey,
   },
   icon: orange,
 };

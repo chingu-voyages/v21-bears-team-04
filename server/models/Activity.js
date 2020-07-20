@@ -33,7 +33,7 @@ class Activity extends DBbase {
   async withAssociatedData(associatedData) {
 
     // example associatedData:   {category: true}
-      // another example: {comments: true}
+      // another example: {comments: true, likes: true}
     // return object with this data, and associated data
     // associated data includes category data
 
@@ -66,6 +66,7 @@ class Activity extends DBbase {
     }
 
     return activityData;
+  
 
     // return {
     //   id: this.id,

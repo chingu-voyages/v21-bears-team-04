@@ -11,12 +11,15 @@ This class is meant to be extended by other classes, and not instantiated alone.
 class DBbase {
   static adapter = adapter;
 
+
   static ClASS_TO_TABLE_NAME = {
     // update this with mapping of class to table
     Address: "addresses",
     User: "users",
     ActivityCategory: "activity_categories",
-    Activity: "activities"
+    Activity: "activities",
+    Like: "likes",
+    Comment: "comments"
   };
   static getTableName() {
     return this.ClASS_TO_TABLE_NAME[this.name];

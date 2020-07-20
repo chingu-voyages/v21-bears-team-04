@@ -12,12 +12,17 @@ class Like extends DBbase {
   static table = "likes";
 
   // 'validColumnNames' used by DBbase to check for valid properities on each model
-  static validColumnNames = [user_id, resource_id, resource_type, created_at];
+  static validColumnNames = [
+    "user_id",
+    "resource_id",
+    "resource_type",
+    "created_at"
+  ];
   static validResourceTypes = ["activity"]; // for reference
 
   constructor(attributes) {
     super(); // initializing super class, DBbase - communication with db methods
-    if (Activity.validLikeAttributes(attributes)) {
+    if (Like.validLikeAttributes(attributes)) {
       this.setAttributes(attributes);
     } else {
       console.log("invalid Like attributes");
@@ -44,11 +49,11 @@ class Like extends DBbase {
   }
 
   async update(attributes) {
-    if (Activity.validActivityAttributes(attributes) && this.id) {
+    if (Like.validLikeAttributes(attributes) && this.id) {
       // update model
       this.setAttributes(attributes);
       const queryText =
-        "UPDATE activities SET user_id=$1, resource_id=$2, resource_type=$3 WHERE id=$4 RETURNING *";
+        "UPDATE likes SET user_id=$1, resource_id=$2, resource_type=$3 WHERE id=$4 RETURNING *";
       const query = {
         text: queryText,
         values: [this.user_id, this.resource_id, this.resource_type, this.id]
@@ -57,6 +62,7 @@ class Like extends DBbase {
       //console.log(queryResult);
       const newRecord = queryResult[0];
       if (newRecord) {
+        this.created_at = newRecord.created_at
         return true;
       }
     } else {
@@ -80,5 +86,33 @@ class Like extends DBbase {
     }
   }
 }
+
+async function test() {
+  // testing .save
+  // const newLike = new Like({user_id: 1, resource_id: 1, resource_type: "activity"})
+  // await newLike.save()
+
+  // testing .delete
+  //  const newLike = new Like({user_id: 1, resource_id: 1, resource_type: "activity"})
+  //  await newLike.save()
+  //  console.log("newLike id:", newLike.id)
+  //  await newLike.delete()
+  //  const findNewLike = await Like.find(newLike.id)
+  //  console.log("findNewlike is gone, should be undefined", findNewLike)
+
+  // testing .update
+//   const newLike = new Like({
+//     user_id: 1,
+//     resource_id: 1,
+//     resource_type: "activity"
+//   });
+//   await newLike.save();
+//   console.log("newLike before update", newLike);
+//   await newLike.update({ resource_type: "comment" });
+//   const findNewLike = await Like.find(newLike.id);
+//   console.log("newLike after update", findNewLike);
+// }
+
+test();
 
 module.exports = Like;

@@ -1,0 +1,45 @@
+.ExploreBanner {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 20px 10px;
+}
+.Banner-subdescription{
+    width: 200px
+}
+.Banner-images {
+  background-color: gray;
+  height: 325px;
+  width: 250px;
+  border-radius: 3%;
+  margin: 25px auto;
+}
+.Banner-images-jpg{
+  height: 325px;
+  width: 250px;
+  border-radius: 3%;
+}
+.Banner-button {
+  width: 75px;
+}
+.Banner-description {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  text-align: left;
+  margin: 0 auto;
+}
+
+@media only screen and (min-width: 750px) {
+    .ExploreBanner {
+      flex-direction: row;
+    }
+    .Banner-images-jpg{
+      height: 600px;
+      width: 450px;
+    }
+    .Banner-images {
+      height: 600px;
+      width: 450px;
+    }
+  }

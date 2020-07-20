@@ -1,4 +1,3 @@
-require("dotenv").config();
 const adapter = require("../database/DatabaseAdapter");
 
 /*

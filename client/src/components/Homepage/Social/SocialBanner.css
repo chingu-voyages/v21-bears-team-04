@@ -1,0 +1,15 @@
+.SocialBanner-title{
+    text-align: left;
+    margin-left: 25px;
+}
+.SocialBanner-images{
+    height: 350px;
+    border-radius: 2%;
+    margin-left: 10px;
+}
+.SocialBanner-feed{
+    display: flex;
+    justify-content: space-evenly;
+    overflow: scroll;
+    margin: 50px 10px;
+}

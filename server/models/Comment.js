@@ -97,7 +97,7 @@ class Comment extends DBbase {
 }
 
 
-async function test() {
+//async function test() {
   // testing .save
   // const newComment = new Comment({user_id: 1, resource_id: 1, resource_type: "activity", content: "bengal cats are amazing!"})
   // await newComment.save()
@@ -112,19 +112,19 @@ async function test() {
   //  console.log("findNewComment is gone, should be undefined", findNewComment)
 
   // testing .update
-  const newComment = new Comment({
-    user_id: 1,
-    resource_id: 1,
-    content: "awesome running george",
-    resource_type: "activity"
-  });
-  await newComment.save();
-  console.log("newComment before update", newComment);
-  await newComment.update({ content: "my new comment is better" });
-  const findNewComment = await Comment.find(newComment.id);
-  console.log("newComment after update", findNewComment);
- }
+//   const newComment = new Comment({
+//     user_id: 1,
+//     resource_id: 1,
+//     content: "awesome running george",
+//     resource_type: "activity"
+//   });
+//   await newComment.save();
+//   console.log("newComment before update", newComment);
+//   await newComment.update({ content: "my new comment is better" });
+//   const findNewComment = await Comment.find(newComment.id);
+//   console.log("newComment after update", findNewComment);
+//  }
 
-test();
+// test();
 
 module.exports = Comment;

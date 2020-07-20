@@ -34,28 +34,6 @@ class User extends DBbase {
     return true;
   }
 
-  static createPasswordDigest(password) {
-    // User.createPasswordDigest("iAmPasswordGottenFromEndpoint")
-    // should use a encryption library, and call a function that uses a secret in .env to return a new string that can be used for saving to password_digest, or comparison.
-  }
-
-  static async createToken(data) {
-    // use jwt library to create a token, use the secret in .env, and encode data
-  }
-
-  static async authenticateToken(token) {
-    // use jwtl library, secret, to decode token, return token data
-    // otherwise, return some falsy value
-  }
-
-  async authenticatePassword(password) {
-    //  we will have some endpoint, like /auth/login
-    //  the user will have supplied an email, and a password
-    // we find the user with that email, so like user1 = User.findBy({email: 'an_email'}  )[0]
-    //  we can now use User.createPasswordDigest(password), and compare that to user1.password_digest
-    // if they're the same string, we know the user's password is good, so can return true
-  }
-
   setAttributes(attributes) {
     // use this to update the model, but not the db
     for (let attribute in attributes) {
@@ -63,7 +41,18 @@ class User extends DBbase {
     }
   }
 
-
+  static async findByEmail (email) {
+    try {
+      const result = await this.query({
+        text: "SELECT * FROM users WHERE email = $1;",
+        values: [email]
+      });
+      return result[0]
+    }
+    catch(err) {
+      return { error: err}
+    }
+  }
 
   async create() {
     try {

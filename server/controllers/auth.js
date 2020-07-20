@@ -1,10 +1,10 @@
 const User = require("../models/User")
-const AuthService = require("../services/auth")
+const auth = require("../services/auth")
 
 const signup = async (req, res) => {
   const attributes = req.body
   if (User.validUserAttributes(attributes)) {
-    const result = await AuthService.signup(attributes)
+    const result = await auth.signup(attributes)
     res.send(result)
   }
   else {
@@ -24,7 +24,7 @@ const signin = async (req, res) => {
   if (credentialsValidator(credentials)) {
 
     // Attempt signin and return result
-    const result = await AuthService.signin(credentials)
+    const result = await auth.signin(credentials)
 
     // If signin sucessful, set JWT in cookie and send JWT as json
     if (!result.error){

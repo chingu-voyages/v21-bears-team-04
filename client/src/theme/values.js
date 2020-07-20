@@ -1,7 +1,8 @@
 export const spacing = 8;
 
-export const borders = {
+export const shapes = {
   radius: 8,
+  buttonRadius: 24,
 };
 
 export const shadows = {

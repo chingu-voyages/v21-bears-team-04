@@ -1,0 +1,37 @@
+.Footer {
+  bottom: 0;
+  width: 100%;
+  max-height: 500px;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+}
+.Footer-app-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.Footer-links {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 100%;
+}
+.Footer-links > ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+@media only screen and (min-width: 400px) {
+  .Footer-links {
+    flex-direction: row;
+  }
+}
+
+@media only screen and (min-width: 700px) {
+  .Footer {
+    flex-direction: row;
+    height: 200px;
+  }
+}

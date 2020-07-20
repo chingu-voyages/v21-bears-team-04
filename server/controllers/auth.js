@@ -28,7 +28,10 @@ const signin = async (req, res) => {
 
     // If signin sucessful, set JWT in cookie and send JWT as json
     if (!result.error){
-      res.cookie('jwt', result, { secure: true, maxAge: 21600 })
+      // For setting cookie options if in secure https production environment
+      const isSecure = process.env.SECURE === 'false' ? false : true
+      const options = isSecure ? { secure: true, maxAge: 21600 } : {}
+      res.cookie('jwt', result, options)
       return res.json(result)
     } 
 

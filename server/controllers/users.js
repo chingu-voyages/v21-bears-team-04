@@ -2,7 +2,9 @@ const User = require("../models/User")
 
 
 const get = async (req, res) => {
-  console.log("GET USER")
+  const id = req.params.id;
+  const user = await User.find(id)
+  res.status(200).json(user)
 }
 
 const getActivities = async (req, res) => {
@@ -10,8 +12,6 @@ const getActivities = async (req, res) => {
 }
 
 const getAll = async (req, res) => {
-  console.log("GET ALL USERS")
-  // get all addresses
   const users = await User.all()
   res.status(200).json(users)
 }

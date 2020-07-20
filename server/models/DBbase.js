@@ -63,7 +63,14 @@ class DBbase {
     return true;
   }
 
-  static async findBy(attributeInfo, limit = 1) {
+  setAttributes(attributes) {
+    // use this to update the model, but not the db
+    for (let attribute in attributes) {
+      this[attribute] = attributes[attribute];
+    }
+  }
+
+  static async findBy(attributeInfo, limit = 1000) {
     // keys of attributeInfo should be column names, and values the value of record of interest
     // attributeinfo example: {"zipcode": 7777, "country": 'AZ'} -
     if (!this.whiteListedColNames(attributeInfo))

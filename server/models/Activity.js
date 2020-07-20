@@ -28,6 +28,8 @@ class Activity extends DBbase {
     }
   }
 
+
+
   async withAssociatedData(associatedData) {
 
     // example associatedData:   {category: true}

@@ -28,10 +28,7 @@ const signin = async (req, res) => {
 
     // If signin sucessful, set JWT in cookie and send JWT as json
     if (!result.error){
-      res.set({
-        "Set-Cookie": `jwt=${result}; Max-Age=21600; Wecure;`
-      })
-      // res.cookie('jwt', result, { secure: true })
+      res.cookie('jwt', result, { secure: true, maxAge: 21600 })
       return res.json(result)
     } 
 

@@ -3,7 +3,7 @@ const ActivityCategory = require("./ActivityCategory");
 const Joi = require("@hapi/joi");
 
 class Activity extends DBbase {
-  // 'table' used by DBbase to map class to specific table name 
+  // 'table' used by DBbase to map class to specific table name
   static table = "activities";
 
   // 'validColumnNames' used by DBbase to check for valid properities on each model
@@ -28,12 +28,16 @@ class Activity extends DBbase {
     }
   }
 
-  async withAssociatedData() {
+  async withAssociatedData(associatedData) {
+
+    // example associatedData:   {category: true}
+      // another example: {comments: true}
     // return object with this data, and associated data
     // associated data includes category data
-    const thisActivityCategory = await ActivityCategory.find(this.category);
 
-    return {
+    const {category, comments, likes} = associatedData
+
+    const activityData = {
       id: this.id,
       user_id: this.user_id,
       title: this.title,
@@ -41,11 +45,39 @@ class Activity extends DBbase {
       calories: this.calories,
       start: this.start,
       ending: this.ending,
-      category: {
-        id: thisActivityCategory.id,
-        name: thisActivityCategory.name
-      }
+      category: this.category
     };
+
+    if (category) { // add associated category data
+      const thisActivityCategory = await ActivityCategory.find(this.category);
+      activityData.category = {id: thisActivityCategory.id, name: thisActivityCategory.name}
+    }
+
+    if (comments) { 
+      const thisActivityComments = await Comment.findBy({resource_id: this.id, resource_type: "comment"})
+      activityData.comments = thisActivityComments
+    }
+
+    if (likes) {
+      const thisActivityLikes = await Like.findBy({resource_id: this.id, resource_type: "like"})
+      activityData.like = thisActivityLikes
+    }
+
+    return activityData;
+
+    // return {
+    //   id: this.id,
+    //   user_id: this.user_id,
+    //   title: this.title,
+    //   distance: this.distance,
+    //   calories: this.calories,
+    //   start: this.start,
+    //   ending: this.ending,
+    //   category: {
+    //     id: thisActivityCategory.id,
+    //     name: thisActivityCategory.name
+    //   }
+    // };
   }
 
   setAttributes(attributes) {

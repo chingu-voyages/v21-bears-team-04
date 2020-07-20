@@ -1,7 +1,7 @@
-import { SET_FEED_ACTIVITIES } from "../actions/feed";
+import { SET_FEED_ACTIVITIES } from '../actions/types';
 
-initialState = {
-  activities: []
+const initialState = {
+  activities: [],
 };
 
 function feed(state = initialState, action) {
@@ -9,11 +9,11 @@ function feed(state = initialState, action) {
     case SET_FEED_ACTIVITIES:
       return {
         ...state,
-        activities: action.payload
+        activities: action.payload,
       };
     default:
       return state;
   }
 }
 
-export default feed
+export default feed;

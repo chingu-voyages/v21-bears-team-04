@@ -1,49 +1,101 @@
-import React from "react";
-import "./Footer.css";
+import React from 'react';
+import { createUseStyles } from 'react-jss';
+import { Typography } from '../Typography';
 
 //public + private router footer
 
-function Footer() {
-  return (
-    <div className="Footer">
-      <div className="Footer-app-details">
-        <div className="Footer-title">
-          <h1>FitX</h1>
-          <h2>Social Fitness App</h2>
-        </div>
-        <div className="Footer-description">
-          <h3>
-            This app is designed for people who are ready to make themselves
-            better!
-          </h3>
-          <br/>
-          <h5>All rights reserved by @FitX</h5>
-        </div>
-      </div>
-      <div className="Footer-links">
-        <ul>
-          <h2>Product</h2>
-          <li>Blog</li>
-          <li>Prices</li>
-          <li>Reviews</li>
-        </ul>
+export const Footer = () => {
+  const classes = useStyles();
 
-        <ul>
-          <h2>Company</h2>
-          <li>About Us</li>
-          <li>The Brand</li>
-          <li>For the Press</li>
-          <li>Contacts</li>
-        </ul>
-        <ul>
-          <h2>Legal</h2>
-          <li>Privacy Policy</li>
-          <li>Cookies</li>
-          <li>Terms of Use</li>
-        </ul>
+  return (
+    <div className={classes.root}>
+      <div className={classes.container}>
+        <div className={classes.detail}>
+          <div>
+            <Typography variant="h5">FitX</Typography>
+            <Typography>Social Fitness App</Typography>
+          </div>
+
+          <div className={classes.description}>
+            <Typography variant="body2">
+              This app is designed for people who are ready to make themselves
+              better!
+            </Typography>
+          </div>
+        </div>
+
+        <div className={classes.links}>
+          <ul>
+            <Typography variant="h6">Product</Typography>
+            <li>Blog</li>
+            <li>Prices</li>
+            <li>Reviews</li>
+          </ul>
+
+          <ul>
+            <Typography variant="h6">Company</Typography>
+            <li>About Us</li>
+            <li>The Brand</li>
+            <li>For the Press</li>
+            <li>Contacts</li>
+          </ul>
+          <ul>
+            <Typography variant="h6">Legal</Typography>
+            <li>Privacy Policy</li>
+            <li>Cookies</li>
+            <li>Terms of Use</li>
+          </ul>
+        </div>
       </div>
+
+      <Typography className={classes.copyright} variant="overline">
+        All rights reserved by FitX
+      </Typography>
     </div>
   );
-}
+};
 
-export default Footer;
+const styles = (theme) => ({
+  root: {
+    width: '100%',
+    padding: theme.spacing(1, 2),
+
+    // Media query (min-width: 600px)
+    [theme.breakpoints.up('sm')]: {
+      padding: theme.spacing(1, 6),
+    },
+  },
+  container: {
+    [theme.breakpoints.up('sm')]: {
+      display: 'flex',
+      justifyContent: 'space-between',
+    },
+  },
+  detail: {
+    maxWidth: '400px',
+    marginRight: theme.spacing(3),
+  },
+  description: {
+    marginTop: theme.spacing(2),
+  },
+  links: {
+    '& > ul': {
+      margin: {
+        top: theme.spacing(2),
+        right: '6vw',
+        bottom: theme.spacing(2),
+        left: 0,
+      },
+      ...theme.typography.body2,
+    },
+    [theme.breakpoints.up('sm')]: {
+      display: 'flex',
+    },
+  },
+  copyright: {
+    fontSize: theme.typography.pxToRem(8),
+    opacity: 0.5,
+  },
+});
+
+const useStyles = createUseStyles(styles, { name: 'footer' });

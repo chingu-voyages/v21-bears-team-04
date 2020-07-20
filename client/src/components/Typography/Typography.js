@@ -23,7 +23,7 @@ export const Typography = React.forwardRef((props, ref) => {
     variant = 'body1',
     align = 'inherit',
     display = 'initial',
-    color = 'initial',
+    color = 'primary',
     className,
     component,
   } = props;

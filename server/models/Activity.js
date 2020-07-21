@@ -208,7 +208,7 @@ class Activity extends DBbase {
   }
 }
 
-// async function test() {
+async function test() {
 // test inherited .all
 // const all = await Activity.all()
 // console.log(all)
@@ -280,7 +280,10 @@ class Activity extends DBbase {
 //   console.log("activity before update", activity)
 //   await activity.update({title: "the cool updated title"})
 //   console.log("activity after update", activity)
-// }
+const activities = await Activity.all() 
+console.log(activities)
+
+}
 
 // test();
 

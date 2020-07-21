@@ -1,5 +1,5 @@
 const adapter = require("../database/DatabaseAdapter");
-
+require('dotenv').config()
 /*
 
 This class is meant to be extended by other classes, and not instantiated alone. 

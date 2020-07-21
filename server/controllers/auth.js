@@ -2,8 +2,11 @@ const User = require("../models/User")
 const auth = require("../services/auth")
 
 const signup = async (req, res) => {
+ 
   const attributes = req.body
+ 
   if (User.validUserAttributes(attributes)) {
+   
     const result = await auth.signup(attributes)
     res.send(result)
   }

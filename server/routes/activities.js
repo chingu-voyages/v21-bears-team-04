@@ -8,4 +8,6 @@ router.get("/:id", activitiesController.get);
 router.get("/", activitiesController.getAll);
 
 
+
+
 module.exports = router;

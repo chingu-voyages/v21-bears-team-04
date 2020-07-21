@@ -55,6 +55,8 @@ const adapter = new DatabaseAdapter({
   password: process.env.DB_PASSWORD
 });
 
+
+
 // example: uncomment below, add .env file in database folder with DB_HOST, DB_PORT etc.
 // from server/database run 'node DatabaseAdapter.js'
 

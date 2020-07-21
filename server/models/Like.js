@@ -87,7 +87,7 @@ class Like extends DBbase {
   }
 }
 
-async function test() {
+// async function test() {
   // testing .save
   // const newLike = new Like({user_id: 1, resource_id: 1, resource_type: "activity"})
   // await newLike.save()
@@ -111,7 +111,7 @@ async function test() {
 //   await newLike.update({ resource_type: "comment" });
 //   const findNewLike = await Like.find(newLike.id);
 //   console.log("newLike after update", findNewLike);
- }
+//  }
 
 // test();
 

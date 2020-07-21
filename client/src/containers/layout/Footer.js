@@ -1,8 +1,6 @@
 import React from 'react';
 import { createUseStyles } from 'react-jss';
-import { Typography } from '../Typography';
-
-//public + private router footer
+import { Typography } from '../../components/Typography';
 
 export const Footer = () => {
   const classes = useStyles();

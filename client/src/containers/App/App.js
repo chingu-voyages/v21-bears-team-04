@@ -1,20 +1,21 @@
 import React from 'react';
-import Nav from '../../components/Nav/Nav';
-import { Footer } from '../../components';
-import Homepage from '../../components/Homepage/Homepage';
+// import { connect } from 'react-redux';
+// import { verifyUser } from '../../actions/auth';
 
-function App() {
+import Routes from '../routes';
+
+const App = () => {
+  // Attemp to log user in if they have logged in before
+  // React.useEffect(() => {
+  //   verifyUser();
+  // }, [verifyUser]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <Nav />
-      </header>
-      <main>
-        <Homepage />
-      </main>
-      <Footer />
+    <div>
+      <Routes />
     </div>
   );
-}
+};
 
+// export default connect(null, { verifyUser })(App);
 export default App;

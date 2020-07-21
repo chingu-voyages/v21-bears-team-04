@@ -10,16 +10,21 @@ const get = async (req, res) => {
 
 const getActivities = async (req, res) => {
   const userId = parseInt(req.params.user_id);
-  const user = await User.find(userId);
-  const queryText = "SELECT * FROM activities WHERE user_id=$1";
-  const queryResult = await user.query({ text: queryText, values: [user.id] });
-  res.json(queryResult);
+  const activities = await Activity.findBy({user_id: userId});
+  const desiredRelatedTableData = {comments: true, likes: true, category: true}
+  const activitiesWithRelatedData = []
+  let resolvedActivity;
+
+  for (const activity of activities) {
+     resolvedActivity = await activity.withAssociatedData(desiredRelatedTableData)
+     activitiesWithRelatedData.push(resolvedActivity)
+  }
+  
+  res.json({activities: activitiesWithRelatedData});
 };
 
 const createActivity = async (req, res) => {
   try {
-    
-
     const {
       title,
       start,

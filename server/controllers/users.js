@@ -36,10 +36,10 @@ const createActivity = async (req, res) => {
       title: title,
       start: start,
       ending: ending,
-      category: parseInt(category),
-      distance: Number(distance),
-      steps: parseInt(steps),
-      calories: parseInt(calories),
+      category: category,
+      distance: distance,
+      steps: steps,
+      calories: calories,
     });
     const activity = await newActivity.save();
     res.status(200).json(activity);

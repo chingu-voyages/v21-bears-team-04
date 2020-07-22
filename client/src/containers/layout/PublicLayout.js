@@ -1,6 +1,6 @@
 import React from 'react';
 import { Footer } from './Footer';
-import Nav from './Nav/Nav';
+import { Nav } from './Nav';
 
 export const PublicLayout = ({ children }) => {
   return (

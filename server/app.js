@@ -14,6 +14,7 @@ const addressRoutes = require('./routes/addresses')
 const activitiesRoutes = require('./routes/activities')
 const usersRoutes = require('./routes/users')
 const authRoutes = require('./routes/auth')
+const dashboardRoutes = require("./dashboard")
 
 const app = express()
 
@@ -29,8 +30,10 @@ app.use(cors())
 //routes
 app.use('/addresses', addressRoutes);
 app.use('/activities', isAuth, attachCurrentUser, activitiesRoutes);
+app.use('/dashboard', isAuth, attachCurrentUser, dashboardRoutes)
 app.use('/users', isAuth, attachCurrentUser, usersRoutes);
 app.use('/auth', authRoutes);
+
 
 app.listen(PORT)
 

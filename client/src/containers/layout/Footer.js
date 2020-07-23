@@ -56,12 +56,6 @@ export const Footer = () => {
 const styles = (theme) => ({
   root: {
     width: '100%',
-    padding: theme.spacing(1, 2),
-
-    // Media query (min-width: 600px)
-    [theme.breakpoints.up('sm')]: {
-      padding: theme.spacing(1, 6),
-    },
   },
   container: {
     [theme.breakpoints.up('sm')]: {

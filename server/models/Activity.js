@@ -36,11 +36,11 @@ class Activity extends DBbase {
     // return object with this data, and associated data
     // associated data includes category data
 
-    const { category, comments, likes } = associatedData;
+    const { category, comments, likes, user } = associatedData;
 
     const activityData = {
       id: this.id,
-      user_id: this.user_id,
+      user: this.user_id,
       title: this.title,
       distance: this.distance,
       calories: this.calories,
@@ -48,6 +48,16 @@ class Activity extends DBbase {
       ending: this.ending,
       category: this.category,
     };
+
+    if (user) {
+      // add associated user data
+      // add associated category data
+      const activityUser = await User.find(this.user_id);
+      activityData.user = {
+        id: activityUser.id,
+        name: activityUser.username,
+      };
+    }
 
     if (category) {
       // add associated category data

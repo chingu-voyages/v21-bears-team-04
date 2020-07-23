@@ -17,7 +17,7 @@ function auth(state = initialState, action) {
       return {
         ...state,
         email: payload.email,
-        userId: payload.email,
+        userId: payload.userId,
         username: payload.username,
         loggedIn: true
       };

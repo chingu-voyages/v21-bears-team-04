@@ -8,14 +8,12 @@ import { Homepage, SignIn, SignUp, Dashboard } from '..';
 const Routes = () => {
   return (
     <BrowserRouter>
-      <main>
-        <Switch>
-          <Route path="/" exact component={Homepage} />
-          <Route path="/signin" exact component={SignIn} />
-          <Route path="/signup" exact component={SignUp} />
-          <Route path="/dashboard" exact component={Dashboard} privateRoute />
-        </Switch>
-      </main>
+      <Switch>
+        <Route path="/" exact component={Homepage} />
+        <Route path="/signin" exact component={SignIn} />
+        <Route path="/signup" exact component={SignUp} />
+        <Route path="/dashboard" exact component={Dashboard} privateRoute />
+      </Switch>
     </BrowserRouter>
   );
 };

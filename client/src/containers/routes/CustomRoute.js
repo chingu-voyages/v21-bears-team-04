@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
+import { PublicLayout } from '../layout';
 
 // import {Loader} from './components';
 
@@ -15,14 +16,17 @@ const CustomRoute = (props) => {
 
   let redirectPath = '';
 
+  // Layout for public or private route
+  const Layout = privateRoute ? 'div' : PublicLayout;
+
   // Loading screen when trying to login user in
   // if (isVerifying) return <Loader />;
 
   // Route non-user to sign in page
   if (!isAuthenticated && privateRoute) redirectPath = '/signin';
 
-  // Route user from authentication routes to home
-  if (isAuthenticated && !privateRoute) redirectPath = '/';
+  // Route user from authentication routes to private route
+  if (isAuthenticated && !privateRoute) redirectPath = '/dashboard';
 
   return (
     <Route
@@ -33,7 +37,9 @@ const CustomRoute = (props) => {
             to={{ pathname: redirectPath, state: { from: props.location } }}
           />
         ) : (
-          <Component {...props} />
+          <Layout>
+            <Component {...props} />
+          </Layout>
         )
       }
     />

@@ -33,13 +33,8 @@ export const Nav = () => {
 
 const styles = (theme) => ({
   container: {
-    padding: theme.spacing(2),
     display: 'flex',
     justifyContent: 'space-between',
-
-    [theme.breakpoints.up('sm')]: {
-      padding: theme.spacing(2, 4),
-    },
   },
   logo: {
     cursor: 'pointer',

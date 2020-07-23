@@ -1,6 +1,6 @@
-import React from "react";
-import "./ExploreBanner.css";
-import landing from "./landing.jpg";
+import React from 'react';
+import './ExploreBanner.css';
+import landing from './landing.jpg';
 
 function ExploreBanner() {
   return (

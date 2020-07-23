@@ -54,9 +54,9 @@ class Following extends DBbase {
 
 async function test() {
   //testing .save
-  const newFollowing = new Following({ follower: 1, following: 1 });
-  await newFollowing.save();
-  console.log(newFollowing);
+  // const newFollowing = new Following({ follower: 1, following: 1 });
+  // await newFollowing.save();
+  // console.log(newFollowing);
   // testing .delete
   const newFollowing = new Following({ follower: 1, following: 1 });
   await newFollowing.save();

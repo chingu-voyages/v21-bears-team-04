@@ -44,6 +44,7 @@ class Activity extends DBbase {
       title: this.title,
       distance: this.distance,
       calories: this.calories,
+      steps: this.steps,
       start: this.start,
       ending: this.ending,
       category: this.category,

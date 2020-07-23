@@ -28,7 +28,7 @@ app.use(cors())
 
 //routes
 app.use('/addresses', addressRoutes);
-app.use('/activities', activitiesRoutes);
+app.use('/activities', isAuth, attachCurrentUser, activitiesRoutes);
 app.use('/users', isAuth, attachCurrentUser, usersRoutes);
 app.use('/auth', authRoutes);
 

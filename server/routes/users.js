@@ -7,7 +7,7 @@ const router = new Router();
 
 router.get("/:user_id/activities", usersController.getActivities )
 
-router.post("/:user_id/activities", usersController.createActivity)
+
 
 router.get("/:user_id", usersController.get)
 

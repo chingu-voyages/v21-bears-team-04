@@ -33,6 +33,5 @@ const getAll = async (req, res) => {
 module.exports = {
   get,
   getAll,
-  getActivities,
-  createActivity,
+  getActivities
 };

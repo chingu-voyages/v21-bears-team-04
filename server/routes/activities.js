@@ -7,6 +7,8 @@ router.get("/:id", activitiesController.get);
 
 router.get("/", activitiesController.getAll);
 
+router.post("/", activitiesController.create)
+
 
 
 

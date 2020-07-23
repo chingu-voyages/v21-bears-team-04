@@ -9,6 +9,29 @@ const get = async (req, res) => {
 
 const getAll = async (req, res) => {
   // get all activities
+  // if req.query.userSubset is true, return just subset of activities created by user
+  // example request: http://localhost:3000/activities?userSubset=true 
+  const userId = req.user.id
+  let activities;
+  try {
+
+    if (req.query.userSubset) {
+      
+        activities = await Activity.findBy({user_id: userId })
+      
+    } else {
+       
+       activities = await Activity.all()
+    }
+
+    res.status(200).send(activities)
+
+  } catch (err) {
+    console.log(err)
+    res.status(500).send(err)
+  }
+  
+ 
  
 }
 

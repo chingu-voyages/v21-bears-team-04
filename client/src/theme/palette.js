@@ -36,7 +36,7 @@ export default {
   },
   background: {
     default: xlightOrange,
-    paper: smoothWhite,
+    paper: white,
   },
   action: {
     disabled: smoothWhite,

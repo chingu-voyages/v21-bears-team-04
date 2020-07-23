@@ -1,7 +1,7 @@
 export const spacing = 8;
 
 export const shapes = {
-  radius: 8,
+  radius: 6,
   buttonRadius: 24,
 };
 

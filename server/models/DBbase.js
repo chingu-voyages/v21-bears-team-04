@@ -73,6 +73,44 @@ class DBbase {
     }
   }
 
+  withAttributesSubsetted(keepTheseAttributes) {
+    const subsetted = {};
+    for (let attribute of keepTheseAttributes) {
+      subsetted[attribute] = this[attribute];
+    }
+    return subsetted;
+  }
+
+  static allWithAttributesSubsetted(instances, keepTheseAttributes) {
+    return instances.map((instance) =>
+      instance.withAttributesSubsetted(keepTheseAttributes)
+    );
+  }
+
+  static createValuePlaceholderString(valueCount) {
+    let placeholderStr = "";
+    for (let i = 1; i <= valueCount; i++) {
+      placeholderStr += `$${i}, `;
+    }
+
+    return placeholderStr.substring(0, placeholderStr.length - 2);
+  }
+
+  static async in(columnName, values) {
+    // retrieves all records from this table where column_name IN ($1, $2, etc)
+    // example of query, after value substitution:   SELECT * FROM users WHERE id IN (1, 2, 4)
+    if (!this.validColumnNames.includes(columnName))
+      throw new Error("invalid col_name");
+    const valuePlaceholders = this.createValuePlaceholderString(values.length);
+    const queryText = `SELECT * FROM ${this.getTableName()} WHERE ${columnName} IN (${valuePlaceholders})`;
+    const query = {
+      text: queryText,
+      values: values,
+    };
+    const queryResult = await this.query(query);
+    if (queryResult) return queryResult.map((result) => new this(result));
+  }
+
   static async findBy(attributeInfo, limit = 1000) {
     // keys of attributeInfo should be column names, and values the value of record of interest
     // attributeinfo example: {"zipcode": 7777, "country": 'AZ'} -

@@ -1,5 +1,5 @@
 const adapter = require("../database/DatabaseAdapter");
-require('dotenv').config()
+require("dotenv").config();
 /*
 
 This class is meant to be extended by other classes, and not instantiated alone. 
@@ -11,7 +11,6 @@ This class is meant to be extended by other classes, and not instantiated alone.
 class DBbase {
   static adapter = adapter;
 
-
   static ClASS_TO_TABLE_NAME = {
     // update this with mapping of class to table
     Address: "addresses",
@@ -19,7 +18,8 @@ class DBbase {
     ActivityCategory: "activity_categories",
     Activity: "activities",
     Like: "likes",
-    Comment: "comments"
+    Comment: "comments",
+    Following: "followings",
   };
   static getTableName() {
     return this.ClASS_TO_TABLE_NAME[this.name];
@@ -35,7 +35,7 @@ class DBbase {
     const query = `SELECT * FROM ${this.getTableName()}`;
 
     const queryResult = await this.query(query);
-    return queryResult.map(result => new this(result));
+    return queryResult.map((result) => new this(result));
   }
 
   static async find(id) {
@@ -44,7 +44,7 @@ class DBbase {
     // const substituteValues = [id]
     const query = {
       text: `SELECT * FROM ${this.getTableName()} WHERE id=$1`,
-      values: [id]
+      values: [id],
     };
     const queryResult = await this.query(query);
 
@@ -94,10 +94,10 @@ class DBbase {
     //console.log(queryText);
     const query = {
       text: queryText,
-      values: substituteValues
+      values: substituteValues,
     };
     const queryResult = await this.query(query);
-    if (queryResult) return queryResult.map(result => new this(result));
+    if (queryResult) return queryResult.map((result) => new this(result));
 
     // const queryResult = await this.query(query);
     //
@@ -112,7 +112,7 @@ class DBbase {
     // returns an array of colum names for the table/class
     const query = `SELECT column_name FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '${this.getTableName()}'`;
     const queryResult = await this.query(query);
-    return queryResult.map(res => res.column_name);
+    return queryResult.map((res) => res.column_name);
   }
 
   async query(q) {

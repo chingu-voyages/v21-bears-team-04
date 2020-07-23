@@ -1,34 +1,21 @@
-import React, {useEffect} from 'react';
-import Nav from '../../components/Nav/Nav';
-import { Footer } from '../../components';
-import Homepage from '../../components/Homepage/Homepage';
-// import {getDashboard} from "../../api/api"
+import React from 'react';
+// import { connect } from 'react-redux';
+// import { verifyUser } from '../../actions/auth';
 
+import Routes from '../routes';
 
-function App() {
-  // const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJ1c2VyMSIsImVtYWlsIjoidXNlcjFAZ21haWwuY29tIiwiaWF0IjoxNTk1NDg2Mzk1LCJleHAiOjE1OTU1MDc5OTV9.K017NZcNh3AcAhnVPV6_cK0gLVnNJlR-WPaqfMKviYA"
-  // useEffect( ()=> {
-    
-
-  //     getDashboard(2, token).then(data => console.log("data", data["myActivities"][0])).catch(err => console.log(err))
-      
-
-    
-    
-  // }, [])
-  
+const App = () => {
+  // Attemp to log user in if they have logged in before
+  // React.useEffect(() => {
+  //   verifyUser();
+  // }, [verifyUser]);
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <Nav />
-      </header>
-      <main>
-        <Homepage />
-      </main>
-      <Footer />
+    <div>
+      <Routes />
     </div>
   );
-}
+};
 
+// export default connect(null, { verifyUser })(App);
 export default App;

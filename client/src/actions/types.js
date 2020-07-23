@@ -8,4 +8,4 @@ export const SET_AUTH_INFO = 'SET_AUTH_INFO';
 // for the 'feed' reducer
 export const SET_FEED_ACTIVITIES = 'SET_FEED_ACTIVITIES';
 
-export const SET_JOURNAL = 'SET_JOURNAL';
+

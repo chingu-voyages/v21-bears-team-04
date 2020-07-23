@@ -161,7 +161,7 @@ Button.propTypes = {
   /**
    * if true, the button will take full width of the parent
    */
-  fullWidth: PropTypes.node,
+  fullWidth: PropTypes.bool,
   /**
    * The size of the button
    */

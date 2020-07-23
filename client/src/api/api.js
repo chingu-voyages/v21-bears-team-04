@@ -5,7 +5,7 @@ import axios from "axios";
 const domain = "localhost";
 const port = "3000";
 // example using fetch
-export const getDashboard = async (userId, token) => {
+export const getDashboard = async (token) => {
   // fetch all the activities for a particular user
   // retrieve the jwt token from local storage for authentication purposes
   

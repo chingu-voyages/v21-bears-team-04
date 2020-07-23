@@ -12,6 +12,8 @@ class Activity extends DBbase {
   static validColumnNames = [
     "user_id",
     "title",
+    "created_at",
+    "updated_at",
     "start",
     "ending",
     "category",

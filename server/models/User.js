@@ -79,10 +79,10 @@ class User extends DBbase {
   async delete() {}
 }
 
-const test = async () => {
-   const users = await User.in('id', [1, 2, 3])
-   console.log(User.allWithAttributesSubsetted(users, ['username', 'id']))
-}
-test()
+// const test = async () => {
+//    const users = await User.in('id', [1, 2, 3])
+//    console.log(User.allWithAttributesSubsetted(users, ['username', 'id']))
+// }
+// test()
 
 module.exports = User;

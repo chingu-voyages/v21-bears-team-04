@@ -28,7 +28,7 @@ const signin = async (req, res) => {
 
     // Attempt signin and return result
     const result = await auth.signin(credentials)
-
+     
     // If signin sucessful, set JWT in cookie and send JWT as json
     if (!result.error){
       // For setting cookie options if in secure https production environment

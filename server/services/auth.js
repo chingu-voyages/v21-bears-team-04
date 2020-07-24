@@ -38,7 +38,7 @@ async function generateJWT(user) {
 async function signin(credentials) {
   // Credentials need to have already been validated in auth controller
   // Currently credentials are an object with email & password {email: user@domain.com, password: userPassword}
- 
+
   const user = (await User.findBy({ email: credentials.email }))[0];
   // If no user return error 'email or password incorrect'
   if (!user) return { error: true, message: "Email or password incorrect" };

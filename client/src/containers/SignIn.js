@@ -1,18 +1,22 @@
-import React from 'react';
-import { createUseStyles } from 'react-jss';
-import { useFormik } from 'formik';
-import { Link } from 'react-router-dom';
-import { Card, Typography, Button } from '../components';
+import React from "react";
+import { createUseStyles } from "react-jss";
+import { useFormik } from "formik";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import {signIn} from "../actions/auth";
+import { Card, Typography, Button } from "../components";
 
-export const SignIn = () => {
+
+export const SignIn = ({signIn}) => {
   const classes = useStyles();
   const { handleChange, values, handleSubmit } = useFormik({
     initialValues: {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
     },
     onSubmit: (values) => {
       console.log(values);
+      signIn(values)
     },
   });
 
@@ -74,18 +78,18 @@ const styles = (theme) => ({
   },
   container: {
     padding: theme.spacing(2),
-    minHeight: '80vh',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+    minHeight: "80vh",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
   },
   card: {
     padding: theme.spacing(5, 3, 1),
-    display: 'inline-block',
-    width: '100%',
-    maxWidth: '400px',
+    display: "inline-block",
+    width: "100%",
+    maxWidth: "400px",
 
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.up("sm")]: {
       padding: theme.spacing(5, 5, 2),
     },
   },
@@ -93,21 +97,29 @@ const styles = (theme) => ({
     margin: theme.spacing(4, 0, 2),
   },
   input: {
-    width: '100%',
+    width: "100%",
     marginBottom: theme.spacing(2),
     padding: theme.spacing(1.5),
     borderRadius: theme.shapes.radius,
-    border: '1px solid #ccc',
+    border: "1px solid #ccc",
 
-    '&:focus': {
+    "&:focus": {
       borderColor: theme.palette.secondary.main,
-      outline: 'none',
+      outline: "none",
     },
   },
   options: {
     marginTop: theme.spacing(3),
-    textAlign: 'center',
+    textAlign: "center",
   },
 });
 
-const useStyles = createUseStyles(styles, { name: 'sign-in' });
+const useStyles = createUseStyles(styles, { name: "sign-in" });
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    signIn: (credentials) => dispatch(signIn(credentials)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(SignIn);

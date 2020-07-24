@@ -4,7 +4,7 @@ const initialState = {
   email: "",
   userId: "",
   username: "",
-  loggedIn: false
+  loggedIn: false,
 };
 
 function auth(state = initialState, action) {
@@ -19,7 +19,8 @@ function auth(state = initialState, action) {
         email: payload.email,
         userId: payload.userId,
         username: payload.username,
-        loggedIn: true
+        loggedIn: true,
+        token: payload.token,
       };
     default:
       return state;

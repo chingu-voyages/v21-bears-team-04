@@ -4,9 +4,12 @@ const argon2 = require("argon2")
 
   // Attributes need to have been validated in auth controller
   async function signup(attributes) {
+    //console.log("Attributes", attributes)
     const passwordHashed = await argon2.hash(attributes.password_digest)
+    //console.log("passwordHashed", passwordHashed)
     attributes.password_digest = passwordHashed
     const user = new User(attributes)
+    console.log(user)
     const result = await user.create()
     if (result.error) {
       console.log(`Failed to save user due to: ${result.error.detail}`)
@@ -37,6 +40,7 @@ const argon2 = require("argon2")
     // Credentials need to have already been validated in auth controller
     // Currently credentials are an object with email & password {email: user@domain.com, password: userPassword}
     const user = await User.findByEmail(credentials.email)
+    console.log(user)
     // If no user return error 'email or password incorrect' 
     if (!user) return {error: true, message: "Email or password incorrect"}
     // If user exists, compare credentials with stored hash

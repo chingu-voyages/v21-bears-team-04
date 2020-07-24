@@ -1,5 +1,5 @@
 const adapter = require("../database/DatabaseAdapter");
-
+require("dotenv").config();
 /*
 
 This class is meant to be extended by other classes, and not instantiated alone. 
@@ -16,7 +16,10 @@ class DBbase {
     Address: "addresses",
     User: "users",
     ActivityCategory: "activity_categories",
-    Activity: "activities"
+    Activity: "activities",
+    Like: "likes",
+    Comment: "comments",
+    Following: "followings",
   };
   static getTableName() {
     return this.ClASS_TO_TABLE_NAME[this.name];
@@ -32,7 +35,7 @@ class DBbase {
     const query = `SELECT * FROM ${this.getTableName()}`;
 
     const queryResult = await this.query(query);
-    return queryResult.map(result => new this(result));
+    return queryResult.map((result) => new this(result));
   }
 
   static async find(id) {
@@ -41,7 +44,7 @@ class DBbase {
     // const substituteValues = [id]
     const query = {
       text: `SELECT * FROM ${this.getTableName()} WHERE id=$1`,
-      values: [id]
+      values: [id],
     };
     const queryResult = await this.query(query);
 
@@ -63,7 +66,52 @@ class DBbase {
     return true;
   }
 
-  static async findBy(attributeInfo, limit = 1) {
+  setAttributes(attributes) {
+    // use this to update the model, but not the db
+    for (let attribute in attributes) {
+      this[attribute] = attributes[attribute];
+    }
+  }
+
+  withAttributesSubsetted(keepTheseAttributes) {
+    const subsetted = {};
+    for (let attribute of keepTheseAttributes) {
+      subsetted[attribute] = this[attribute];
+    }
+    return subsetted;
+  }
+
+  static allWithAttributesSubsetted(instances, keepTheseAttributes) {
+    return instances.map((instance) =>
+      instance.withAttributesSubsetted(keepTheseAttributes)
+    );
+  }
+
+  static createValuePlaceholderString(valueCount) {
+    let placeholderStr = "";
+    for (let i = 1; i <= valueCount; i++) {
+      placeholderStr += `$${i}, `;
+    }
+
+    return placeholderStr.substring(0, placeholderStr.length - 2);
+  }
+
+  static async in(columnName, values) {
+    // retrieves all records from this table where column_name IN ($1, $2, etc)
+    // example of query, after value substitution:   SELECT * FROM users WHERE id IN (1, 2, 4)
+    if (!this.validColumnNames.includes(columnName))
+      throw new Error("invalid col_name");
+    const valuePlaceholders = this.createValuePlaceholderString(values.length);
+    const queryText = `SELECT * FROM ${this.getTableName()} WHERE ${columnName} IN (${valuePlaceholders})`;
+    const query = {
+      text: queryText,
+      values: values,
+    };
+    const queryResult = await this.query(query);
+    if (queryResult) return queryResult.map((result) => new this(result));
+  }
+
+  static async findBy(attributeInfo, limit = 1000) {
     // keys of attributeInfo should be column names, and values the value of record of interest
     // attributeinfo example: {"zipcode": 7777, "country": 'AZ'} -
     if (!this.whiteListedColNames(attributeInfo))
@@ -84,10 +132,10 @@ class DBbase {
     //console.log(queryText);
     const query = {
       text: queryText,
-      values: substituteValues
+      values: substituteValues,
     };
     const queryResult = await this.query(query);
-    if (queryResult) return queryResult.map(result => new this(result));
+    if (queryResult) return queryResult.map((result) => new this(result));
 
     // const queryResult = await this.query(query);
     //
@@ -102,7 +150,7 @@ class DBbase {
     // returns an array of colum names for the table/class
     const query = `SELECT column_name FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '${this.getTableName()}'`;
     const queryResult = await this.query(query);
-    return queryResult.map(res => res.column_name);
+    return queryResult.map((res) => res.column_name);
   }
 
   async query(q) {

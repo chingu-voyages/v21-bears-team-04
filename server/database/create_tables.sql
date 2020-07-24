@@ -93,11 +93,24 @@ CREATE TABLE "likes" (
   OIDS=FALSE
 );
 
+CREATE TABLE "followings" (
+	"id" serial NOT NULL,
+	"follower" int NOT NULL,
+	"following" int NOT NULL,
+	"created_at" timestamp with time zone NOT NULL,
+	CONSTRAINT "followings_pk" PRIMARY KEY ("id")
+) WITH (
+  OIDS=FALSE
+);
 
 
 
 
 
+
+
+ALTER TABLE "followings" ADD CONSTRAINT "followings_fk0" FOREIGN KEY ("follower") REFERENCES "users"("id");
+ALTER TABLE "followings" ADD CONSTRAINT "followings_fk1" FOREIGN KEY ("following") REFERENCES "users"("id");
 ALTER TABLE "addresses" ADD CONSTRAINT "addresses_fk0" FOREIGN KEY ("user_id") REFERENCES "users"("id");
 ALTER TABLE "activities" ADD CONSTRAINT "activities_fk0" FOREIGN KEY ("user_id") REFERENCES "users"("id");
 ALTER TABLE "activities" ADD CONSTRAINT "activities_fk1" FOREIGN KEY ("category") REFERENCES "activity_categories"("id");

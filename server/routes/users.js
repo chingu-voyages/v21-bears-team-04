@@ -7,6 +7,8 @@ const router = new Router();
 
 router.get("/:user_id/activities", usersController.getActivities )
 
+
+
 router.get("/:user_id", usersController.get)
 
 router.get("/", usersController.getAll);

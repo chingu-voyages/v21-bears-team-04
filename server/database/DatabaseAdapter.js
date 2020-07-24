@@ -1,4 +1,5 @@
 const { Pool } = require("pg");
+require('dotenv').config()
 
 class DatabaseAdapter {
   constructor(connectionInfo) {
@@ -53,6 +54,8 @@ const adapter = new DatabaseAdapter({
   database: process.env.DB_NAME,
   password: process.env.DB_PASSWORD
 });
+
+
 
 // example: uncomment below, add .env file in database folder with DB_HOST, DB_PORT etc.
 // from server/database run 'node DatabaseAdapter.js'

@@ -1,21 +1,25 @@
 const DBbase = require("./DBbase");
 const ActivityCategory = require("./ActivityCategory");
+const Comment = require("./Comment");
+const Like = require("./Like");
 const Joi = require("@hapi/joi");
 
 class Activity extends DBbase {
-  // 'table' used by DBbase to map class to specific table name 
+  // 'table' used by DBbase to map class to specific table name
   static table = "activities";
 
   // 'validColumnNames' used by DBbase to check for valid properities on each model
   static validColumnNames = [
     "user_id",
     "title",
+    "created_at",
+    "updated_at",
     "start",
     "ending",
     "category",
     "distance",
     "calories",
-    "steps"
+    "steps",
   ];
 
   constructor(attributes) {
@@ -28,24 +32,76 @@ class Activity extends DBbase {
     }
   }
 
-  async withAssociatedData() {
+  async withAssociatedData(associatedData) {
+    // example associatedData:   {category: true}
+    // another example: {comments: true, likes: true}
     // return object with this data, and associated data
     // associated data includes category data
-    const thisActivityCategory = await ActivityCategory.find(this.category);
 
-    return {
+    const { category, comments, likes, user } = associatedData;
+
+    const activityData = {
       id: this.id,
-      user_id: this.user_id,
+      user: this.user_id,
       title: this.title,
       distance: this.distance,
       calories: this.calories,
+      steps: this.steps,
       start: this.start,
       ending: this.ending,
-      category: {
-        id: thisActivityCategory.id,
-        name: thisActivityCategory.name
-      }
+      category: this.category,
     };
+
+    if (user) {
+      // add associated user data
+      // add associated category data
+      const activityUser = await User.find(this.user_id);
+      activityData.user = {
+        id: activityUser.id,
+        name: activityUser.username,
+      };
+    }
+
+    if (category) {
+      // add associated category data
+      const thisActivityCategory = await ActivityCategory.find(this.category);
+      activityData.category = {
+        id: thisActivityCategory.id,
+        name: thisActivityCategory.name,
+      };
+    }
+
+    if (comments) {
+      const thisActivityComments = await Comment.findBy({
+        resource_id: this.id,
+        resource_type: "comment",
+      });
+      activityData.comments = thisActivityComments;
+    }
+
+    if (likes) {
+      const thisActivityLikes = await Like.findBy({
+        resource_id: this.id,
+        resource_type: "like",
+      });
+      activityData.likes = thisActivityLikes;
+    }
+
+    return activityData;
+
+    // return {
+    //   id: this.id,
+    //   user_id: this.user_id,
+    //   title: this.title,
+    //   distance: this.distance,
+    //   calories: this.calories,
+    //   start: this.start,
+    //   ending: this.ending,
+    //   category: {
+    //     id: thisActivityCategory.id,
+    //     name: thisActivityCategory.name
+    //   }
+    // };
   }
 
   setAttributes(attributes) {
@@ -110,8 +166,8 @@ class Activity extends DBbase {
           this.ending,
           this.distance,
           this.calories,
-          this.steps
-        ]
+          this.steps,
+        ],
       };
       const queryResult = await this.query(query);
       const newRecord = queryResult[0];
@@ -142,8 +198,8 @@ class Activity extends DBbase {
           this.distance,
           this.calories,
           this.steps,
-          this.id
-        ]
+          this.id,
+        ],
       };
       const queryResult = await this.query(query);
       //console.log(queryResult);
@@ -162,7 +218,7 @@ class Activity extends DBbase {
       const substituteValues = [this.id];
       const query = {
         text: queryText,
-        values: substituteValues
+        values: substituteValues,
       };
       await this.query(query);
     } else {
@@ -173,79 +229,81 @@ class Activity extends DBbase {
   }
 }
 
-// async function test() {
-// test inherited .all
-// const all = await Activity.all()
-// console.log(all)
+async function test() {
+  // test inherited .all
+  // const all = await Activity.all()
+  // console.log(all)
 
-// test inherited .find
-// const activity1 = await Activity.find(1)
-// console.log(activity1)
+  // test inherited .find
+  // const activity1 = await Activity.find(1)
+  // console.log(activity1)
 
-// test inherited .findBy
-// const activity1 = await Activity.findBy({
-//   title: "Running on a sunny day",
-//   calories: 300
-// });
-// console.log(activity1);
+  // test inherited .findBy
+  // const activity1 = await Activity.findBy({
+  //   title: "Running on a sunny day",
+  //   calories: 300
+  // });
+  // console.log(activity1);
 
-//  this.user_id,
-//  this.category,
-//  this.title,
-//  this.start,
-//  this.ending,
-//  this.distance,
-//  this.calories,
-//  this.steps
+  //  this.user_id,
+  //  this.category,
+  //  this.title,
+  //  this.start,
+  //  this.ending,
+  //  this.distance,
+  //  this.calories,
+  //  this.steps
 
-//test .save
-// const newActivity = new Activity({
-//   user_id: 1,
-//   category: 1,
-//   title: "a new activity",
-//   start: "2020-07-18T19:43:49.989Z",
-//   ending: "2020-07-18T20:43:49.989Z",
-//   distance: 4,
-//   calories: 200,
-//   steps: 5000
-// });
-// await newActivity.save();
-// console.log(newActivity);
+  //test .save
+  // const newActivity = new Activity({
+  //   user_id: 1,
+  //   category: 1,
+  //   title: "a new activity",
+  //   start: "2020-07-18T19:43:49.989Z",
+  //   ending: "2020-07-18T20:43:49.989Z",
+  //   distance: 4,
+  //   calories: 200,
+  //   steps: 5000
+  // });
+  // await newActivity.save();
+  // console.log(newActivity);
 
-// test .delete
-// const newActivity = new Activity({
-//   user_id: 1,
-//   category: 1,
-//   title: "a newer activity",
-//   start: "2020-07-18T19:43:49.989Z",
-//   ending: "2020-07-18T20:43:49.989Z",
-//   distance: 2,
-//   calories: 300
-// });
-// await newActivity.save();
-// console.log("saved a new activity", newActivity);
-// await newActivity.delete()
-// activity = await Activity.findBy({title: "a newer activity", distance: 2})
-// console.log(activity)
+  // test .delete
+  // const newActivity = new Activity({
+  //   user_id: 1,
+  //   category: 1,
+  //   title: "a newer activity",
+  //   start: "2020-07-18T19:43:49.989Z",
+  //   ending: "2020-07-18T20:43:49.989Z",
+  //   distance: 2,
+  //   calories: 300
+  // });
+  // await newActivity.save();
+  // console.log("saved a new activity", newActivity);
+  // await newActivity.delete()
+  // activity = await Activity.findBy({title: "a newer activity", distance: 2})
+  // console.log(activity)
 
-//test .update
-//   const newActivity = new Activity({
-//     user_id: 1,
-//     category: 1,
-//     title: "something activity",
-//     start: "2020-07-18T19:43:49.989Z",
-//     ending: "2020-07-18T20:43:49.989Z",
-//     distance: .2,
-//     calories: 7770,
-//     steps: 50
-//   });
-//   await newActivity.save();
-//   console.log("saved a new activity", newActivity);
-//   let activity = (await Activity.findBy({calories: 7770}))[0]
-//   console.log("activity before update", activity)
-//   await activity.update({title: "the cool updated title"})
-//   console.log("activity after update", activity)
-// }
+  //test .update
+  //   const newActivity = new Activity({
+  //     user_id: 1,
+  //     category: 1,
+  //     title: "something activity",
+  //     start: "2020-07-18T19:43:49.989Z",
+  //     ending: "2020-07-18T20:43:49.989Z",
+  //     distance: .2,
+  //     calories: 7770,
+  //     steps: 50
+  //   });
+  //   await newActivity.save();
+  //   console.log("saved a new activity", newActivity);
+  //   let activity = (await Activity.findBy({calories: 7770}))[0]
+  //   console.log("activity before update", activity)
+  //   await activity.update({title: "the cool updated title"})
+  //   console.log("activity after update", activity)
+  const activities = await Activity.all();
+  console.log(activities);
+}
 
 // test();
 

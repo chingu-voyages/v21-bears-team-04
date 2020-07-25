@@ -15,3 +15,18 @@ const getCategoryForActivity = (activityCategoryId, activityCategories) => {
     (category) => activityCategoryId === category.id
   );
 };
+
+export const constructActivity = (activity, categories, likes, comments) => {
+    const category = getCategoryForActivity(activity.id, categories) 
+    const likes = getLikesForActivity(activity.id, likes)
+    const comments = getCommentsForActivity(activity.id, comments)
+    const constructedActivity = {
+        ...activity,
+        likes: likes,
+        comments: comments,
+        category: category
+    }
+
+    return constructedActivity
+
+} 

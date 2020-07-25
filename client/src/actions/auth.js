@@ -15,7 +15,7 @@ export function signIn(credentials) {
   return async function (dispatch) {
     try {
       const data = (await login(email, password)).data;
-      if (data.error) throw new Error("invalid credentials")
+      if (data.error) throw new Error(data.message)
       const {
         token,
         userData: { id, username, userEmail },
@@ -28,8 +28,8 @@ export function signIn(credentials) {
       };
       dispatch({ type: SET_AUTH_INFO, payload: authInfo });
     } catch (err) {
-      console.log(err);
-      dispatch({type: AUTH_ERROR})
+      console.log("error message", err.message);
+      dispatch({type: AUTH_ERROR, payload: err.message})
     }
   };
 }

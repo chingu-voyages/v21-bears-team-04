@@ -5,8 +5,8 @@ const initialState = {
   userId: "",
   username: "",
   loggedIn: false,
-  error: false
-};
+  errors: []
+}
 
 function auth(state = initialState, action) {
   switch (action.type) {
@@ -15,7 +15,7 @@ function auth(state = initialState, action) {
 
        return {
          ...state,
-         error: true
+         errors: [...state.errors, action.payload]
        }
 
     case SET_AUTH_INFO:
@@ -30,6 +30,7 @@ function auth(state = initialState, action) {
         username: payload.username,
         loggedIn: true,
         token: payload.token,
+        errors: []
       };
     default:
       return state;

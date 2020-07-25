@@ -15,7 +15,7 @@ const Routes = () => {
         <Route path="/" exact component={Homepage} />
         <Route path="/signin" exact component={reduxConnectedSignIn} />
         <Route path="/signup" exact component={SignUp} />
-        <Route path="/dashboard" exact component={reduxConnectedDashboard} />
+        <Route path="/dashboard" exact component={reduxConnectedDashboard} privateRoute />
       </Switch>
     </BrowserRouter>
   );

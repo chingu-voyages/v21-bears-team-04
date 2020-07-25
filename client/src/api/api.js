@@ -32,9 +32,6 @@ export const getDashboard = async (token) => {
 
 export const login = async (email, password) => {
   const url = `${baseUrl}/auth/signin`;
-  console.log("password", password);
-  console.log("email", email);
-  console.log("url", url);
   const data = {
     email,
     password_digest: password,

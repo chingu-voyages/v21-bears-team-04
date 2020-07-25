@@ -25,6 +25,7 @@ export function signIn(credentials) {
         userId: id,
         username: username,
         email: userEmail,
+        token: token
       };
       dispatch({ type: SET_AUTH_INFO, payload: authInfo });
     } catch (err) {

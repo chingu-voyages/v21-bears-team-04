@@ -42,7 +42,8 @@
   },
   "devDependencies": {
     "enzyme": "^3.11.0",
-    "enzyme-adapter-react-16": "^1.15.2"
+    "enzyme-adapter-react-16": "^1.15.2",
+    "http-proxy-middleware": "^1.0.5"
   },
   "proxy": "http://localhost:3000"
 }

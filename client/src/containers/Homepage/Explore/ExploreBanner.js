@@ -1,6 +1,7 @@
 import React from 'react';
 import './ExploreBanner.css';
 import landing from './landing.jpg';
+import { Link } from 'react-router-dom';
 
 function ExploreBanner() {
   return (
@@ -18,7 +19,9 @@ function ExploreBanner() {
           aliquip ex ea commodo consequat."
         </h3>
         <br />
+        <Link to="/signin">
         <button className="Banner-button">Explore</button>
+        </Link>
         <br />
       </div>
       <div className="Banner-images">

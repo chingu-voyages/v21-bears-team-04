@@ -2,8 +2,10 @@ import React, { useEffect } from "react";
 import { connect } from "formik";
 import { connect as reduxConnect } from "react-redux";
 import { getDashboard } from "../api/api";
+import { setUsers } from "../actions/users";
+import { setFollowings } from "../actions/following";
 
-export const Dashboard = ({ auth: { token } }) => {
+export const Dashboard = ({ auth: { token }, setUsers, setFollowings }) => {
   useEffect(() => {
     (async () => {
       const dashboardData = await getDashboard(token);
@@ -17,6 +19,8 @@ export const Dashboard = ({ auth: { token } }) => {
         following,
         activityCategories,
       } = dashboardData;
+      setUsers(users);
+      setFollowings(following);
       console.log("users", users);
       console.log("likes", likes);
       console.log("comments", comments);
@@ -36,7 +40,10 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    setUsers: (users) => dispatch(setUsers(users)),
+    setFollowings: (followings) => dispatch(setFollowings(followings)),
+  };
 };
 
 export default reduxConnect(mapStateToProps, mapDispatchToProps)(Dashboard);

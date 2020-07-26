@@ -1,4 +1,4 @@
-import { SET_USERS, ADD_USER, REMOVE_USER } from "./types";
+import { SET_USERS, ADD_USER, REMOVE_USER } from "../actions/types";
 
 const initialState = [];
 

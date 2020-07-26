@@ -16,17 +16,42 @@ const getCategoryForActivity = (activityCategoryId, activityCategories) => {
   );
 };
 
-export const constructActivity = (activity, categories, likes, comments) => {
-    const category = getCategoryForActivity(activity.id, categories) 
-    const likes = getLikesForActivity(activity.id, likes)
-    const comments = getCommentsForActivity(activity.id, comments)
-    const constructedActivity = {
-        ...activity,
-        likes: likes,
-        comments: comments,
-        category: category
-    }
+const getUserInfoForActivity = (activityCategoryId, users) => {
+  return users.find((user) => user.id === activityCategoryId);
+};
 
-    return constructedActivity
+// use this function to create activity with the data needed for whatever view / component needs to be rendered
+export const constructActivity = (
+  activity,
+  categories,
+  likes,
+  comments,
+  users
+) => {
+  const constructedActivity = {
+    ...activity,
+  };
 
-} 
+  if (categories) {
+    const activityCategory = getCategoryForActivity(activity.id, categories);
+    constructedActivity.category = activityCategory;
+  }
+
+  if (likes) {
+    const activityLikes = getLikesForActivity(activity.id, likes);
+    constructedActivity.likes = activityLikes;
+  }
+
+  if (comments) {
+    const activityComments = getCommentsForActivity(activity.id, comments);
+    constructedActivity.comments = activityComments;
+  }
+
+  if (users) {
+    // use this when you need username for activity created by the user other than logged in user
+    const activityCreatedByUser = getUserInfoForActivity(activity.id, users);
+    constructedActivity.user = activityCreatedByUser;
+  }
+
+  return constructedActivity;
+};

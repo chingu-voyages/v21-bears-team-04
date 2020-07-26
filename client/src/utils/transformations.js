@@ -3,7 +3,7 @@ const getActivitiesCreatedByUser = (activities, userId) => {
 };
 
 const getLikesForActivity = (activityId, likes) => {
-  return likes.filter((like) => activity.Id === likes.resource_id);
+  return likes.filter((like) => activityId === likes.resource_id);
 };
 
 const getCommentsForActivity = (activityId, comments) => {
@@ -28,7 +28,7 @@ export const constructActivity = (activity, associatedData) => {
   };
 
   if (categories) {
-    const activityCategory = getCategoryForActivity(activity.id, categories);
+    const activityCategory = getCategoryForActivity(activity.category, categories);
     constructedActivity.category = activityCategory;
   }
 

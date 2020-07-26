@@ -3,13 +3,26 @@ import { connect } from "formik";
 import { connect as reduxConnect } from "react-redux";
 import { getDashboard } from "../api/api";
 
-export const Dashboard = ({auth: {token}}) => {
+export const Dashboard = ({ auth: { token } }) => {
   useEffect(() => {
-    (async () => {  
-        
+    (async () => {
       const dashboardData = await getDashboard(token);
-      // set the relevant stuff in redux store, based on dashboardData
       console.log(dashboardData);
+      // set the relevant stuff in redux store, based on dashboardData
+      const {
+        users,
+        likes,
+        comments,
+        activities,
+        following,
+        activityCategories,
+      } = dashboardData;
+      console.log("users", users);
+      console.log("likes", likes);
+      console.log("comments", comments);
+      console.log("activities", activities);
+      console.log("following", following);
+      console.log("activityCategories", activityCategories);
     })();
   }, []);
 
@@ -18,7 +31,7 @@ export const Dashboard = ({auth: {token}}) => {
 
 const mapStateToProps = (state) => {
   return {
-    auth: state.auth 
+    auth: state.auth,
   };
 };
 

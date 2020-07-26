@@ -1,5 +1,5 @@
-import { SET_AUTH_INFO, CLEAR_AUTH_INFO, AUTH_ERROR } from "./types";
-import { login } from "../api/api";
+import { SET_AUTH_INFO, CLEAR_AUTH_INFO, AUTH_ERROR } from './types';
+import api from '../services';
 
 export function setAuthInfo(authInfo) {
   return {
@@ -8,14 +8,12 @@ export function setAuthInfo(authInfo) {
   };
 }
 
-
-
 export function signIn(credentials) {
   const { email, password } = credentials;
   return async function (dispatch) {
     try {
-      const data = (await login(email, password)).data;
-      if (data.error) throw new Error(data.message)
+      const data = (await api.auth.login(email, password)).data;
+      if (data.error) throw new Error(data.message);
       const {
         token,
         userData: { id, username, userEmail },
@@ -25,12 +23,12 @@ export function signIn(credentials) {
         userId: id,
         username: username,
         email: userEmail,
-        token: token
+        token: token,
       };
       dispatch({ type: SET_AUTH_INFO, payload: authInfo });
     } catch (err) {
-      console.log("error message", err.message);
-      dispatch({type: AUTH_ERROR, payload: err.message})
+      console.log('error message', err.message);
+      dispatch({ type: AUTH_ERROR, payload: err.message });
     }
   };
 }

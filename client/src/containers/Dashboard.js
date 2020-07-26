@@ -4,8 +4,9 @@ import { connect as reduxConnect } from "react-redux";
 import { getDashboard } from "../api/api";
 import { setUsers } from "../actions/users";
 import { setFollowings } from "../actions/following";
+import {setActivityCategories } from "../actions/activityCategories"
 
-export const Dashboard = ({ auth: { token }, setUsers, setFollowings }) => {
+export const Dashboard = ({ auth: { token }, setUsers, setFollowings, setActivityCategories}) => {
   useEffect(() => {
     (async () => {
       const dashboardData = await getDashboard(token);
@@ -21,6 +22,7 @@ export const Dashboard = ({ auth: { token }, setUsers, setFollowings }) => {
       } = dashboardData;
       setUsers(users);
       setFollowings(following);
+      setActivityCategories(activityCategories)
       console.log("users", users);
       console.log("likes", likes);
       console.log("comments", comments);
@@ -43,6 +45,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     setUsers: (users) => dispatch(setUsers(users)),
     setFollowings: (followings) => dispatch(setFollowings(followings)),
+    setActivityCategories: (activityCategories) => dispatch(setActivityCategories(activityCategories))
   };
 };
 

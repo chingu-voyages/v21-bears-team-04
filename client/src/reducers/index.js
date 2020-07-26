@@ -4,10 +4,12 @@ import todoReducer from "./todoReducer";
 import authReducer from "./auth";
 import usersReducer from "./users";
 import followingReducer from "./following";
+import activityCategoriesReducer from "./activityCategories";
 
 export default combineReducers({
   todo: todoReducer,
   auth: authReducer,
   users: usersReducer,
-  following: followingReducer
+  following: followingReducer,
+  activityCategories: activityCategoriesReducer,
 });

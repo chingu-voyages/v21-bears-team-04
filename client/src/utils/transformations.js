@@ -21,13 +21,8 @@ const getUserInfoForActivity = (activityCategoryId, users) => {
 };
 
 // use this function to create activity with the data needed for whatever view / component needs to be rendered
-export const constructActivity = (
-  activity,
-  categories,
-  likes,
-  comments,
-  users
-) => {
+export const constructActivity = (activity, associatedData) => {
+  const { categories, likes, comments, users } = associatedData;
   const constructedActivity = {
     ...activity,
   };
@@ -54,4 +49,10 @@ export const constructActivity = (
   }
 
   return constructedActivity;
+};
+
+export const constructActivities = (activities, associatedData) => {
+  return activities.map((activity) =>
+    constructActivity(activity, associatedData)
+  );
 };

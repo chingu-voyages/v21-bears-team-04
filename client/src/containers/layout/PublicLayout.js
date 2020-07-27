@@ -20,7 +20,8 @@ const styles = (theme) => ({
     padding: theme.spacing(2),
 
     [theme.breakpoints.up('sm')]: {
-      padding: theme.spacing(2, 6),
+      paddingLeft: '5vw',
+      paddingRight: '5vw',
     },
   },
 });

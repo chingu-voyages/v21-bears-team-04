@@ -13,12 +13,12 @@ export default {
     },
     h3: {
       fontSize: '1.953rem',
-      fontWeight: 500,
+      fontWeight: 600,
       lineHeight: 1.167,
     },
     h4: {
       fontSize: '1.563rem',
-      fontWeight: 500,
+      fontWeight: 600,
       lineHeight: 1.235,
     },
     h5: {

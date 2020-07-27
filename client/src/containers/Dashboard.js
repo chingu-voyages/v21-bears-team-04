@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { connect } from "formik";
-import { connect as reduxConnect } from "react-redux";
+
+import { connect } from "react-redux";
 import { getDashboard } from "../api/api";
 import { setUsers } from "../actions/users";
 import { setFollowings } from "../actions/following";
@@ -9,7 +9,7 @@ import { setActivities } from "../actions/activities";
 import { setComments } from "../actions/comments";
 import { setLikes } from "../actions/likes";
 
-export const Dashboard = ({
+export const _Dashboard = ({
   auth: { token },
   setUsers,
   setFollowings,
@@ -67,4 +67,5 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default reduxConnect(mapStateToProps, mapDispatchToProps)(Dashboard);
+
+export const Dashboard = connect(mapStateToProps, mapDispatchToProps)(_Dashboard);

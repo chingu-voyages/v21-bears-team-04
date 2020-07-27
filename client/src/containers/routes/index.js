@@ -5,7 +5,6 @@ import Route from './CustomRoute';
 
 import { Homepage, SignIn, SignUp, Dashboard } from '..';
 
-
 const Routes = () => {
   return (
     <BrowserRouter>

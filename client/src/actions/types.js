@@ -8,7 +8,7 @@ export const REMOVE_USER = 'REMOVE_USER'
 
 // following reducer
 
-export const SET_FOLLOWINGS = 'SET_FOLLOWING'
+export const SET_FOLLOWING = 'SET_FOLLOWING'
 export const ADD_FOLLOWING = 'ADD_FOLLOWING'
 export const REMOVE_FOLLOWING = 'REMOVE_FOLLOWING' 
 

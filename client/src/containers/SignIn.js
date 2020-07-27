@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { Card, Typography, Button } from '../components';
 import { signIn } from '../actions/auth';
 
+
 export const _SignIn = ({ signIn }) => {
   const classes = useStyles();
   const { handleChange, values, handleSubmit } = useFormik({
@@ -115,4 +116,6 @@ const styles = (theme) => ({
 
 const useStyles = createUseStyles(styles, { name: 'sign-in' });
 
+
 export const SignIn = connect(null, { signIn })(_SignIn);
+

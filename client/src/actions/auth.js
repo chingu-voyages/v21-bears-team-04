@@ -8,27 +8,50 @@ export function setAuthInfo(authInfo) {
   };
 }
 
-export function signIn(credentials) {
+export const signIn = (credentials) => async (dispatch) => {
   const { email, password } = credentials;
-  return async function (dispatch) {
-    try {
-      const data = (await api.auth.login(email, password)).data;
-      if (data.error) throw new Error(data.message);
-      const {
-        token,
-        userData: { id, username, userEmail },
-      } = data;
 
-      const authInfo = {
-        userId: id,
-        username: username,
-        email: userEmail,
-        token: token,
-      };
-      dispatch({ type: SET_AUTH_INFO, payload: authInfo });
-    } catch (err) {
-      console.log('error message', err.message);
-      dispatch({ type: AUTH_ERROR, payload: err.message });
-    }
-  };
-}
+  try {
+    const res = await api.auth.login(email, password);
+    // if (data.error) throw new Error(data.message);
+    const {
+      token,
+      userData: { id, username, userEmail },
+    } = res.data;
+
+    const authInfo = {
+      userId: id,
+      username,
+      email: userEmail,
+      token,
+    };
+
+    dispatch({ type: SET_AUTH_INFO, payload: authInfo });
+  } catch (err) {
+    console.log('error message', err.message);
+    dispatch({ type: AUTH_ERROR, payload: err.message });
+  }
+};
+
+export const signUp = (user) => async (dispatch) => {
+  try {
+    const res = await api.auth.register(user);
+
+    const {
+      token,
+      userData: { id, username, userEmail },
+    } = res.data;
+
+    const authInfo = {
+      userId: id,
+      username,
+      email: userEmail,
+      token,
+    };
+
+    dispatch({ type: SET_AUTH_INFO, payload: authInfo });
+  } catch (err) {
+    console.log('error message', err.message);
+    dispatch({ type: AUTH_ERROR, payload: err.message });
+  }
+};

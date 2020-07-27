@@ -1,10 +1,10 @@
-const { Pool } = require("pg");
-require('dotenv').config()
+const { Pool } = require('pg');
+require('dotenv').config();
 
 class DatabaseAdapter {
   constructor(connectionInfo) {
     this.pool = new Pool(connectionInfo);
-    console.log("\nconnected to db\n");
+    console.log('\nconnected to db\n');
   }
 
   async query(q) {
@@ -13,7 +13,7 @@ class DatabaseAdapter {
   }
 
   async listConnectedDBName() {
-    const query = "SELECT current_database();";
+    const query = 'SELECT current_database();';
     const result = await this.query(query);
     console.log(`\nCurrently connected to DB: ${result[0].current_database}\n`);
   }
@@ -23,8 +23,8 @@ class DatabaseAdapter {
       "SELECT table_name FROM information_schema.tables WHERE table_schema='public';";
     const result = await this.query(query);
     // list connected db table names
-    console.log("\ntable names: \n");
-    result.forEach(row => {
+    console.log('\ntable names: \n');
+    result.forEach((row) => {
       console.log(`  ${row.table_name}`);
     });
   }
@@ -38,10 +38,10 @@ class DatabaseAdapter {
   }
 
   async listDatabases() {
-    const query = "SELECT datname FROM pg_database;";
+    const query = 'SELECT datname FROM pg_database;';
     const result = await this.query(query);
-    console.log("Databases:\n");
-    result.forEach(row => {
+    console.log('Databases:\n');
+    result.forEach((row) => {
       console.log(row.datname);
     });
   }
@@ -52,22 +52,19 @@ const adapter = new DatabaseAdapter({
   port: process.env.DB_PORT,
   user: process.env.DB_USER,
   database: process.env.DB_NAME,
-  password: process.env.DB_PASSWORD
+  password: process.env.DB_PASSWORD,
 });
-
-
 
 // example: uncomment below, add .env file in database folder with DB_HOST, DB_PORT etc.
 // from server/database run 'node DatabaseAdapter.js'
 
-// async function test() {
-//   adapter.listPort();
-//   adapter.listDatabases();
-//   adapter.listConnectedDBName();
-//   adapter.listAllTableNames();
+async function test() {
+  adapter.listPort();
+  adapter.listDatabases();
+  adapter.listConnectedDBName();
+  adapter.listAllTableNames();
+}
 
-// }
-
-// test();
+test();
 
 module.exports = adapter;

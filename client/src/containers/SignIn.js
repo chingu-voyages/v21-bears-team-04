@@ -7,7 +7,7 @@ import {signIn} from "../actions/auth";
 import { Card, Typography, Button } from "../components";
 
 
-export const SignIn = ({signIn}) => {
+export const _SignIn = ({signIn}) => {
   const classes = useStyles();
   const { handleChange, values, handleSubmit } = useFormik({
     initialValues: {
@@ -122,4 +122,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(SignIn);
+export const SignIn = connect(null, mapDispatchToProps)(_SignIn);

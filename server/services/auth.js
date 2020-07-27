@@ -1,26 +1,26 @@
-const User = require("../models/User");
-const jwt = require("jsonwebtoken");
-const argon2 = require("argon2");
+const User = require('../models/User');
+const jwt = require('jsonwebtoken');
+const argon2 = require('argon2');
 
 // Attributes need to have been validated in auth controller
 async function signup(attributes) {
-  //console.log("Attributes", attributes)
+  const credentials = {
+    email: attributes.email,
+    password_digest: attributes.password_digest,
+  };
+
   const passwordHashed = await argon2.hash(attributes.password_digest);
-  //console.log("passwordHashed", passwordHashed)
+
   attributes.password_digest = passwordHashed;
   const user = new User(attributes);
-  console.log(user);
+
   const result = await user.create();
   if (result.error) {
     console.log(`Failed to save user due to: ${result.error.detail}`);
     return result;
   } else {
-    return {
-      user: {
-        email: user.email,
-        username: user.username,
-      },
-    };
+    // If success attempt to login user in
+    return await signin(credentials);
   }
 }
 
@@ -31,7 +31,7 @@ async function generateJWT(user) {
     email: user.email,
   };
   const signature = process.env.JWT_SECRET;
-  const expiration = "6h";
+  const expiration = '6h';
   return jwt.sign(payload, signature, { expiresIn: expiration });
 }
 
@@ -41,7 +41,7 @@ async function signin(credentials) {
 
   const user = (await User.findBy({ email: credentials.email }))[0];
   // If no user return error 'email or password incorrect'
-  if (!user) return { error: true, message: "Email or password incorrect" };
+  if (!user) return { error: true, message: 'Email or password incorrect' };
   // If user exists, compare credentials with stored hash
   const correctPassword = await argon2.verify(
     user.password_digest,
@@ -50,11 +50,11 @@ async function signin(credentials) {
   // If password hashes match, generate JWT and send to client with basic unhashed user info in JSON and as a cookie
   if (correctPassword) {
     const token = await generateJWT(user);
-    const userData = user.withAttributesSubsetted(["id", "username", "email"]);
+    const userData = user.withAttributesSubsetted(['id', 'username', 'email']);
     return { token: token, userData: userData };
   }
   // If password hashes don't match return error 'email or password incorrect'
-  return { error: true, message: "Email or password incorrect" };
+  return { error: true, message: 'Email or password incorrect' };
 }
 
 module.exports = {

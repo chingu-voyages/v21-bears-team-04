@@ -3,7 +3,7 @@ import { createUseStyles } from 'react-jss';
 import { useFormik } from 'formik';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Card, Typography, Button } from '../components';
+import { Card, Typography, Button, TextField } from '../components';
 import { signIn } from '../actions/auth';
 
 export const _SignIn = ({ signIn }) => {
@@ -14,7 +14,6 @@ export const _SignIn = ({ signIn }) => {
       password: '',
     },
     onSubmit: (values) => {
-      console.log(values);
       signIn(values);
     },
   });
@@ -27,8 +26,7 @@ export const _SignIn = ({ signIn }) => {
             Welcome to FitX
           </Typography>
           <form className={classes.form} onSubmit={handleSubmit}>
-            <input
-              className={classes.input}
+            <TextField
               type="email"
               name="email"
               required
@@ -37,8 +35,7 @@ export const _SignIn = ({ signIn }) => {
               value={values.email}
             />
 
-            <input
-              className={classes.input}
+            <TextField
               type="password"
               name="password"
               required
@@ -94,18 +91,6 @@ const styles = (theme) => ({
   },
   form: {
     margin: theme.spacing(4, 0, 2),
-  },
-  input: {
-    width: '100%',
-    marginBottom: theme.spacing(2),
-    padding: theme.spacing(1.5),
-    borderRadius: theme.shapes.radius,
-    border: '1px solid #ccc',
-
-    '&:focus': {
-      borderColor: theme.palette.secondary.main,
-      outline: 'none',
-    },
   },
   options: {
     marginTop: theme.spacing(3),

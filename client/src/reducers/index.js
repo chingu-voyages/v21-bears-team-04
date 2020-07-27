@@ -7,6 +7,7 @@ import followingReducer from "./following";
 import activityCategoriesReducer from "./activityCategories";
 import activitiesReducer from "./activities";
 import commentsReducer from "./comments";
+import likesReducer from "./likes";
 
 export default combineReducers({
   todo: todoReducer,
@@ -16,4 +17,5 @@ export default combineReducers({
   activityCategories: activityCategoriesReducer,
   activities: activitiesReducer,
   comments: commentsReducer,
+  likes: likesReducer,
 });

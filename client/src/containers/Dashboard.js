@@ -7,6 +7,7 @@ import { setFollowings } from "../actions/following";
 import { setActivityCategories } from "../actions/activityCategories";
 import { setActivities } from "../actions/activities";
 import { setComments } from "../actions/comments";
+import { setLikes } from "../actions/likes";
 
 export const Dashboard = ({
   auth: { token },
@@ -15,6 +16,7 @@ export const Dashboard = ({
   setActivityCategories,
   setActivities,
   setComments,
+  setLikes,
 }) => {
   useEffect(() => {
     (async () => {
@@ -34,6 +36,7 @@ export const Dashboard = ({
       setActivities(activities);
       setActivityCategories(activityCategories);
       setComments(comments);
+      setLikes(likes);
       // console.log("users", users);
       // console.log("likes", likes);
       // console.log("comments", comments);
@@ -60,6 +63,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(setActivityCategories(activityCategories)),
     setActivities: (activities) => dispatch(setActivities(activities)),
     setComments: (comments) => dispatch(setComments(comments)),
+    setLikes: (likes) => dispatch(setLikes(likes)),
   };
 };
 

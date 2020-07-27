@@ -2,7 +2,7 @@ import React from 'react';
 // import { connect } from 'react-redux';
 // import { verifyUser } from '../../actions/auth';
 
-import Routes from '../routes';
+import Routes from '../Routes';
 
 const App = () => {
   // Attemp to log user in if they have logged in before

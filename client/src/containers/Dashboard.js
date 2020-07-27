@@ -1,3 +1,4 @@
+
 import React, { useEffect } from "react";
 
 import { connect } from "react-redux";
@@ -18,6 +19,7 @@ export const _Dashboard = ({
   setComments,
   setLikes,
 }) => {
+
   useEffect(() => {
     (async () => {
       const dashboardData = await getDashboard(token);
@@ -44,7 +46,7 @@ export const _Dashboard = ({
       // console.log("following", following);
       // console.log("activityCategories", activityCategories);
     })();
-  }, []);
+  }, [token]);
 
   return <div>Dashboard</div>;
 };
@@ -69,3 +71,4 @@ const mapDispatchToProps = (dispatch) => {
 
 
 export const Dashboard = connect(mapStateToProps, mapDispatchToProps)(_Dashboard);
+

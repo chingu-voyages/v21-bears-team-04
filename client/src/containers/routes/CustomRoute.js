@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
-import { PublicLayout } from '../layout';
+import { PublicLayout, PrivateLayout } from '../layout';
 
 // import {Loader} from './components';
 
@@ -17,7 +17,7 @@ const CustomRoute = (props) => {
   let redirectPath = '';
 
   // Layout for public or private route
-  const Layout = privateRoute ? 'div' : PublicLayout;
+  const Layout = privateRoute ? PrivateLayout : PublicLayout;
 
   // Loading screen when trying to login user in
   // if (isVerifying) return <Loader />;
@@ -48,7 +48,8 @@ const CustomRoute = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    isAuthenticated: state.auth.loggedIn,
+    // isAuthenticated: state.auth.loggedIn,
+    isAuthenticated: true,
     // isVerifying: state.auth.isVerifying
   };
 };

@@ -4,7 +4,7 @@ import ExploreBanner from './Explore/ExploreBanner';
 import SocialBanner from './Social/SocialBanner';
 
 function Homepage() {
-  return (
+  return (x`
     <div className="Homepage">
       <ExploreBanner />
       <GoalsBanner />

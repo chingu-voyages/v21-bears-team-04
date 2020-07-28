@@ -1,14 +1,11 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-import { getDashboard } from '../actions/feed';
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
+import { getDashboard } from "../actions/feed";
 
-export const _Dashboard = ({ auth: { token } }) => {
+export const _Dashboard = ({ auth: { token }, getDashboard }) => {
   useEffect(() => {
-    (async () => {
-      const dashboardData = await getDashboard(token);
-      // set the relevant stuff in redux store, based on dashboardData
-      console.log(dashboardData);
-    })();
+    console.log("token", token);
+    getDashboard(token);
   }, [token]);
 
   return <div>Dashboard</div>;
@@ -20,4 +17,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export const Dashboard = connect(mapStateToProps, {})(_Dashboard);
+export const Dashboard = connect(mapStateToProps, { getDashboard })(_Dashboard);

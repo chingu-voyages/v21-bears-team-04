@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { getDashboard } from "../actions/feed";
+import {Link} from "react-router-dom"
 
 export const _Dashboard = ({ auth: { token }, getDashboard }) => {
   useEffect(() => {
@@ -8,7 +9,16 @@ export const _Dashboard = ({ auth: { token }, getDashboard }) => {
     getDashboard(token);
   }, [token]);
 
-  return <div>Dashboard</div>;
+  return <div>
+  
+  
+  <h1>Dashboard</h1>
+  <Link to="/journal">journal</Link>
+
+  
+  
+  
+  </div>;
 };
 
 const mapStateToProps = (state) => {

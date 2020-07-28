@@ -8,7 +8,7 @@ export const REMOVE_USER = 'REMOVE_USER'
 
 // following reducer
 
-export const SET_FOLLOWING = 'SET_FOLLOWING'
+export const SET_FOLLOWINGS = 'SET_FOLLOWING'
 export const ADD_FOLLOWING = 'ADD_FOLLOWING'
 export const REMOVE_FOLLOWING = 'REMOVE_FOLLOWING' 
 
@@ -39,7 +39,3 @@ export const REMOVE_COMMENT = 'REMOVE_COMMENT'
 export const SET_AUTH_INFO = 'SET_AUTH_INFO';
 export const CLEAR_AUTH_INFO = 'CLEAR_AUTH_INFO';
 export const AUTH_ERROR = 'AUTH_ERROR'
-
-
-
-

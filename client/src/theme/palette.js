@@ -36,6 +36,8 @@ export default {
   },
   background: {
     default: xlightOrange,
+    gradient:
+      'linear-gradient(135deg, rgb(245, 235, 224) 0%, rgb(255, 215, 153) 100%)',
     paper: white,
   },
   action: {

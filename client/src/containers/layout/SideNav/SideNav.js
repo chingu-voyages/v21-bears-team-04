@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { createUseStyles } from 'react-jss';
-import { Typography, Button } from '../../../components';
 import { Link, useHistory } from 'react-router-dom';
 import clsx from 'clsx';
+
+import { Typography, Button, Avatar } from '../../../components';
 
 import { ReactComponent as IcExplore } from './icons/explore.svg';
 import { ReactComponent as IcHome } from './icons/home.svg';
@@ -86,7 +87,7 @@ export const SideNav = () => {
         )}
       </div>
 
-      <div className={classes.container}>
+      <div className={classes.sideNav}>
         <Link to="/dashboard">
           <Typography variant="h5">FitX</Typography>
         </Link>
@@ -105,7 +106,7 @@ export const SideNav = () => {
           ))}
         </nav>
 
-        <div className={classes.avatar}></div>
+        <Avatar />
       </div>
     </header>
   );
@@ -163,7 +164,7 @@ const styles = (theme) => ({
       left: 24,
     },
   },
-  container: {
+  sideNav: {
     display: 'none',
 
     [theme.breakpoints.up('sm')]: {
@@ -198,14 +199,6 @@ const styles = (theme) => ({
     },
   },
   active: {},
-  avatar: {
-    borderRadius: '50%',
-    width: '40px',
-    height: '40px',
-    background: 'url(/images/avatar-default.jpg) no-repeat center',
-    backgroundSize: 'cover',
-    cursor: 'pointer',
-  },
 });
 
 const useStyles = createUseStyles(styles, { name: 'side-nav' });

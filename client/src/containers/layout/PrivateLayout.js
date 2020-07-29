@@ -17,7 +17,7 @@ export const PrivateLayout = ({ children }) => {
 
 const styles = (theme) => ({
   root: {
-    backgroundColor: theme.palette.background.default,
+    background: theme.palette.background.gradient,
     minHeight: '100vh',
   },
   main: {

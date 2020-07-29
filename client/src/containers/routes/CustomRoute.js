@@ -48,8 +48,7 @@ const CustomRoute = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    // isAuthenticated: state.auth.loggedIn,
-    isAuthenticated: true,
+    isAuthenticated: state.auth.loggedIn,
     // isVerifying: state.auth.isVerifying
   };
 };

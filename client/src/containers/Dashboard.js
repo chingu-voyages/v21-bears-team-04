@@ -13,7 +13,7 @@ export const _Dashboard = ({ auth: { token }, getDashboard }) => {
   
   
   <h1>Dashboard</h1>
-  <Link to="/journal">journal</Link>
+  <Link to="/journal">journal Link</Link>
 
   
   
@@ -24,6 +24,7 @@ export const _Dashboard = ({ auth: { token }, getDashboard }) => {
 const mapStateToProps = (state) => {
   return {
     auth: state.auth,
+    
   };
 };
 

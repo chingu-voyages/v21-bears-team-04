@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import JournalDay from "./JournalDay"
+import JournalDay from "./JournalDay";
 import {
   getActivitiesCreatedByUser,
   constructActivities,
@@ -27,20 +28,23 @@ export const _Journal = ({
   };
 
   const renderActivities = (activities, associatedData) => {
-    const activitiesByDay = constructEntriesByDay(activities, associatedData)
-    return activitiesByDay.map(dayActivities => <JournalDay key={Math.random()} activityInfo={dayActivities} />)
-    
-  }
+    const activitiesByDay = constructEntriesByDay(activities, associatedData);
+    return activitiesByDay.map((dayActivities) => (
+      <JournalDay key={Math.random()} activityInfo={dayActivities} />
+    ));
+  };
 
   return (
     <div>
       <h1>Journal</h1>
-
+      <button>
+        <Link to="/add_activity">Add Activity</Link>
+      </button>
       <div>
         <ul>
           {activities &&
             activityCategories &&
-            renderActivities(activities, {categories: activityCategories})}
+            renderActivities(activities, { categories: activityCategories })}
         </ul>
       </div>
     </div>

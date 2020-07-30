@@ -1,24 +1,18 @@
-import React from 'react'
-import { useFormik } from 'formik';
+import React from "react";
+import { useFormik } from "formik";
+import { connect } from "react-redux";
 
-const AddActivity = () => {
+export const _AddActivity = () => {
+  const { handleChange, values, handleSubmit } = useFormik({
+    initialValues: {},
+    onSubmit: (values) => {},
+  });
 
-    const { handleChange, values, handleSubmit } = useFormik({
-        initialValues: {
-         
-        },
-        onSubmit: (values) => {
-          signUp(values);
-        },
-      });
-
-    return <div>
-          <h1>Add Activity</h1>
-          
-
-   
+  return (
+    <div>
+      <h1>Add Activity</h1>
     </div>
+  );
+};
 
-}
-
-export default AddActivity
+export const AddActivity = connect(null, {})(_AddActivity);

@@ -6,33 +6,6 @@ import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import DateTimePickerField from "./DateTimePickerField";
 
-// const DateTimePickerField = ({ field, form, ...other }) => {
-//   const currentError = form.errors[field.name];
-
-//   return (
-//     <MuiPickersUtilsProvider utils={MomentUtils}>
-//       <DateTimePicker
-//         clearable
-//         disablePast
-//         name={field.name}
-//         value={field.value}
-//         format="dd/MM/yyyy"
-//         helperText={currentError}
-//         error={Boolean(currentError)}
-//         onError={(error) => {
-//           // handle as a side effect
-//           if (error !== currentError) {
-//             form.setFieldError(field.name, error);
-//           }
-//         }}
-//         // if you are using custom validation schema you probably want to pass `true` as third argument
-//         onChange={(date) => form.setFieldValue(field.name, date, false)}
-//         {...other}
-//       />
-//     </MuiPickersUtilsProvider>
-//   );
-// };
-
 export const _AddActivity = ({ categories }) => {
   const { handleChange, values, handleSubmit } = useFormik({
     initialValues: { category: categories[0].id, date: new Date() },

@@ -1,32 +1,36 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
+import JournalDay from "./JournalDay"
 import {
   getActivitiesCreatedByUser,
   constructActivities,
   getActivitiesByDay,
-} from "../utils/transformations";
+} from "../../utils/transformations";
 
 export const _Journal = ({
   activities,
   activityCategories,
   auth: { userId, username },
 }) => {
-  const constructActivityEntries = (activities, associatedData) => {
+  const constructEntriesByDay = (activities, associatedData) => {
     const userActivities = getActivitiesCreatedByUser(activities, userId);
     const activitiesWithData = constructActivities(
       userActivities,
       associatedData
     );
-    const activitiesByDay = getActivitiesByDay(activities)
-    console.log("activitiesWithData", activitiesWithData)
+    const activitiesByDay = getActivitiesByDay(activitiesWithData);
 
-    return activitiesWithData.map((activity) => (
-      <li key={Math.random()}>
-        <h3>{activity.title}</h3>
-        <h3>{activity.category.name}</h3>
-      </li>
-    ));
+    const daysArr = Object.values(activitiesByDay).map((day) =>
+      Object.values(day).flat()
+    );
+    return daysArr;
   };
+
+  const renderActivities = (activities, associatedData) => {
+    const activitiesByDay = constructEntriesByDay(activities, associatedData)
+    return activitiesByDay.map(dayActivities => <JournalDay key={Math.random()} activityInfo={dayActivities} />)
+    
+  }
 
   return (
     <div>
@@ -36,9 +40,7 @@ export const _Journal = ({
         <ul>
           {activities &&
             activityCategories &&
-            constructActivityEntries(activities, {
-              categories: activityCategories,
-            })}
+            renderActivities(activities, {categories: activityCategories})}
         </ul>
       </div>
     </div>

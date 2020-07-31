@@ -1,30 +1,14 @@
 import React from "react";
 import { Field, Form, Formik } from "formik";
 import { connect } from "react-redux";
-import Select from "@material-ui/core/Select";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
 import DateTimePickerField from "./DateTimePickerField";
+import CategorySelect from "./CategorySelect";
+import InputLabel from "@material-ui/core/InputLabel";
 
 export const _AddActivity = ({ categories }) => {
-    
-  const onChange = (e) => {
-    const {value} = e.target.value
-    
-  }
-
   const handleSubmit = (values) => {
     console.log("values", values);
   };
-
-  const renderCategoryChoices = (categories) => {
-    return categories.map((category) => (
-      <MenuItem name={category.id} value={category.id}>
-        {category.name}
-      </MenuItem>
-    ));
-  };
-
 
   return (
     <div>
@@ -38,15 +22,13 @@ export const _AddActivity = ({ categories }) => {
         }}
       >
         <Form>
-          {/* <InputLabel id="activity-category">Activity</InputLabel>
-          <Select
-            labelId="activity-category"
-            id="activity-category-select"
+          <InputLabel id="activity-category">Activity</InputLabel>
+          <Field
             name="category"
-          >
-            {renderCategoryChoices(categories)}
-          </Select> */}
-
+            component={(props) => (
+              <CategorySelect categories={categories} {...props} />
+            )}
+          />
           <InputLabel id="activity-start">Start</InputLabel>
           <Field name="start" component={DateTimePickerField} />
           <InputLabel id="activity-end">Ending</InputLabel>

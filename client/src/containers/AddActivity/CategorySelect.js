@@ -5,7 +5,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 const ActivitySelect = ({ field, form, categories }) => {
   const renderCategoryChoices = (categories) => {
     return categories.map((category) => (
-      <MenuItem name={category.id} value={category.id}>
+      <MenuItem key={Math.random()} name={category.id} value={category.id}>
         {category.name}
       </MenuItem>
     ));

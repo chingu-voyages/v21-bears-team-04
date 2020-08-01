@@ -1,9 +1,15 @@
 import React from 'react';
 
-import { BrowserRouter, Switch } from 'react-router-dom';
+import { BrowserRouter, Switch, useHistory } from 'react-router-dom';
 import Route from './CustomRoute';
 
 import { Homepage, SignIn, SignUp, Dashboard, Journal, AddActivity } from '..';
+
+const DummyComponent = () => {
+  const { location } = useHistory();
+
+  return <div>{location.pathname}</div>;
+};
 
 const Routes = () => {
   return (
@@ -15,6 +21,14 @@ const Routes = () => {
         <Route path="/dashboard" exact component={Dashboard} privateRoute />
         <Route path="/journal" exact component={Journal} privateRoute />
         <Route path="/add_activity" exact component={AddActivity} privateRoute />
+        <Route path="/explore" exact component={DummyComponent} privateRoute />
+        <Route
+          path="/notification"
+          exact
+          component={DummyComponent}
+          privateRoute
+        />
+        <Route path="/settings" exact component={DummyComponent} privateRoute />
       </Switch>
     </BrowserRouter>
   );

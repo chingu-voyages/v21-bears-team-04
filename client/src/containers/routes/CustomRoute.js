@@ -23,7 +23,7 @@ const CustomRoute = (props) => {
   // if (isVerifying) return <Loader />;
 
   // Route non-user to sign in page
-  // if (!isAuthenticated && privateRoute) redirectPath = '/signin';
+  if (!isAuthenticated && privateRoute) redirectPath = '/signin';
 
   // Route user from authentication routes to private route
   if (isAuthenticated && !privateRoute) redirectPath = '/dashboard';

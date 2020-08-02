@@ -77,7 +77,10 @@ export const styles = (theme) => ({
 
     '& > div': {
       margin: theme.spacing(4, 0),
-    }}
+    }},
+  header: {
+    marginBottom: '15px',
+  }
 });
 
 const useStyles = createUseStyles(styles, { name: 'journal' });

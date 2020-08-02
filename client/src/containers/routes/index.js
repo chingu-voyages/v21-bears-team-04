@@ -3,7 +3,7 @@ import React from 'react';
 import { BrowserRouter, Switch, useHistory } from 'react-router-dom';
 import Route from './CustomRoute';
 
-import { Homepage, SignIn, SignUp, Dashboard, Journal, AddActivity, Blog, Pricing, About, Contacts, Privacy } from '..';
+import { Homepage, SignIn, SignUp, Dashboard, Journal, AddActivity, Blog, Pricing, About, Contacts, Privacy, Settings } from '..';
 
 const DummyComponent = () => {
   const { location } = useHistory();
@@ -22,6 +22,7 @@ const Routes = () => {
         <Route path="/journal" exact component={Journal} privateRoute />
         <Route path="/add_activity" exact component={AddActivity} privateRoute />
         <Route path="/explore" exact component={DummyComponent} privateRoute />
+        <Route path="/settings" exact component={Settings} privateRoute />
         <Route path="/blog" exact component={Blog}/>
         <Route path="/pricing" exact component={Pricing}/>
         <Route path="/about" exact component={About}/>

@@ -7,19 +7,19 @@ const photos = [
     icon: '/images/diary.png',
     title: 'Track Your Progress',
     description:
-      'Ut enim adminim veniam, quis nostrud exercitation ullamco laboris nisi utaliquip ex ea commodo consequat.',
+      'Save your workout details so that you can track your fitness progress over time.',
   },
   {
     icon: '/images/passion.png',
     title: 'Connect With Others',
     description:
-      'Ut enim adminim veniam, quis nostrud exercitation ullamco laboris nisi utaliquip ex ea commodo consequat.',
+      'Explore what other FitX users are doing to stay healthy and fit!',
   },
   {
     icon: '/images/shoe.png',
     title: 'Stay Motivated',
     description:
-      'Ut enim adminim veniam, quis nostrud exercitation ullamco laboris nisi utaliquip ex ea commodo consequat.',
+      'Build FitX into your workout routine to motivate you and create accountability.',
   },
 ];
 

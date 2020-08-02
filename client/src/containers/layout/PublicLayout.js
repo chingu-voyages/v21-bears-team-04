@@ -1,6 +1,6 @@
 import React from 'react';
 import { createUseStyles } from 'react-jss';
-import { Footer } from './Footer';
+import { Footer } from './Footer/Footer';
 import { Nav } from './Nav';
 
 export const PublicLayout = ({ children }) => {

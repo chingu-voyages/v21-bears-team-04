@@ -74,7 +74,6 @@ const styles = (theme) => ({
       color: 'white',
       display: 'none',
       padding: '5px',
-      textAlign: 'center',
     },
     '&:hover': {
       '& #caption': {

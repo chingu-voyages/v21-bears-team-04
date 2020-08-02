@@ -15,14 +15,11 @@ export const ExploreBanner = () => {
         <Typography variant="h3">Fitness starts with not just you</Typography>
 
         <Typography>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat.
+          FitX is a social fitness app that is designed to motivate you to stay fit and expand your fitness community. At FitX, we believe that you can level up your fitness by tracking your workouts and sharing your fitness progress with others!
         </Typography>
 
         <Button variant="contained" color="secondary">
-          Explore
+         <a href='#SocialBanner'>Explore</a> 
         </Button>
       </div>
     </section>

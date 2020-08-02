@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import JournalEntryDetail from "./JournalEntryDetail";
+import { Button } from '../../components';
+
 
 const JournalEntry = ({ activity }) => {
   const [showDetails, setShowDetails] = useState(false);
@@ -13,9 +15,9 @@ const JournalEntry = ({ activity }) => {
     <li>
       {activity.title}
 
-      <button onClick={toggleShowDetails}>
+      <Button variant="contained" color="secondary" onClick={toggleShowDetails}>
         {showDetails ? "Hide Details" : "Show Details"}
-      </button>
+      </Button>
 
       {showDetails && <JournalEntryDetail activity={activity} />}
     </li>

@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import { connect } from "react-redux";
 import JournalCommentBox from "./JournalCommentBox"
+import { Typography, Button } from '../../components';
 
 const JournalEntryDetail = ({ activity }) => {
 
@@ -17,9 +18,9 @@ const JournalEntryDetail = ({ activity }) => {
 
     return (
     <div>
-      <h3>Details for Activity {activity.id}</h3>
+      <Typography variant='h3'>Details for Activity {activity.id}</Typography>
 
-       <button onClick={handleDelete}>delete this activity</button>
+       <Button variant="contained" color="secondary" onClick={handleDelete}>delete this activity</Button>
        {activity.comments && activity.comments.length >= 0 && (<button onClick={toggleComments}>{showComments ? 'Hide Comments': 'Show Comments'}</button>)}
        {showComments && <JournalCommentBox comments={activity.comments} />}
     </div>

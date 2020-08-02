@@ -2,17 +2,23 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import JournalDay from "./JournalDay";
+import { createUseStyles } from 'react-jss';
+import { Typography, Button } from '../../components';
+
+
 import {
   getActivitiesCreatedByUser,
   constructActivities,
   getActivitiesByDay,
 } from "../../utils/transformations";
+import { findByLabelText } from "@testing-library/react";
 
 export const _Journal = ({
   activities,
   activityCategories,
   auth: { userId, username },
 }) => {
+  const classes = useStyles();
   const constructEntriesByDay = (activities, associatedData) => {
     const userActivities = getActivitiesCreatedByUser(activities, userId);
     const activitiesWithData = constructActivities(
@@ -35,11 +41,11 @@ export const _Journal = ({
   };
 
   return (
-    <div>
-      <h1>Journal</h1>
-      <button>
+    <div className={classes.root}>
+      <Typography variant="h1" className={classes.header}>Journal</Typography>
+      <Button variant="contained" color="secondary">
         <Link to="/add_activity">Add Activity</Link>
-      </button>
+      </Button>
       <div>
         <ul>
           {activities &&
@@ -60,3 +66,18 @@ const mapStateToProps = (state) => {
 };
 
 export const Journal = connect(mapStateToProps, {})(_Journal);
+
+export const styles = (theme) => ({
+  root: {
+    margin: theme.spacing(4, 0),
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+
+    '& > div': {
+      margin: theme.spacing(4, 0),
+    }}
+});
+
+const useStyles = createUseStyles(styles, { name: 'journal' });

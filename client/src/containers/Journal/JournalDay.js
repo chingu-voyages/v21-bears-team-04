@@ -1,5 +1,7 @@
 import React from "react";
 import JournalEntry from './JournalEntry'
+import { Typography } from '../../components';
+
 
 const JournalDay = ({ activityInfo }) => {
   console.log("journalDayActivities", activityInfo);
@@ -11,7 +13,7 @@ const JournalDay = ({ activityInfo }) => {
 
   return (
     <li>
-      <h2>{dayHeading}</h2>
+      <Typography variant='h2'>{dayHeading}</Typography>
       <ul>
          {activities.map(activity => <JournalEntry key={Math.random()} activity={activity} />)} 
       </ul>

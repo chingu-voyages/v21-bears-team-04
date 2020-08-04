@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const createActivity = (token, activity) => {
+export const createActivity = (activity, token) => {
   const endpoint = "/api/activities";
 
   // add token if its passed into function

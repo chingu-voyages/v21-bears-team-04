@@ -1,4 +1,5 @@
 import { ADD_ACTIVITY, REMOVE_ACTIVITY, SET_ACTIVITIES } from "./types";
+import api from "../services";
 
 export const setActivities = (activities) => {
   return {
@@ -19,4 +20,14 @@ export const removeActivity = (activityId) => {
     type: REMOVE_ACTIVITY,
     payload: activityId,
   };
+};
+
+export const createAndAddActivity = (activity, token) => async (dispatch) => {
+  try {
+    const createActivityResponse = await api.createActivity(activity, token);
+    const { activity } = createActivityResponse.data;
+    dispatch(addActivity(activity));
+  } catch (err) {
+    console.log(err);
+  }
 };

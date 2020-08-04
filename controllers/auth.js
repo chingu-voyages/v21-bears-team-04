@@ -1,3 +1,4 @@
+// require('dotenv').config()
 const User = require('../models/User');
 const auth = require('../services/auth');
 

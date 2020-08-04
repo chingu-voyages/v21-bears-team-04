@@ -4,9 +4,11 @@ import { connect } from "react-redux";
 import DateTimePickerField from "./DateTimePickerField";
 import CategorySelect from "./CategorySelect";
 import InputLabel from "@material-ui/core/InputLabel";
-import { Typography, Button, TextField } from "../../components";
+import { Typography, Button } from "../../components";
 import TitleTextField from "./TitleTextField";
 import StepsField from "./StepsField";
+import DistanceField from "./DistanceField";
+import CaloriesField from "./CaloriesField";
 
 export const _AddActivity = ({ categories }) => {
   const handleSubmit = (values) => {
@@ -36,7 +38,6 @@ export const _AddActivity = ({ categories }) => {
       <Formik onSubmit={handleSubmit} initialValues={initialValues}>
         {(props) => (
           <Form>
-            {console.log("props values", props.values)}
             <InputLabel id="activity-category">Activity</InputLabel>
             <Field
               name="category"
@@ -67,21 +68,7 @@ export const _AddActivity = ({ categories }) => {
             ) && (
               <>
                 <InputLabel id="title">Calories</InputLabel>
-                <Field
-                  name="calories"
-                  component={(props) => {
-                    return (
-                      <TextField
-                        type="number"
-                        name="calories"
-                        required
-                        min={0}
-                        onChange={props.field.onChange}
-                        value={props.field.value}
-                      />
-                    );
-                  }}
-                />
+                <Field name="calories" component={CaloriesField} />
               </>
             )}
             {displayNumericField(
@@ -91,22 +78,7 @@ export const _AddActivity = ({ categories }) => {
             ) && (
               <>
                 <InputLabel id="distance">Distance</InputLabel>
-                <Field
-                  name="distance"
-                  component={(props) => {
-                    return (
-                      <TextField
-                        type="number"
-                        name="distance"
-                        required
-                        step="0.01"
-                        min="0"
-                        onChange={props.field.onChange}
-                        value={props.field.value}
-                      />
-                    );
-                  }}
-                />
+                <Field name="distance" component={DistanceField} />
               </>
             )}
             <Button

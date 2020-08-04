@@ -1,16 +1,16 @@
 import React from "react";
 import { TextField } from "../../components";
 
-const TitleTextField = ({ field }) => {
+const CaloriesField = ({ field }) => {
   return (
     <TextField
-      type="text"
-      name={field.name}
-      value={field.value}
+      type="number"
+      name="calories"
+      min={0}
       onChange={field.onChange}
-      required
+      value={field.value}
     />
   );
 };
 
-export default TitleTextField;
+export default CaloriesField;

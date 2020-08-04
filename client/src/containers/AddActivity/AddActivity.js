@@ -5,6 +5,8 @@ import DateTimePickerField from "./DateTimePickerField";
 import CategorySelect from "./CategorySelect";
 import InputLabel from "@material-ui/core/InputLabel";
 import { Typography, Button, TextField } from "../../components";
+import TitleTextField from "./TitleTextField";
+import StepsField from "./StepsField";
 
 export const _AddActivity = ({ categories }) => {
   const handleSubmit = (values) => {
@@ -47,42 +49,15 @@ export const _AddActivity = ({ categories }) => {
             <InputLabel id="end">Ending</InputLabel>
             <Field name="end" component={DateTimePickerField} />
             <InputLabel id="title">Title</InputLabel>
-            <Field
-              name="title"
-              component={(props) => {
-                return (
-                  <TextField
-                    type="text"
-                    name="title"
-                    required
-                    onChange={props.field.onChange}
-                    value={props.field.value}
-                  />
-                );
-              }}
-            />
+            <Field name="title" component={TitleTextField} />
             {displayNumericField(
               categories,
               props.values.category,
               "steps"
             ) && (
               <>
-                <InputLabel id="title">Steps</InputLabel>
-                <Field
-                  name="steps"
-                  component={(props) => {
-                    return (
-                      <TextField
-                        type="number"
-                        name="steps"
-                        required
-                        min={0}
-                        onChange={props.field.onChange}
-                        value={props.field.value}
-                      />
-                    );
-                  }}
-                />
+                <InputLabel id="steps">Steps</InputLabel>
+                <Field name="steps" component={StepsField} />
               </>
             )}
             {displayNumericField(

@@ -99,6 +99,7 @@ class DBbase {
   static async in(columnName, values) {
     // retrieves all records from this table where column_name IN ($1, $2, etc)
     // example of query, after value substitution:   SELECT * FROM users WHERE id IN (1, 2, 4)
+    if (values.length === 0) return []; // need at least one value to query db
     if (!this.validColumnNames.includes(columnName))
       throw new Error("invalid col_name");
     const valuePlaceholders = this.createValuePlaceholderString(values.length);

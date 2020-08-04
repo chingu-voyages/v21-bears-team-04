@@ -41,18 +41,22 @@ const getDashboardActivities = async (userId) => {
 };
 
 const getDashboardComments = async (activitiesIds) => {
+  if (activitiesIds.length === 0) return [];
   const comments = await Comment.in("resource_id", activitiesIds);
   return comments;
 };
 
 const getDashboardLikes = async (activitiesIds) => {
+  if (activitiesIds.length === 0) return [];
+
   const likes = await Like.in("resource_id", activitiesIds);
-  
+
   return likes;
 };
 
 const get = async (req, res) => {
   const userId = req.user.id;
+
   // userIds being followed by this user
   const followingIds = await getFollowingUserIds(userId);
   console.log("following ids", followingIds);
@@ -64,13 +68,14 @@ const get = async (req, res) => {
   // activities
   const activities = await getDashboardActivities(userId);
   const activitiesIds = activities.map((activity) => activity.id);
-  console.log("activitiesIds", activitiesIds)
+  console.log("activitiesIds", activitiesIds);
   const activityCategories = await ActivityCategory.all();
   // comments and likes for those activities
-   const likes = await getDashboardLikes(activitiesIds);
-  console.log("likes", likes)
+
+  const likes = await getDashboardLikes(activitiesIds);
+  console.log("likes", likes);
   const comments = await getDashboardComments(activitiesIds);
-  console.log("comments", comments)
+  console.log("comments", comments);
 
   res.json({
     users: dashboardUsers,

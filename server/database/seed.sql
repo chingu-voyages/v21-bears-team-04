@@ -31,7 +31,9 @@ VALUES
 INSERT INTO activity_categories
     (name, use_distance, use_calories, use_steps)
 VALUES
-    ('Running', true, true, true);
+    ('Running', true, true, true),
+    ('Hiking', true, true, true),
+    ('Walking', true, true, true);
 
 
 INSERT INTO activities

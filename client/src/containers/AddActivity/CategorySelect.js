@@ -14,10 +14,13 @@ const ActivitySelect = ({ field, form, categories }) => {
   return (
     <Select
       labelId="activity-category"
-      id="activity-category-select"
+      required
       name={field.name}
       value={field.value}
-      onChange={(category) => form.setFieldValue(field.name, category, false)}
+      onChange={(category) => {
+        console.log("category", category);
+        form.setFieldValue(field.name, category.target.value, false);
+      }}
     >
       {renderCategoryChoices(categories)}
     </Select>

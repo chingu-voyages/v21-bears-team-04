@@ -10,6 +10,7 @@ const DateTimePickerField = ({ field, form, ...other }) => {
       <DateTimePicker
         clearable
         disablePast
+        required
         name={field.name}
         value={field.value}
         format="MMMM Do h:mm a"
@@ -20,7 +21,10 @@ const DateTimePickerField = ({ field, form, ...other }) => {
             form.setFieldError(field.name, error);
           }
         }}
-        onChange={(date) => form.setFieldValue(field.name, date, false)}
+        onChange={(date) => {
+          console.log("date onChange", date);
+          form.setFieldValue(field.name, date, false);
+        }}
         {...other}
       />
     </MuiPickersUtilsProvider>

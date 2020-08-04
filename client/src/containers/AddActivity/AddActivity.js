@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import DateTimePickerField from "./DateTimePickerField";
 import CategorySelect from "./CategorySelect";
 import InputLabel from "@material-ui/core/InputLabel";
+import { Typography, Button, TextField } from "../../components";
 
 export const _AddActivity = ({ categories }) => {
   const handleSubmit = (values) => {
@@ -12,13 +13,14 @@ export const _AddActivity = ({ categories }) => {
 
   return (
     <div>
-      <h1>Add Activity</h1>
+      <Typography variant="h1">Add Activity</Typography>
       <Formik
         onSubmit={handleSubmit}
         initialValues={{
           category: categories[0].id,
           start: new Date(),
           end: new Date(),
+          title: "",
         }}
       >
         <Form>
@@ -29,10 +31,29 @@ export const _AddActivity = ({ categories }) => {
               <CategorySelect categories={categories} {...props} />
             )}
           />
-          <InputLabel id="activity-start">Start</InputLabel>
+          <InputLabel id="start">Start</InputLabel>
           <Field name="start" component={DateTimePickerField} />
-          <InputLabel id="activity-end">Ending</InputLabel>
+          <InputLabel id="end">Ending</InputLabel>
           <Field name="end" component={DateTimePickerField} />
+          <InputLabel id="title">Title</InputLabel>
+          <Field
+            name="title"
+            component={(props) => {
+              console.log("Formik props", props);
+              return (
+                <TextField
+                  type="text"
+                  name="title"
+                  required
+                  onChange={props.field.onChange}
+                  value={props.field.value}
+                />
+              );
+            }}
+          />
+          <Button variant="contained" color="secondary" fullWidth type="submit">
+            Submit
+          </Button>
         </Form>
       </Formik>
     </div>

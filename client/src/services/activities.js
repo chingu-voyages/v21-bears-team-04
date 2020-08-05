@@ -9,9 +9,9 @@ export const createActivity = (activity, token) => {
   if (token) {
     headers["Authorization"] = `Bearer ${token}`;
   }
+  console.log("headers", headers)
 
   return axios.post(endpoint, {
-    headers: headers,
     data: activity,
-  });
-};
+  },  {headers: headers});
+};  

@@ -9,10 +9,19 @@ import TitleTextField from "./TitleTextField";
 import StepsField from "./StepsField";
 import DistanceField from "./DistanceField";
 import CaloriesField from "./CaloriesField";
+import { createAndAddActivity } from "../../actions/activities";
 
-export const _AddActivity = ({ categories }) => {
-  const handleSubmit = (values) => {
-    console.log("values", values);
+export const _AddActivity = ({ categories, auth, createAndAddActivity }) => {
+  const validValues = () => {
+    return true;
+  };
+
+  const handleSubmit = (activityValues) => {
+    if (validValues) {
+      console.log(activityValues);
+      console.log(auth.token)
+      createAndAddActivity(activityValues, auth.token);
+    }
   };
 
   const initialValues = {
@@ -97,7 +106,9 @@ export const _AddActivity = ({ categories }) => {
 };
 
 const mapStateToProps = (state) => {
-  return { categories: state.activityCategories };
+  return { categories: state.activityCategories, auth: state.auth };
 };
 
-export const AddActivity = connect(mapStateToProps, {})(_AddActivity);
+export const AddActivity = connect(mapStateToProps, { createAndAddActivity })(
+  _AddActivity
+);

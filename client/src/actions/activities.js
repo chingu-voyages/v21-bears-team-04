@@ -38,3 +38,14 @@ export const createAndAddActivity = (newActivity, history, token) => async (
     console.log(err);
   }
 };
+
+export const deleteAndRemoveActivity = (activityId, token) => async (
+  dispatch
+) => {
+  try {
+    await api.activities.deleteActivity(activityId, token);
+    dispatch(removeActivity(activityId));
+  } catch (err) {
+    console.log(err);
+  }
+};

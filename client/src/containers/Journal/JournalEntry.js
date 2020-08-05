@@ -1,19 +1,28 @@
 import React, { useState } from "react";
 import JournalEntryDetail from "./JournalEntryDetail";
-import { Button } from '../../components';
+import { Button, Typography } from "../../components";
+import moment from "moment";
+import { constructDurationStr } from "../../utils/transformations";
 
-
-const JournalEntry = ({ activity }) => {
+const JournalEntry = ({ activityInfo }) => {
   const [showDetails, setShowDetails] = useState(false);
 
   const toggleShowDetails = () => {
     setShowDetails(!showDetails);
   };
+  console.log("activityInfo", activityInfo);
+  const { activity, momentActivity } = activityInfo;
+  //console.log("activity", activity);
+  const startingMoment = moment.utc(activity.start);
 
-  console.log("Activity.title", activity);
+  // console.log("", activity);
   return (
     <li>
-      {activity.title}
+      <Typography variant="h6">{momentActivity.format("h:mm a")}</Typography>
+      <Typography variant="h3">{activity.title}</Typography>
+      <Typography variant="h6">
+        {constructDurationStr(startingMoment, momentActivity)}
+      </Typography>
 
       <Button variant="contained" color="secondary" onClick={toggleShowDetails}>
         {showDetails ? "Hide Details" : "Show Details"}

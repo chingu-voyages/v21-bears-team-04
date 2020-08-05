@@ -13,7 +13,7 @@ const getTokenFromHeader = (req) => {
 // Ends request cycle if no JWT or bad JWT
 const isAuth = (req, res, next) => {
   // Supports cookies or Authorization header
-  console.log("req.headers.authorization", req.headers)
+  console.log("req.headers.authorization", req.headers);
   const token = req.cookies.jwt || getTokenFromHeader(req); //
   console.log("token isAuth", token);
   // Go on to next middleware if no token
@@ -39,7 +39,7 @@ const isAuth = (req, res, next) => {
     username: userInfo.username,
   };
   req.user = user;
-  console.log("user isAuth", user);
+  //console.log("user isAuth", user);
   return next();
 };
 

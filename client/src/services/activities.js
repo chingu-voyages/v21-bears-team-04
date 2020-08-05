@@ -9,11 +9,15 @@ export const createActivity = (activity, token) => {
   if (token) {
     headers["Authorization"] = `Bearer ${token}`;
   }
-  console.log("headers", headers)
+  console.log("headers", headers);
 
-  return axios.post(endpoint, {
-    data: activity,
-  },  {headers: headers});
+  return axios.post(
+    endpoint,
+    {
+      data: activity,
+    },
+    { headers: headers }
+  );
 };
 
 export const deleteActivity = (activityId, token) => {
@@ -25,9 +29,10 @@ export const deleteActivity = (activityId, token) => {
   if (token) {
     headers["Authorization"] = `Bearer ${token}`;
   }
-  console.log("headers", headers)
+  console.log("headers", headers);
 
   return axios.delete(endpoint, {
-    data: activityId,
-  },  {headers: headers});
-}; 
+    data: { activityId: activityId },
+    headers: headers,
+  });
+};

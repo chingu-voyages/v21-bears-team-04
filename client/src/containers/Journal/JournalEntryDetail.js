@@ -4,11 +4,11 @@ import JournalCommentBox from "./JournalCommentBox";
 import { Typography, Button } from "../../components";
 import { deleteAndRemoveActivity } from "../../actions/activities";
 
-const JournalEntryDetail = ({ activity, deleteAndRemoveActivity }) => {
+const JournalEntryDetail = ({ activity, deleteAndRemoveActivity, token }) => {
   const [showComments, setShowComments] = useState(false);
 
   const handleDelete = () => {
-      deleteAndRemoveActivity(activity.id)
+    deleteAndRemoveActivity(activity.id, token);
   };
 
   const toggleComments = () => {
@@ -46,4 +46,12 @@ const JournalEntryDetail = ({ activity, deleteAndRemoveActivity }) => {
   );
 };
 
-export default connect(null, {deleteAndRemoveActivity})(JournalEntryDetail);
+const mapStateToProps = (state) => {
+  return {
+    token: state.auth.token,
+  };
+};
+
+export default connect(mapStateToProps, { deleteAndRemoveActivity })(
+  JournalEntryDetail
+);

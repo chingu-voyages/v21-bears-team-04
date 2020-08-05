@@ -24,9 +24,26 @@ const getAll = async (req, res) => {
   }
 };
 
+const destroy = async (req, res) => {
+  try {
+    console.log("req", req);
+    const { activityId } = req.body;
+    const activity = await Activity.find(activityId);
+    const userId = req.user.id;
+    if (activity.user_id === userId) {
+      await activity.delete();
+      res.status(204).send();
+    } else
+      throw new Error("user doesnt have permission to delete this activity");
+  } catch (err) {
+    console.log("error:", err);
+    res.status(500).json(err);
+  }
+};
+
 const create = async (req, res) => {
   // create an activity
-  //console.log("req.body.data", req.body.data);
+
   try {
     const {
       title,
@@ -68,4 +85,5 @@ module.exports = {
   get,
   getAll,
   create,
+  destroy,
 };

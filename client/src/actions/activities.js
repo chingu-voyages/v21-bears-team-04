@@ -43,6 +43,7 @@ export const deleteAndRemoveActivity = (activityId, token) => async (
   dispatch
 ) => {
   try {
+    console.log("here is a token", token);
     await api.activities.deleteActivity(activityId, token);
     dispatch(removeActivity(activityId));
   } catch (err) {

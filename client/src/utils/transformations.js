@@ -66,7 +66,7 @@ export const getActivitiesByDay = (activities) => {
   // the assumption here is that timestamps come from backend ordered by timestamp Descending (most recent first)
 
   const activityStartsAsMoments = activities.map((activity) =>
-    moment.utc(activity.start)
+    moment(moment.utc(activity.ending)).local()
   );
 
   const journalActivitiesByYear = {};
@@ -78,6 +78,7 @@ export const getActivitiesByDay = (activities) => {
     momentActivity = activityStartsAsMoments[i];
     year = momentActivity.year();
     dayOfYear = momentActivity.dayOfYear();
+    // console.log("dayOfYear", dayOfYear)
     dateAndActivityRecord = {
       activity: activities[i],
       momentActivity: activityStartsAsMoments[i],
@@ -87,6 +88,7 @@ export const getActivitiesByDay = (activities) => {
         [dayOfYear]: [dateAndActivityRecord],
       };
     else if (!(dayOfYear in journalActivitiesByYear[year])) {
+      // console.log("!(dayOfYear in journalActivitiesByYear[year])", dayOfYear);
       journalActivitiesByYear[year][dayOfYear] = [dateAndActivityRecord];
     } else {
       // dayOfYear exists, so just need to push data for current activity into it
@@ -94,6 +96,24 @@ export const getActivitiesByDay = (activities) => {
     }
   }
 
-  console.log(journalActivitiesByYear);
+  //console.log("journalActivitiesByYear", journalActivitiesByYear);
   return journalActivitiesByYear;
+};
+
+export const constructDurationStr = (startingMoment, endingMoment) => {
+  let durationStr;
+  const duration = moment.duration(endingMoment.diff(startingMoment));
+  let durationHours = Number(Number(duration.asHours()).toFixed(2));
+  const durationMinutes = Math.round(durationHours % 60);
+  durationHours = Math.floor(durationHours);
+  if (durationHours > 0) {
+    if (durationMinutes > 0) {
+      durationStr = `${durationHours}h ${durationMinutes}m`;
+    } else {
+      durationStr = `${durationHours}h`;
+    }
+  } else {
+    durationStr = `${durationMinutes}m`;
+  }
+  return durationStr;
 };

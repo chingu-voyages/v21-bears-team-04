@@ -22,11 +22,30 @@ export const removeActivity = (activityId) => {
   };
 };
 
-export const createAndAddActivity = (activity, token) => async (dispatch) => {
+export const createAndAddActivity = (newActivity, history, token) => async (
+  dispatch
+) => {
   try {
-    const createActivityResponse = await api.createActivity(activity, token);
+    const createActivityResponse = await api.activities.createActivity(
+      newActivity,
+      token
+    );
     const { activity } = createActivityResponse.data;
+
     dispatch(addActivity(activity));
+    history.push("/journal");
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const deleteAndRemoveActivity = (activityId, token) => async (
+  dispatch
+) => {
+  try {
+    console.log("here is a token", token);
+    await api.activities.deleteActivity(activityId, token);
+    dispatch(removeActivity(activityId));
   } catch (err) {
     console.log(err);
   }

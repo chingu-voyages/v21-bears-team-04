@@ -66,7 +66,7 @@ export const getActivitiesByDay = (activities) => {
   // the assumption here is that timestamps come from backend ordered by timestamp Descending (most recent first)
 
   const activityStartsAsMoments = activities.map((activity) =>
-    moment.utc(activity.start)
+    moment.utc(activity.ending)
   );
 
   const journalActivitiesByYear = {};
@@ -78,6 +78,7 @@ export const getActivitiesByDay = (activities) => {
     momentActivity = activityStartsAsMoments[i];
     year = momentActivity.year();
     dayOfYear = momentActivity.dayOfYear();
+    // console.log("dayOfYear", dayOfYear)
     dateAndActivityRecord = {
       activity: activities[i],
       momentActivity: activityStartsAsMoments[i],
@@ -87,13 +88,15 @@ export const getActivitiesByDay = (activities) => {
         [dayOfYear]: [dateAndActivityRecord],
       };
     else if (!(dayOfYear in journalActivitiesByYear[year])) {
+     // console.log("!(dayOfYear in journalActivitiesByYear[year])", dayOfYear);
       journalActivitiesByYear[year][dayOfYear] = [dateAndActivityRecord];
+    
     } else {
       // dayOfYear exists, so just need to push data for current activity into it
       journalActivitiesByYear[year][dayOfYear].push(dateAndActivityRecord);
     }
   }
 
-  console.log(journalActivitiesByYear);
+  //console.log("journalActivitiesByYear", journalActivitiesByYear);
   return journalActivitiesByYear;
 };

@@ -2,9 +2,8 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import JournalDay from "./JournalDay";
-import { createUseStyles } from 'react-jss';
-import { Typography, Button } from '../../components';
-
+import { createUseStyles } from "react-jss";
+import { Typography, Button } from "../../components";
 
 import {
   getActivitiesCreatedByUser,
@@ -27,14 +26,18 @@ export const _Journal = ({
     );
     const activitiesByDay = getActivitiesByDay(activitiesWithData);
 
-    const daysArr = Object.values(activitiesByDay).map((day) =>
-      Object.values(day).flat()
-    );
+    const daysArr = Object.keys(activitiesByDay)
+      .map(
+        (year) => Object.values(activitiesByDay[year]) // [{15: [entry, entry], 17: [entry]}, {14: [entry]} ]
+      )
+      .flat();
+    console.log(daysArr);
     return daysArr;
   };
 
   const renderActivities = (activities, associatedData) => {
     const activitiesByDay = constructEntriesByDay(activities, associatedData);
+    // console.log("activitiesByDay", activitiesByDay);
     return activitiesByDay.map((dayActivities) => (
       <JournalDay key={Math.random()} activityInfo={dayActivities} />
     ));
@@ -42,7 +45,9 @@ export const _Journal = ({
 
   return (
     <div className={classes.root}>
-      <Typography variant="h1" className={classes.header}>Journal</Typography>
+      <Typography variant="h1" className={classes.header}>
+        Journal
+      </Typography>
       <Button variant="contained" color="secondary">
         <Link to="/add_activity">Add Activity</Link>
       </Button>
@@ -70,17 +75,18 @@ export const Journal = connect(mapStateToProps, {})(_Journal);
 export const styles = (theme) => ({
   root: {
     margin: theme.spacing(4, 0),
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
 
-    '& > div': {
+    "& > div": {
       margin: theme.spacing(4, 0),
-    }},
+    },
+  },
   header: {
-    marginBottom: '15px',
-  }
+    marginBottom: "15px",
+  },
 });
 
-const useStyles = createUseStyles(styles, { name: 'journal' });
+const useStyles = createUseStyles(styles, { name: "journal" });

@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import JournalCommentBox from "./JournalCommentBox";
 import { Typography, Button } from "../../components";
+import { deleteAndRemoveActivity } from "../../actions/activities";
 
-const JournalEntryDetail = ({ activity }) => {
+const JournalEntryDetail = ({ activity, deleteAndRemoveActivity }) => {
   const [showComments, setShowComments] = useState(false);
 
   const handleDelete = () => {
-    console.log("call redux removeActivity");
+      deleteAndRemoveActivity(activity.id)
   };
 
   const toggleComments = () => {
@@ -45,4 +46,4 @@ const JournalEntryDetail = ({ activity }) => {
   );
 };
 
-export default connect(null, {})(JournalEntryDetail);
+export default connect(null, {deleteAndRemoveActivity})(JournalEntryDetail);

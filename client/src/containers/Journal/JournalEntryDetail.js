@@ -1,28 +1,46 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
-import JournalCommentBox from "./JournalCommentBox"
-import { Typography, Button } from '../../components';
+import JournalCommentBox from "./JournalCommentBox";
+import { Typography, Button } from "../../components";
 
 const JournalEntryDetail = ({ activity }) => {
+  const [showComments, setShowComments] = useState(false);
 
-    const [showComments, setShowComments] = useState(false)
-    
+  const handleDelete = () => {
+    console.log("call redux removeActivity");
+  };
 
-    const handleDelete = () => {
-        console.log("call redux removeActivity")
-    }
+  const toggleComments = () => {
+    setShowComments(!showComments);
+  };
 
-    const toggleComments = () => {
-         setShowComments(!showComments)
-    }
-
-    return (
+  console.log("activity", activity);
+  return (
     <div>
-      <Typography variant='h3'>Details for Activity {activity.id}</Typography>
+      <div>
+        <Typography variant="h6">
+          Activity Type: {activity.category.name}
+        </Typography>
+        {activity.calories && (
+          <Typography variant="h6">Calories: {activity.calories}</Typography>
+        )}
+        {activity.distance && (
+          <Typography variant="h6">Distance: {activity.distance}</Typography>
+        )}
+        {activity.steps && (
+          <Typography variant="h6">Steps: {activity.steps}</Typography>
+        )}
+      </div>
 
-       <Button variant="contained" color="secondary" onClick={handleDelete}>delete this activity</Button>
-       {activity.comments && activity.comments.length >= 0 && (<button onClick={toggleComments}>{showComments ? 'Hide Comments': 'Show Comments'}</button>)}
-       {showComments && <JournalCommentBox comments={activity.comments} />}
+      <Button variant="contained" color="secondary" onClick={handleDelete}>
+        delete this activity
+      </Button>
+      {
+        <Button variant="contained" color="secondary" onClick={toggleComments}>
+          {showComments ? "Hide Comments" : "Show Comments"}
+        </Button>
+      }
+      {showComments && <JournalCommentBox comments={activity.comments} />}
     </div>
   );
 };

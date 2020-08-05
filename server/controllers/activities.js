@@ -47,15 +47,17 @@ const create = async (req, res) => {
       ending: end,
       category: category,
     };
+    console.log("distance: ", distance);
+    console.log("typeof distance", typeof distance);
     // if it's an empty string, it doesnt apply to this activity_category
-    if (distance.length > 1) constructedData.distance = distance;
-    if (calories.length > 1) constructedData.calories = calories;
-    if (steps.length > 1) constructedData.steps = steps;
+    if (distance !== "") constructedData.distance = distance;
+    if (calories !== "") constructedData.calories = calories;
+    if (steps !== "") constructedData.steps = steps;
 
     const newActivity = new Activity(constructedData);
     const activity = await newActivity.save();
-    console.log("the created activity", activity)
-    res.status(200).json({activity: activity});
+    console.log("the created activity", activity);
+    res.status(200).json({ activity: activity });
   } catch (err) {
     console.log("error:", err);
     res.status(500).json(err);

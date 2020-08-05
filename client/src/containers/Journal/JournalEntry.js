@@ -18,16 +18,19 @@ const JournalEntry = ({ activityInfo }) => {
   // console.log("", activity);
   return (
     <li>
+      <hr />
       <Typography variant="h6">{momentActivity.format("h:mm a")}</Typography>
-      <Typography variant="h3">{activity.title}</Typography>
-      <Typography variant="h6">
-        {constructDurationStr(startingMoment, momentActivity)}
-      </Typography>
-
+      <Typography variant="h3">{activity.title}</Typography>{" "}
       <Button variant="contained" color="secondary" onClick={toggleShowDetails}>
         {showDetails ? "Hide Details" : "Show Details"}
       </Button>
-
+      <Typography variant="h6">
+        {constructDurationStr(startingMoment, momentActivity)}
+      </Typography>
+      {/* 
+      <Button variant="contained" color="secondary" onClick={toggleShowDetails}>
+        {showDetails ? "Hide Details" : "Show Details"}
+      </Button> */}
       {showDetails && <JournalEntryDetail activity={activity} />}
     </li>
   );

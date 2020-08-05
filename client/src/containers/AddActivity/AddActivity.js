@@ -11,14 +11,19 @@ import DistanceField from "./DistanceField";
 import CaloriesField from "./CaloriesField";
 import { createAndAddActivity } from "../../actions/activities";
 
-export const _AddActivity = ({ categories, auth, createAndAddActivity, history }) => {
+export const _AddActivity = ({
+  categories,
+  auth,
+  createAndAddActivity,
+  history,
+}) => {
   const validValues = () => {
     return true;
   };
 
   const handleSubmit = (activityValues) => {
+    console.log("activity Values", activityValues);
     if (validValues) {
-     
       createAndAddActivity(activityValues, history, auth.token);
     }
   };
@@ -32,7 +37,7 @@ export const _AddActivity = ({ categories, auth, createAndAddActivity, history }
     distance: "",
     steps: "",
   };
-  
+
   const displayNumericField = (categories, categoryId, numericFieldName) => {
     const category = categories.find((category) => category.id === categoryId);
     if (numericFieldName === "steps") return category.use_steps;

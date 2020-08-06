@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import { createAndAddComment } from "../../actions/comments";
 
-const AddComment = ({ addComment, activityId }) => {
+const AddComment = ({ createAndAddComment, activityId, userId }) => {
   const [content, setContent] = useState("");
 
   const handleContentChange = (e) => {
@@ -11,7 +12,7 @@ const AddComment = ({ addComment, activityId }) => {
 
   const handleCommentClick = () => {
     if (content.length > 0) {
-      console.log(content);
+      createAndAddComment({ userId, content, activityId });
     }
   };
 
@@ -24,4 +25,8 @@ const AddComment = ({ addComment, activityId }) => {
   );
 };
 
-export default connect(null, {})(AddComment);
+const mapStateToProps = (state) => {
+  return { userId: state.auth.userId };
+};
+
+export default connect(mapStateToProps, { createAndAddComment })(AddComment);

@@ -3,7 +3,7 @@ import axios from "axios";
 export const createComment = (data, token) => {
   const endpoint = "/api/comments";
 
-  const { userId, activityId, content } = data;
+  const { activityId, content } = data;
 
   // add token if its passed into function
   const headers = {};
@@ -16,7 +16,7 @@ export const createComment = (data, token) => {
   return axios.post(
     endpoint,
     {
-      data: { userId, activityId, content },
+      data: { activityId, content },
     },
     { headers: headers }
   );

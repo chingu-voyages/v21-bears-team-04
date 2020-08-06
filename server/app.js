@@ -13,7 +13,7 @@ const activitiesRoutes = require("./routes/activities");
 const usersRoutes = require("./routes/users");
 const authRoutes = require("./routes/auth");
 const dashboardRoutes = require("./routes/dashboard");
-const commentsRoutes = require("../routes/comments");
+const commentsRoutes = require("./routes/comments");
 
 const app = express();
 

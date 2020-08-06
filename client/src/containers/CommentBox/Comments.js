@@ -1,7 +1,8 @@
 import React from "react";
-import Comment from "../../components/Comment";
+import Comment from "./Comment"
 
-const JournalCommentBox = ({ comments }) => {
+
+const Comments = ({comments}) => {
   return (
     <div>
       {comments && comments.map((comment) => (
@@ -11,4 +12,4 @@ const JournalCommentBox = ({ comments }) => {
   );
 };
 
-export default JournalCommentBox;
+export default Comments;

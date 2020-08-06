@@ -8,7 +8,7 @@ const getLikesForActivity = (activityId, likes) => {
   return likes.filter((like) => activityId === likes.resource_id);
 };
 
-const getCommentsForActivity = (activityId, comments) => {
+export const getCommentsForActivity = (activityId, comments) => {
   return comments.filter((comment) => activityId === comment.resource_id);
 };
 

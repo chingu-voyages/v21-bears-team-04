@@ -41,7 +41,7 @@ const JournalEntryDetail = ({ activity, deleteAndRemoveActivity, token }) => {
           {showComments ? "Hide Comments" : "Show Comments"}
         </Button>
       }
-      {showComments && <CommentBox />}
+      {showComments && <CommentBox activityId={activity.id} />}
     </div>
   );
 };

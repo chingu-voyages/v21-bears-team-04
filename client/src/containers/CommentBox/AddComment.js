@@ -24,4 +24,4 @@ const AddComment = ({ addComment, activityId }) => {
   );
 };
 
-export default AddComment;
+export default connect(null, {})(AddComment);

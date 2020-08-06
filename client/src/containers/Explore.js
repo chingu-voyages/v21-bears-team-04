@@ -1,42 +1,43 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
+import { getDashboard } from "../actions/feed";
 import { Typography, Button, Card } from "../components";
 import { createUseStyles } from "react-jss";
+import { addFollowing } from "../actions/following";
 
 
-export const Explore = () => {
+export const _Explore = ({ auth: { token }, users, followings}) => {
+  useEffect(() => {
+    console.log("token", token);
+  }, [token]);
+  console.log(users)
   const classes = useStyles();
   let msg = null;
-  let valid = false;
-  let following = [{ id: 1, name: "Maggie", username: "maggie" }];
-  let dummyusers = [
-    { id: 1, name: "Maggie", username: "maggie" },
-    { id: 2, name: "Tyler", username: "tyler" },
-    { id: 3, name: "Sarah", username: "sarah" },
-  ];
+  let valid = true;
 
   const handleNewFollower = (user) => {
-    following.push(user);
-    msg = `Now Following: @${user.name}`;
+    msg = `Now Following: @${user.username}`;
   };
 
-  for (let i = 0; i < following.length; i++) {
-    for (let j = 0; j < dummyusers.length; j++) {
-      if (following[i].id === dummyusers[i].id) {
-        dummyusers = dummyusers.filter((user) => user.id !== following[i].id);
+  if(followings && followings.length){
+  for (let i = 0; i < followings.length; i++) {
+    for (let j = 0; j < users.length; j++) {
+      if (followings[i].id ===users[i].id) {
+        users = users.filter((user) => user.id !== followings[i].id);
       }
       valid = true;
     }
   }
+}
   return (
     <div className={classes.root}>
       <Typography variant="h1" className={classes.title}>
         Explore
       </Typography>
       <Typography variant="h6">{msg}</Typography>
-      {dummyusers.map((user) => (
+      {users.map((user) => (
         <Card className={classes.user} key={user.id}>
           <div>
-            <Typography variant="h4">{user.name}</Typography>
             <Typography variant="overline">@{user.username}</Typography>
           </div>
           <Button
@@ -54,6 +55,16 @@ export const Explore = () => {
   );
 };
 
+
+const mapStateToProps = (state) => {
+  return {
+    auth: state.auth,
+    users: state.users,
+    followings: state.followings
+  };
+};
+
+export const Explore = connect(mapStateToProps, { getDashboard })(_Explore);
 
 export const styles = (theme) => ({
   root: {

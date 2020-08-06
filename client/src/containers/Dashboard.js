@@ -12,7 +12,7 @@ export const _Dashboard = ({ auth: { token }, getDashboard }) => {
     console.log("token", token);
     getDashboard(token);
   }, [token]);
-
+  
   return <div  className={classes.root}>
   
   

@@ -42,7 +42,7 @@ const getDashboardActivities = async (userId) => {
 
 const getDashboardComments = async (activitiesIds) => {
   if (activitiesIds.length === 0) return [];
-  const comments = await Comment.in("resource_id", activitiesIds);
+  const comments = await Comment.in("resource_id", activitiesIds, {colName: 'created_at', desc: true});
   return comments;
 };
 

@@ -96,14 +96,19 @@ class DBbase {
     return placeholderStr.substring(0, placeholderStr.length - 2);
   }
 
-  static async in(columnName, values) {
+  static async in(columnName, values, orderByInfo) {
     // retrieves all records from this table where column_name IN ($1, $2, etc)
+    // orderBy example object: {colName: created_at   desc: true  }
     // example of query, after value substitution:   SELECT * FROM users WHERE id IN (1, 2, 4)
     if (values.length === 0) return []; // need at least one value to query db
     if (!this.validColumnNames.includes(columnName))
       throw new Error("invalid col_name");
     const valuePlaceholders = this.createValuePlaceholderString(values.length);
-    const queryText = `SELECT * FROM ${this.getTableName()} WHERE ${columnName} IN (${valuePlaceholders})`;
+    let queryText = `SELECT * FROM ${this.getTableName()} WHERE ${columnName} IN (${valuePlaceholders})`;
+    if (orderByInfo) {
+      const {colName, desc} = orderByInfo
+      queryText = queryText +  (desc ? `ORDER BY ${colName} DESC` : `ORDER BY ${colName}`)
+    }
     const query = {
       text: queryText,
       values: values,

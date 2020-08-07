@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { getDashboard } from "../../actions/feed";
 import { Typography } from "../../components";
 import { createUseStyles } from "react-jss";
-import {Container, Row, Col} from "react-bootstrap"
+import { Container, Row, Col } from "react-bootstrap";
 import Feed from "./Feed";
 import Charts from "./Charts";
 
@@ -16,17 +16,22 @@ export const _Dashboard = ({ auth: { token }, getDashboard }) => {
 
   return (
     <div className={classes.root}>
-    <Container>
-      <Row> <Typography variant="h1" className={classes.header}>
-        Dashboard
-      </Typography></Row>
-      <Row>
-        <Col><Feed /></Col>
-        <Col><Charts /></Col>
-      </Row>
-    </Container>
-     
-      
+      <Container>
+        <Row>
+          {" "}
+          <Typography variant="h1" className={classes.header}>
+            Dashboard
+          </Typography>
+        </Row>
+        <Row>
+          <Col>
+            <Feed />
+          </Col>
+          <Col>
+            <Charts />
+          </Col>
+        </Row>
+      </Container>
     </div>
   );
 };

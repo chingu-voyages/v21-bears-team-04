@@ -22,6 +22,13 @@ const getUserInfoForActivity = (activityCategoryId, users) => {
   return users.find((user) => user.id === activityCategoryId);
 };
 
+export const getFeedActivities = (userId, activities, following) => {
+  return activities.filter(
+    (activity) =>
+      activity.user_id === userId || following.includes(activity.user_id)
+  );
+};
+
 // use this function to create activity with the data needed for whatever view / component needs to be rendered
 export const constructActivity = (activity, associatedData) => {
   const { categories, likes, comments, users } = associatedData;

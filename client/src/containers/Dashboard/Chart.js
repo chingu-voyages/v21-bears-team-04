@@ -1,25 +1,42 @@
 import React from "react";
-import BarChart from "react-bar-chart";
+import { Bar } from "react-chartjs-2";
+
 const Chart = () => {
-  const data = [
-    { text: "monday", value: 1100 },
-    { text: "tuesday", value: 500 },
-    { text: "wednesday", value: 4400 },
-    { text: "thursday", value: 1000 },
-    { text: "friday", value: 2200 },
-    { text: "saturday", value: 300 },
-    { text: "sunday", value: 500 },
-  ];
-  const margin = { top: 20, right: 20, bottom: 30, left: 40 };
+  const state = {
+    labels: [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday",
+    ],
+    datasets: [
+      {
+        backgroundColor: "rgba(75,192,192,1)",
+        borderColor: "rgba(0,0,0,1)",
+        borderWidth: 2,
+        data: [0, 400, 2000, 500, 1000, 750, 450],
+      },
+    ],
+  };
+
   return (
-    <div>
-      <BarChart
-        ylabel="Calories"
-        xlabel="Days"
-        height={500}
-        width={800}
-        margin={margin}
-        data={data}
+    <div style={{ height: 500 }}>
+      {" "}
+      <Bar
+        data={state}
+        options={{
+          title: {
+            display: true,
+            text: "Calories Burned This Week",
+            fontSize: 20,
+          },
+          legend: {
+            display: false,
+          },
+        }}
       />
     </div>
   );

@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import JournalDay from "./JournalDay";
 import { createUseStyles } from "react-jss";
 import { Typography, Button } from "../../components";
+import moment from "moment";
 
 import {
   getActivitiesCreatedByUser,
@@ -31,7 +32,13 @@ export const _Journal = ({
         (year) => Object.values(activitiesByDay[year]) // [{15: [entry, entry], 17: [entry]}, {14: [entry]} ]
       )
       .flat();
-    console.log(daysArr);
+    daysArr.sort((dayArr1, dayArr2) => {
+      return (
+        moment(dayArr2[0].momentActivity).valueOf() -
+        moment(dayArr1[0].momentActivity).valueOf()
+      );
+    });
+    console.log("daysArr", daysArr);
     return daysArr;
   };
 

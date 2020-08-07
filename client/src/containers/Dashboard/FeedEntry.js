@@ -1,7 +1,7 @@
 import React from "react";
 
-const FeedEntry = () => {
-  return <div>FeedEntry</div>;
+const FeedEntry = ({ activity }) => {
+  return <div>{activity.title}</div>;
 };
 
 export default FeedEntry;

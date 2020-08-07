@@ -12,7 +12,7 @@ const AddComment = ({ createAndAddComment, activityId, token }) => {
 
   const handleCommentClick = () => {
     if (content.length > 0) {
-      createAndAddComment({content, activityId }, token);
+      createAndAddComment({ content, activityId }, token);
     }
   };
 
@@ -21,6 +21,7 @@ const AddComment = ({ createAndAddComment, activityId, token }) => {
       <textarea value={content} onChange={handleContentChange}></textarea>
       <br />
       <button onClick={handleCommentClick}>Add Comment</button>
+      <hr />
     </div>
   );
 };

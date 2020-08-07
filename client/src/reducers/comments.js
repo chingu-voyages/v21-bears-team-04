@@ -7,7 +7,7 @@ function commentsReducer(state = initialState, action) {
     case SET_COMMENTS:
       return action.payload;
     case ADD_COMMENT:
-      return [...state, action.payload];
+      return [action.payload, ...state];
 
     case REMOVE_COMMENT:
       return state.filter((comment) => comment.id !== action.payload);

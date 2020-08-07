@@ -36,13 +36,19 @@ const getDashboardActivities = async (userId) => {
   // potentially other activities, like "trending", "recommended", "random"
   const dashboardUserIds = await getDashboardUserIds(userId);
 
-  const activities = await Activity.in("user_id", dashboardUserIds);
+  const activities = await Activity.in("user_id", dashboardUserIds, {
+    colName: "ending",
+    desc: true,
+  });
   return activities;
 };
 
 const getDashboardComments = async (activitiesIds) => {
   if (activitiesIds.length === 0) return [];
-  const comments = await Comment.in("resource_id", activitiesIds);
+  const comments = await Comment.in("resource_id", activitiesIds, {
+    colName: "created_at",
+    desc: true,
+  });
   return comments;
 };
 

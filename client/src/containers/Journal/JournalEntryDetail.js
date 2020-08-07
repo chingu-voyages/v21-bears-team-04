@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import JournalCommentBox from "./JournalCommentBox";
 import { Typography, Button } from "../../components";
 import { deleteAndRemoveActivity } from "../../actions/activities";
+import CommentBox from "../CommentBox/CommentBox"
 
 const JournalEntryDetail = ({ activity, deleteAndRemoveActivity, token }) => {
   const [showComments, setShowComments] = useState(false);
@@ -41,7 +41,7 @@ const JournalEntryDetail = ({ activity, deleteAndRemoveActivity, token }) => {
           {showComments ? "Hide Comments" : "Show Comments"}
         </Button>
       }
-      {showComments && <JournalCommentBox comments={activity.comments} />}
+      {showComments && <CommentBox activityId={activity.id} />}
     </div>
   );
 };

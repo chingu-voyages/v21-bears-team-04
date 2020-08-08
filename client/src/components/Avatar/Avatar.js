@@ -8,7 +8,7 @@ export const Avatar = (props) => {
     src = '/images/avatar-default.jpg',
     onClick,
     size,
-    className,
+    className
   } = props;
   const classes = useStyles({ src });
 
@@ -20,7 +20,10 @@ export const Avatar = (props) => {
         className
       )}
       onClick={onClick}
-    ></div>
+     
+    >
+      
+    </div>
   );
 };
 

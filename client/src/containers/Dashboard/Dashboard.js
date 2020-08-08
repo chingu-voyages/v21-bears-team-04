@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { getDashboard } from "../../actions/feed";
 import { Typography } from "../../components";
 import { createUseStyles } from "react-jss";
-import { Container, Row, Col } from "react-bootstrap";
 import Feed from "./Feed";
 import Charts from "./Charts";
 
@@ -16,22 +15,23 @@ export const _Dashboard = ({ auth: { token }, getDashboard }) => {
 
   return (
     <div className={classes.root}>
-      <Container>
-        <Row>
+      <div>
+        <div>
           {" "}
           <Typography variant="h1" className={classes.header}>
             Dashboard
           </Typography>
-        </Row>
-        <Row>
-          <Col>
+        </div>
+
+        <main>
+          <section className={classes.feed}>
             <Feed />
-          </Col>
-          <Col>
+          </section>
+          <section className={classes.charts}>
             <Charts />
-          </Col>
-        </Row>
-      </Container>
+          </section>
+        </main>
+      </div>
     </div>
   );
 };
@@ -50,14 +50,27 @@ export const styles = (theme) => ({
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
-    alignItems: "center",
 
     "& > div": {
       margin: theme.spacing(4, 0),
     },
   },
+  main: {
+    width: "100%",
+  },
+  charts: {
+    width: "30%",
+    float: "right",
+  },
+  feed: {
+    overflowY: "auto",
+    textAlign: "center",
+    padding: "20px",
+    display: "inline-block",
+  },
   header: {
     marginBottom: "15px",
+    textAlign: "center",
   },
 });
 

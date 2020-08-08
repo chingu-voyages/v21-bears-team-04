@@ -1,10 +1,12 @@
-// require('dotenv').config()
+require('dotenv').config()
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const argon2 = require('argon2');
 
 // Attributes need to have been validated in auth controller
 async function signup(attributes) {
+  console.log("attributes\n\n")
+  console.log(attributes)
   const credentials = {
     email: attributes.email,
     password_digest: attributes.password_digest,
@@ -26,6 +28,7 @@ async function signup(attributes) {
 }
 
 async function generateJWT(user) {
+  console.log('GENERATE JWT')
   const payload = {
     id: user.id,
     username: user.username,
@@ -51,6 +54,7 @@ async function signin(credentials) {
   // If password hashes match, generate JWT and send to client with basic unhashed user info in JSON and as a cookie
   if (correctPassword) {
     const token = await generateJWT(user);
+    console.log(token)
     const userData = user.withAttributesSubsetted(['id', 'username', 'email']);
     return { token: token, userData: userData };
   }

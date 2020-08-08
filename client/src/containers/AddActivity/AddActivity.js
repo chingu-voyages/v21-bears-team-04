@@ -10,6 +10,7 @@ import StepsField from "./StepsField";
 import DistanceField from "./DistanceField";
 import CaloriesField from "./CaloriesField";
 import { createAndAddActivity } from "../../actions/activities";
+import { createUseStyles } from "react-jss";
 
 export const _AddActivity = ({
   categories,
@@ -20,6 +21,7 @@ export const _AddActivity = ({
   const validValues = () => {
     return true;
   };
+  const classes = useStyles();
 
   const handleSubmit = (activityValues) => {
     console.log("activity Values", activityValues);
@@ -46,9 +48,9 @@ export const _AddActivity = ({
   };
 
   return (
-    <div>
-      <Typography variant="h1">Add Activity</Typography>
-      <Formik onSubmit={handleSubmit} initialValues={initialValues}>
+    <div className={classes.root}>
+      <Typography variant="h1" className={classes.header}>Add Activity</Typography>
+      <Formik onSubmit={handleSubmit}  initialValues={initialValues}>
         {(props) => (
           <Form>
             <InputLabel id="activity-category">Activity</InputLabel>
@@ -99,6 +101,7 @@ export const _AddActivity = ({
               color="secondary"
               fullWidth
               type="submit"
+              className={classes.form}
             >
               Submit
             </Button>
@@ -116,3 +119,28 @@ const mapStateToProps = (state) => {
 export const AddActivity = connect(mapStateToProps, { createAndAddActivity })(
   _AddActivity
 );
+
+
+export const styles = (theme) => ({
+  root: {
+    margin: theme.spacing(6, 0),
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    
+
+    "& > div": {
+      margin: theme.spacing(4, 0),
+    },
+  },
+  header: {
+    marginBottom: "15px",
+  },
+  form: {
+    marginBottom: "35px",
+  },
+
+});
+
+const useStyles = createUseStyles(styles, { name: "journal" });

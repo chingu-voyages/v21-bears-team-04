@@ -1,6 +1,7 @@
 import React from "react";
 import JournalEntry from "./JournalEntry";
 import { Typography } from "../../components";
+ 
 
 const JournalDay = ({ activityInfo }) => {
   console.log("journalDayActivities", activityInfo);

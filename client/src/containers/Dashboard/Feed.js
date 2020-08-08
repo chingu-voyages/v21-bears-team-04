@@ -52,6 +52,7 @@ export const styles = (theme) => ({
   container: {
     float: "left",
     borderRight: "2px solid black",
+    height: "100vh",
   },
 });
 

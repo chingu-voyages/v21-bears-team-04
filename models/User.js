@@ -55,7 +55,6 @@ class User extends DBbase {
 
   async create() {
     try {
-      console.log("this", this);
       const result = await this.query({
         text:
           "INSERT INTO users (first_name, last_name, password_digest, username, email, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, NOW(), NOW());",

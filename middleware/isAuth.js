@@ -1,6 +1,4 @@
-require('dotenv').config()
 const jwt = require("jsonwebtoken")
-
 
 const getTokenFromHeader = (req) => {
   if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
@@ -14,7 +12,6 @@ const isAuth = (req, res, next) => {
 
   // Supports cookies or Authorization header
   const token = req.cookies.jwt || getTokenFromHeader(req) //
-  console.log(req.cookies.jwt)
 
 
   // Go on to next middleware if no token
@@ -23,9 +20,6 @@ const isAuth = (req, res, next) => {
   // Declaire userInfo, try to decode JWT, throw error if bad token
   let userInfo
   try {
-    console.log("SECRET")
-    console.log(process.env.JWT_SECRET)
-
     userInfo = jwt.verify(token, process.env.JWT_SECRET)
   }
   catch(err){

@@ -11,7 +11,6 @@ import {
   constructActivities,
   getActivitiesByDay,
 } from "../../utils/transformations";
-import { findByLabelText } from "@testing-library/react";
 
 export const _Journal = ({
   activities,
@@ -56,7 +55,7 @@ export const _Journal = ({
         Journal
       </Typography>
       <Button variant="contained" color="secondary">
-        <Link to="/add_activity">Add Activity</Link>
+        <Link to="/add_activity" >Add Activity</Link>
       </Button>
       <div>
         <ul>
@@ -94,6 +93,7 @@ export const styles = (theme) => ({
   header: {
     marginBottom: "15px",
   },
+
 });
 
 const useStyles = createUseStyles(styles, { name: "journal" });

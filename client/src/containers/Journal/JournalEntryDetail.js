@@ -4,9 +4,9 @@ import { Typography, Button } from "../../components";
 import { deleteAndRemoveActivity } from "../../actions/activities";
 import CommentBox from "../CommentBox/CommentBox"
 
+
 const JournalEntryDetail = ({ activity, deleteAndRemoveActivity, token }) => {
   const [showComments, setShowComments] = useState(false);
-
   const handleDelete = () => {
     deleteAndRemoveActivity(activity.id, token);
   };
@@ -17,7 +17,7 @@ const JournalEntryDetail = ({ activity, deleteAndRemoveActivity, token }) => {
 
   console.log("activity", activity);
   return (
-    <div>
+    <div  >
       <div>
         <Typography variant="h6">
           Activity Type: {activity.category.name}
@@ -55,3 +55,4 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, { deleteAndRemoveActivity })(
   JournalEntryDetail
 );
+

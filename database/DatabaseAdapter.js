@@ -1,4 +1,5 @@
-const { Pool } = require('pg');
+require('dotenv').config()
+const{ Pool } = require('pg');
 
 class DatabaseAdapter {
   constructor(connectionInfo) {
@@ -54,7 +55,7 @@ let options = {
   database: process.env.DB_NAME,
   password: process.env.DB_PASSWORD,
 }
-
+console.log(options)
 const adapter = new DatabaseAdapter(options);
 
 // example: uncomment below, add .env file in database folder with DB_HOST, DB_PORT etc.

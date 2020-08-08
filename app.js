@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
-// const cors = require('cors');
+const cors = require('cors');
 const isAuth = require('./middleware/isAuth');
 const attachCurrentUser = require('./middleware/attachCurrentUser');
 
@@ -19,7 +19,7 @@ app.use(morgan('tiny'));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-// app.use(cors());
+app.use(cors());
 
 //routes
 app.use('/api/addresses', addressRoutes);

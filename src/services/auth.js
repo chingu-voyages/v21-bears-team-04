@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const login = (email, password) => {
-  const url = '/api/auth/signin';
+  const url = `https://fitx-chingu.herokuapp.com/api/auth/signin`;
   const data = {
     email,
     password_digest: password,
@@ -19,5 +19,8 @@ export const register = (user) => {
     email,
     password_digest: password,
   };
-  return axios.post('/api/auth/signup', data);
+  console.log(data)
+  const url = `https://fitx-chingu.herokuapp.com/api/auth/signup`
+  console.log(url)
+  return axios.post(url, data);
 };

@@ -1,24 +1,34 @@
 import React from "react";
 import Chart from "./Chart";
+import { connect } from "react-redux";
+import { getUserWeeklyMetric } from "../../utils/transformations";
 
-const Charts = () => {
+const Charts = ({ userId, activities }) => {
   return (
     <div>
+     
       <Chart
         title={"Calories Burned"}
-        data={[100, 400, 800, 2300, 5000, 0, 500]}
+        data={getUserWeeklyMetric(activities, userId, "calories")}
       />
       <Chart
         title={"Distance Travelled"}
-        data={[100, 400, 800, 2300, 5000, 0, 500]}
+        data={getUserWeeklyMetric(activities, userId, "distance")}
       />
 
       <Chart
         title={"Steps Walked"}
-        data={[100, 400, 800, 2300, 5000, 0, 500]}
+        data={getUserWeeklyMetric(activities, userId, "steps")}
       />
     </div>
   );
 };
 
-export default Charts;
+const mapStateToProps = (state) => {
+  return {
+    userId: state.auth.userId,
+    activities: state.activities,
+  };
+};
+
+export default connect(mapStateToProps)(Charts);

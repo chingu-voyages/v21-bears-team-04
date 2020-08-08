@@ -124,3 +124,25 @@ export const constructDurationStr = (startingMoment, endingMoment) => {
   }
   return durationStr;
 };
+
+const getUserWeeklyActivities = (activities, userId) => {
+  const userActivities = getActivitiesCreatedByUser(activities, userId);
+  const currentWeek = moment(new Date()).format("W");
+  const thisWeekActivities = userActivities.filter(
+    (activity) => moment(activity.ending).format("W") === currentWeek
+  );
+  return thisWeekActivities;
+};
+
+export const getUserWeeklyMetric = (activities, userId, metric) => {
+  const weeklyActivities = getUserWeeklyActivities(activities, userId);
+  const metricByDay = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0 };
+  weeklyActivities.forEach((activity) => {
+    if (typeof activity[metric] === "number") {
+      const activityWeekDay = moment(activity.ending).weekday();
+      metricByDay[activityWeekDay] += activity[metric];
+    }
+  });
+  console.log(Object.values(metricByDay));
+  return Object.values(metricByDay);
+};

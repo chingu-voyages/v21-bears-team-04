@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const createActivity = (activity, token) => {
-  const endpoint = "/api/activities";
+  const endpoint = "https://fitx-chingu.herokuapp.com/api/activities";
 
   // add token if its passed into function
   const headers = {};

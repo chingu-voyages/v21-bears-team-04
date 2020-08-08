@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const createComment = (data, token) => {
-  const endpoint = "/api/comments";
+  const endpoint = "https://fitx-chingu.herokuapp.com/api/comments";
 
   const { activityId, content } = data;
 

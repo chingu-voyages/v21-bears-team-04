@@ -212,6 +212,8 @@ class Activity extends DBbase {
     }
   }
 
+  // a comment
+
   async delete() {
     if (this.id) {
       const queryText = "DELETE FROM activities WHERE id=$1";

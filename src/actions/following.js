@@ -7,16 +7,16 @@ export const setFollowings = (followings) => {
   };
 };
 
-export const addFollowing = (followingId) => {
+export const addFollowing = (following) => {
   return {
     type: ADD_FOLLOWING,
-    payload: followingId, // user id
+    payload: following, // user id
   };
 };
 
-export const removeFollowing = (followingId) => {
+export const removeFollowing = (following) => {
   return {
     type: REMOVE_FOLLOWING,
-    payload: followingId, // user id
+    payload: following, // user id
   };
 };

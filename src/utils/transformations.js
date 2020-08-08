@@ -22,13 +22,6 @@ const getUserInfoForActivity = (activityCategoryId, users) => {
   return users.find((user) => user.id === activityCategoryId);
 };
 
-export const getFeedActivities = (userId, activities, following) => {
-  return activities.filter(
-    (activity) =>
-      activity.user_id === userId || following.includes(activity.user_id)
-  );
-};
-
 // use this function to create activity with the data needed for whatever view / component needs to be rendered
 export const constructActivity = (activity, associatedData) => {
   const { categories, likes, comments, users } = associatedData;
@@ -123,26 +116,4 @@ export const constructDurationStr = (startingMoment, endingMoment) => {
     durationStr = `${durationMinutes}m`;
   }
   return durationStr;
-};
-
-const getUserWeeklyActivities = (activities, userId) => {
-  const userActivities = getActivitiesCreatedByUser(activities, userId);
-  const currentWeek = moment(new Date()).format("W");
-  const thisWeekActivities = userActivities.filter(
-    (activity) => moment(activity.ending).format("W") === currentWeek
-  );
-  return thisWeekActivities;
-};
-
-export const getUserWeeklyMetric = (activities, userId, metric) => {
-  const weeklyActivities = getUserWeeklyActivities(activities, userId);
-  const metricByDay = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0 };
-  weeklyActivities.forEach((activity) => {
-    if (typeof activity[metric] === "number") {
-      const activityWeekDay = moment(activity.ending).weekday();
-      metricByDay[activityWeekDay] += activity[metric];
-    }
-  });
-  console.log(Object.values(metricByDay));
-  return Object.values(metricByDay);
 };

@@ -3,8 +3,7 @@ const { Pool } = require('pg');
 class DatabaseAdapter {
   constructor(connectionInfo) {
     this.pool = new Pool(connectionInfo);
-    this.pool.query(createDb)
-    this.pool.query(createTables)
+ 
     console.log('\nconnected to db\n');
   }
 

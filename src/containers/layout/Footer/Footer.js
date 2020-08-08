@@ -1,6 +1,8 @@
 import React from 'react';
 import { createUseStyles } from 'react-jss';
-import { Typography } from '../../components/Typography';
+import { Typography } from '../../../components/Typography';
+import { Link } from 'react-router-dom';
+
 
 export const Footer = () => {
   const classes = useStyles();
@@ -25,23 +27,18 @@ export const Footer = () => {
         <div className={classes.links}>
           <ul>
             <Typography variant="h6">Product</Typography>
-            <li>Blog</li>
-            <li>Prices</li>
-            <li>Reviews</li>
+            <Link to='/blog'><li className={classes.link}>Blog</li></Link>
+            <Link to='/pricing'><li className={classes.link}>Prices</li></Link>
           </ul>
 
           <ul>
             <Typography variant="h6">Company</Typography>
-            <li>About Us</li>
-            <li>The Brand</li>
-            <li>For the Press</li>
-            <li>Contacts</li>
+            <Link to='/about'><li className={classes.link}>About Us</li></Link>
+            <Link to='/contacts'><li className={classes.link}>Contacts</li></Link>
           </ul>
           <ul>
             <Typography variant="h6">Legal</Typography>
-            <li>Privacy Policy</li>
-            <li>Cookies</li>
-            <li>Terms of Use</li>
+            <Link to='/privacy'><li className={classes.link}>Privacy Policy</li></Link>
           </ul>
         </div>
       </div>
@@ -83,6 +80,11 @@ const styles = (theme) => ({
     [theme.breakpoints.up('sm')]: {
       display: 'flex',
     },
+  },
+  link: {
+    '&:hover':{
+      color: '#e8a66a'
+    }
   },
   copyright: {
     fontSize: theme.typography.pxToRem(8),

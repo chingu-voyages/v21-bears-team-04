@@ -1,6 +1,4 @@
-import axios from 'axios';
-
-
+import axios from "axios";
 
 export const getDashboard = (token) => {
   // fetch all the activities for a particular user
@@ -9,16 +7,13 @@ export const getDashboard = (token) => {
   const endpoint = "https://fitx-chingu.herokuapp.com/api/dashboard";
 
   // add token if its passed into function
-  const headers = {
-
-  }
+  const headers = {};
 
   if (token) {
-   headers["Authorization"] = `Bearer ${token}`;
+    headers["Authorization"] = `Bearer ${token}`;
   }
-   
-  
+
   return axios.get(endpoint, {
-    headers: headers
-  })
+    headers: headers,
+  });
 };

@@ -1,7 +1,7 @@
 import React from "react";
 import { Bar } from "react-chartjs-2";
 
-const Chart = () => {
+const Chart = ({ data, title }) => {
   const state = {
     labels: [
       "Monday",
@@ -18,21 +18,21 @@ const Chart = () => {
         borderColor: "rgba(0,0,0,1)",
         borderWidth: 2,
         height: 500,
-        data: [0, 400, 2000, 500, 1000, 750, 450],
+        data: data,
       },
     ],
   };
 
   return (
-    <div style={{ height: 500 }}>
+    <div>
       {" "}
       <Bar
-        height={500}
+        height="200"
         data={state}
         options={{
           title: {
             display: true,
-            text: "Calories Burned This Week",
+            text: title,
             fontSize: 20,
           },
           legend: {

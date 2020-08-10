@@ -6,9 +6,10 @@ import { createUseStyles } from "react-jss";
 
 const Feed = ({ activities, following, userId, users, activityCategories }) => {
   const classes = useStyles();
-
   const renderFeedEntries = (entries, users, activityCategories) => {
+  
     return entries.map((activity) => {
+      
       const user = users.find((user) => user.id === activity.user_id);
       console.log(activityCategories);
       const category = activityCategories.find(

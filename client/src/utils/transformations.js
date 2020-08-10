@@ -140,7 +140,7 @@ export const getUserWeeklyMetric = (activities, userId, metric) => {
   weeklyActivities.forEach((activity) => {
     if (typeof activity[metric] === "number") {
       const activityWeekDay = moment(activity.ending).weekday();
-      metricByDay[activityWeekDay] += activity[metric];
+      metricByDay[activityWeekDay + 1] += activity[metric];
     }
   });
   console.log(Object.values(metricByDay));

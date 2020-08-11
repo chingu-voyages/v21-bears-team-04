@@ -1,10 +1,9 @@
-require('dotenv').config()
-const{ Pool } = require('pg');
+// require('dotenv').config();
+const { Pool } = require('pg');
 
 class DatabaseAdapter {
   constructor(connectionInfo) {
     this.pool = new Pool(connectionInfo);
- 
     console.log('\nconnected to db\n');
   }
 
@@ -48,26 +47,24 @@ class DatabaseAdapter {
   }
 }
 
-let options = {
+const adapter = new DatabaseAdapter({
   host: process.env.DB_HOST,
   port: process.env.DB_PORT,
   user: process.env.DB_USER,
   database: process.env.DB_NAME,
   password: process.env.DB_PASSWORD,
-}
-console.log(options)
-const adapter = new DatabaseAdapter(options);
+});
 
 // example: uncomment below, add .env file in database folder with DB_HOST, DB_PORT etc.
 // from server/database run 'node DatabaseAdapter.js'
 
-// async function test() {
-//   adapter.listPort();
-//   adapter.listDatabases();
-//   adapter.listConnectedDBName();
-//   adapter.listAllTableNames();
-// }
+async function test() {
+  adapter.listPort();
+  adapter.listDatabases();
+  adapter.listConnectedDBName();
+  adapter.listAllTableNames();
+}
 
-// test();
+test();
 
 module.exports = adapter;

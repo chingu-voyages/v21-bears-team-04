@@ -1,11 +1,9 @@
-require('dotenv').config()
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const argon2 = require('argon2');
 
 // Attributes need to have been validated in auth controller
 async function signup(attributes) {
-
   const credentials = {
     email: attributes.email,
     password_digest: attributes.password_digest,

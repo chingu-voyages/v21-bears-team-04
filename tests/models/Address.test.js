@@ -1,3 +1,4 @@
+// require("dotenv").config();
 //const DatabaseAdapter = require("../../database/DatabaseAdapter");
 const Address = require("../../models/Address");
 // make sure to have environmental variables via the .env file setup to connect to fitness_test

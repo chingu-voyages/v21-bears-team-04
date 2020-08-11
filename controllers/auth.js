@@ -1,10 +1,9 @@
-require('dotenv').config()
-
 const User = require('../models/User');
 const auth = require('../services/auth');
 
 const signup = async (req, res) => {
   const attributes = req.body;
+
   if (User.validUserAttributes(attributes)) {
     const result = await auth.signup(attributes);
     res.status(200).send(result);
@@ -32,11 +31,10 @@ const signin = async (req, res) => {
       // For setting cookie options if in secure https production environment
       const isSecure = process.env.SECURE === 'false' ? false : true;
       const options = isSecure ? { secure: true, maxAge: 21600 } : {};
-      console.log(result)
-      console.log(options)
       res.cookie('jwt', result.token, options);
       return res.json(result);
     }
+
     // If signin not successful send error from AuthService.signin
     res.status(200).send(result);
   } else {

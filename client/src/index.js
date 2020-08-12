@@ -6,7 +6,6 @@ import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import reduxthunk from 'redux-thunk';
 import * as serviceWorker from './serviceWorker';
-
 import './index.css';
 import { App } from './containers/App';
 import reducers from './reducers';

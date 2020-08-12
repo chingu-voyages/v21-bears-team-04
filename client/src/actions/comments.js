@@ -1,5 +1,5 @@
-
 import { SET_COMMENTS, ADD_COMMENT, REMOVE_COMMENT } from "./types";
+import api from "../services";
 
 export const setComments = (comments) => {
   return {
@@ -20,4 +20,14 @@ export const removeComment = (commentId) => {
     type: REMOVE_COMMENT,
     payload: commentId,
   };
+};
+
+export const createAndAddComment = (data, token) => async (dispatch) => {
+  try {
+    const createCommentResponse = await api.comments.createComment(data, token);
+    const { comment } = createCommentResponse.data;
+    dispatch(addComment(comment));
+  } catch (err) {
+    console.log(err);
+  }
 };

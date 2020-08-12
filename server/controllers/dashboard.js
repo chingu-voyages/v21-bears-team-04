@@ -36,23 +36,33 @@ const getDashboardActivities = async (userId) => {
   // potentially other activities, like "trending", "recommended", "random"
   const dashboardUserIds = await getDashboardUserIds(userId);
 
-  const activities = await Activity.in("user_id", dashboardUserIds);
+  const activities = await Activity.in("user_id", dashboardUserIds, {
+    colName: "ending",
+    desc: true,
+  });
   return activities;
 };
 
 const getDashboardComments = async (activitiesIds) => {
-  const comments = await Comment.in("resource_id", activitiesIds);
+  if (activitiesIds.length === 0) return [];
+  const comments = await Comment.in("resource_id", activitiesIds, {
+    colName: "created_at",
+    desc: true,
+  });
   return comments;
 };
 
 const getDashboardLikes = async (activitiesIds) => {
+  if (activitiesIds.length === 0) return [];
+
   const likes = await Like.in("resource_id", activitiesIds);
-  
+
   return likes;
 };
 
 const get = async (req, res) => {
   const userId = req.user.id;
+
   // userIds being followed by this user
   const followingIds = await getFollowingUserIds(userId);
   console.log("following ids", followingIds);
@@ -64,13 +74,14 @@ const get = async (req, res) => {
   // activities
   const activities = await getDashboardActivities(userId);
   const activitiesIds = activities.map((activity) => activity.id);
-  console.log("activitiesIds", activitiesIds)
+  console.log("activitiesIds", activitiesIds);
   const activityCategories = await ActivityCategory.all();
   // comments and likes for those activities
-   const likes = await getDashboardLikes(activitiesIds);
-  console.log("likes", likes)
+
+  const likes = await getDashboardLikes(activitiesIds);
+  console.log("likes", likes);
   const comments = await getDashboardComments(activitiesIds);
-  console.log("comments", comments)
+  console.log("comments", comments);
 
   res.json({
     users: dashboardUsers,
